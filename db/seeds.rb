@@ -28,7 +28,7 @@ City.destroy_all
 end
 
 1.times do
-  workout =  Workout.create!(title: Faker::Lorem.sentence(word_count: 3), start_date: Faker::Time.between_dates(from: Date.today + 1, to: Date.today + 7, period: :day), end_date: Faker::Time.between_dates(from: Date.today + 1, to: Date.today + 7, period: :day), description: Faker::Lorem.sentence(word_count: 10), price: Faker::Number.decimal(l_digits: 2), location: Faker::Address.full_address, host: test_host, city: City.all.sample)
+  workout =  Workout.create!(title: Faker::Lorem.sentence(word_count: 3), start_date: Faker::Time.between_dates(from: Date.today + 1, to: Date.today + 3, period: :day), end_date: Faker::Time.between_dates(from: Date.today + 4, to: Date.today + 7, period: :day), description: Faker::Lorem.sentence(word_count: 10), price: Faker::Number.decimal(l_digits: 2), location: Faker::Address.full_address, host: test_host, city: City.all.sample)
 end
 
  reservation = Reservation.create!(workout: Workout.all.sample, user: test_user)

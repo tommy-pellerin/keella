@@ -31,3 +31,6 @@ to get all workouts reserved by user : user.reserved_workouts
 to get all workouts posted by host : user.hosted_workouts
 to get the host of the workout : workout.host
 to get the user who reserved the workout : workout.user
+
+Be careful of the validation conditions !
+the start_date and end_date are not correct but can be use to see some data
