@@ -65,3 +65,10 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem 'devise'
+gem 'letter_opener'
+gem 'dotenv-rails'
+gem 'table_print'
+gem "dockerfile-rails", ">= 1.6", :group => :development
+gem 'faker'
