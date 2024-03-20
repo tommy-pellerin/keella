@@ -20,23 +20,40 @@ class ReservationsController < ApplicationController
 
   end
 
+  def edit
+    @reservation = Reservation.find(params[:id])
+    @user = @reservation.user
+  end
+
   def update
-    #if host refuse change status to refused
-    
-    # case 
-    # when "accepted"
-    #   @reservation.status = "pending"
-    #   @reservation.save
-    # end
+    puts "#"*50
+    puts "je suis dans update de reservations_controller.rb"
+    puts params
+    puts "#"*50
+    @reservation = Reservation.find(params[:id])
+    decision = params[:decision]
+    puts "$"*50
+    puts @reservation.status
+
+    if decision == "accepted"
+      @reservation.status = "accepted"
+      @reservation.save
+      #paiement status = pending
       #send email to user to notify
+    elsif decision == "refused"
+      @reservation.status = "accepted"
+      @reservation.save
+      #refund user
+      #send email to user to notify    
+    end
+    puts "$"*50
+    puts @reservation.status
+    redirect_to root_path 
+
     #if user cancel change status to canceled
       #send email to host to notify
     #refund user
-
-    #if host accept change status to accepted
-      #send email to user to notify
-      #paiement status = pending
-
+      
     #if user confirm that the workout went well change status to closed
     #paie user => paiement status = paid
   end

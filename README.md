@@ -48,3 +48,8 @@ enum status: {
 if status = pending ou accepted -> paiement_status = pending
 if status = refused ou cancelled -> paiement_status = refunded
 if status = closed -> paid
+
+
+Pour pointer vers l'action update dans votre contrôleur, vous devez utiliser une méthode HTTP PATCH ou PUT. Cependant, dans un email, vous ne pouvez pas créer de lien qui effectue une requête PATCH ou PUT directement, car les liens dans les emails ne peuvent que déclencher des requêtes GET.
+
+Une solution courante à ce problème est de créer une page de confirmation intermédiaire. Lorsque l'utilisateur clique sur le lien dans l'email, il est redirigé vers une page de confirmation. Sur cette page, l'utilisateur peut alors cliquer sur un bouton qui effectue la requête PATCH ou PUT.

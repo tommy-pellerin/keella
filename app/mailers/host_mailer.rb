@@ -6,6 +6,7 @@ class HostMailer < ApplicationMailer
     @reservation = reservation
     @host = @reservation.workout.host
     @user = @reservation.user
+    @workout = @reservation.workout
 
     #on définit une variable @url qu'on utilisera dans la view d’e-mail
     @url  = 'http://keella.fly.dev' 
