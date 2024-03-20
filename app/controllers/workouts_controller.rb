@@ -1,8 +1,8 @@
 class WorkoutsController < ApplicationController
-    
-    def index 
-        @workouts = Workout.all
-    end
+  def index
+  end
 
-    
+  def show
+    @workout = Workout.find(params[:id])
+  end
 end
