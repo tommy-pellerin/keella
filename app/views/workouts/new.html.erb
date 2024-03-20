@@ -34,7 +34,8 @@
 
 <section class="align-items-center">
     <div class="form container my-4 py-4 rounded-4 bg-tertiary rounded-4 shadow">
-        <%= form_with(model: @event, local: true) do |form| %>
+        <%= form_with(model: @workout, local: true) do |form| %>
+        <%= form.hidden_field :host_id, value: current_user.id %>
         <div class="col py-2">
             <%= form.label :title, "Titre",class:"floatingInput" %>
             <%= form.text_field :title,class:"form-control" %>
@@ -49,8 +50,10 @@
             <%= form.label :participant_number, "Nombre de participants",class:"floatingInput" %>
             <%= form.number_field :participant_number,class:"form-control" %>
 
+            <%= form.label :city, "Ville",class:"floatingInput" %>
+        <%= form.collection_select :city_id, City.all, :id, :name, { prompt: "Sélectionner une ville" }, class: "form-control" %>
             <%= form.label :location, "Lieu",class:"floatingInput" %>
-            <%= form.text_field :location,class:"form-control" %>
+            <%= form.text_field :location ,class:"form-control" %>
         </div>
         <div class="col py-3">
             <%= form.label :start_date, "Date de début",class:"floatingInput" %>
