@@ -1,0 +1,13 @@
+Bonjour <%= @host.email %>,
+
+Nous sommes ravis de vous informer qu'une nouvelle réservation a été effectuée pour votre séance d'entraînement !
+
+Voici les détails de la réservation :
+Utilisateur : <%= @reservation.user.email %>
+Séance d'entraînement : <%= @reservation.workout.title %>
+Date : <%= @reservation.created_at %>
+
+Vous pouvez consulter plus de détails en vous connectant à votre compte.
+
+Merci,
+Votre équipe

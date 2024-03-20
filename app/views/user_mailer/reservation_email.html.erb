@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Bonjour <%= @host.email %>,</h1>
+    <p>
+      Nous sommes ravis de vous informer qu'une nouvelle réservation a été effectuée pour votre séance d'entraînement !
+    </p>
+    <p>
+      Voici les détails de la réservation :
+      <ul>
+        <li>Utilisateur : <%= @reservation.user.email %></li>
+        <li>Séance d'entraînement : <%= @reservation.workout.title %></li>
+        <li>Date : <%= @reservation.created_at %></li>
+      </ul>
+    </p>
+    <p>
+      Vous pouvez consulter plus de détails en vous connectant à votre compte.
+    </p>
+    <p>
+      Merci,
+      <br>
+      Votre équipe
+    </p>
+  </body>
+</html>

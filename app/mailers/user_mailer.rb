@@ -12,5 +12,12 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: 'Bienvenue chez nous !') 
   end
 
-  
+  def reservation_email(reservation)
+    @reservation = reservation
+    @host = reservation.workout.host
+    @url  = 'http://monsite.fr/login'
+
+    mail(to: @host.email, subject: 'Nouvelle réservation !')
+  end
+
 end
