@@ -1,0 +1,49 @@
+<div class="container">
+  <section>
+
+  </section>
+    <div>Photo</div>
+  <section>
+    <div class="row">
+
+      <div class="col col-sm-8">
+        <h2><%= @workout.title %></h2>
+        <div><i class="bi bi-star">Note de la seance</i></div>
+        <hr>
+        <div>
+          <div>Logo hote</div>
+          <div><i class="bi bi-star-fill">Note de l'hote</i></div>
+        </div>
+        <hr>
+        <h3>Description</h3>
+        <p><%= @workout.description %>
+        </p>
+        <hr>
+        <div>
+          <h3>Equipements</h3>
+          <ul>
+            <li>Caractéristique 1</li>
+            <li>Caractéristique 2</li>
+            <li>Caractéristique 3</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col col-sm-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex">
+              <h5 class="card-title me-1"><%= @workout.price  %>€</h5>
+              <span class="card-title">par séance</span>
+            </div>
+            
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Another link</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
