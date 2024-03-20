@@ -1,0 +1,42 @@
+<div class="p-3 m-0 border-0 bd-example m-0 border-0 row row-cols-1 row-cols-md-2 g-4">
+    <div class="col"> 
+        <div class="card ms-auto" style="max-width: 22rem;">
+            <%=  image_tag "iconeuser.png", alt: "Description de l'image" %>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card me-auto h-100">
+            <h1 class="card-title">Profil de <%= @user.email %></h1>
+            <div class="card-body">
+                <%= link_to "Modifier le profil", edit_user_registration_path, class: "btn btn-outline-primary" %>
+                <%= link_to "Supprimer le profile", registration_path(@user), :method => :delete, class: "btn btn-outline-danger", id: "delete_comment_button", data: {turbo: true, turbo_method: :delete, turbo_confirm: "Vous etes sure de vouloir supprimer votre compte ?"} %>
+                <div class="card-footer mt-2">
+                    <p>Email: <%= @user.email %></p>
+                    <p>Ville: <%= @user.city.name %></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card ms-auto" style="max-width: 22rem;">
+            <p class="ms-3 mt-2">Nombre de séances proposé: <%= @user.hosted_workouts.count %> </p>
+            <div class="card-body">
+                <p>Nombre de réservations: <%= @user.reserved_workouts.count %> </p>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card me-auto h-100">
+            <p class="card-header">Commentaires:</p>
+            <div class="card-body">
+                <p>Ajouter les commentaires</p>
+            </div>
+            <div class="card-footer">
+                <div class="mb-3">
+                    <label class="form-label">Laissez un commentaire</label>
+                    <textarea class="form-control" id="TexteAreaForComments" rows="5"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
