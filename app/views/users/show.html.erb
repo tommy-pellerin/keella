@@ -9,10 +9,10 @@
             <h1 class="card-title">Profil de <%= @user.email %></h1>
             <div class="card-body">
                 <%= link_to "Modifier le profil", edit_user_registration_path, class: "btn btn-outline-primary" %>
-                <%= link_to "Supprimer le profile", registration_path(@user), :method => :delete, class: "btn btn-outline-danger", id: "delete_comment_button" %>
+                <%= link_to "Supprimer le profile", registration_path(@user), :method => :delete, class: "btn btn-outline-danger", id: "delete_comment_button", data: {turbo: true, turbo_method: :delete, turbo_confirm: "Vous etes sure de vouloir vous déconnecter ?"} %>
                 <div class="card-footer mt-2">
                     <p>Email: <%= @user.email %></p>
-                    <p>ville: <%= @user.city.name %></p>
+                    <p>Ville: <%= @user.city.name %></p>
 
                 </div>
             </div>
@@ -20,9 +20,9 @@
     </div>
     <div class="col">
         <div class="card ms-auto" style="max-width: 22rem;">
-            <p class="ms-3">nombre de séances proposé: <%= @user.hosted_workouts.count %> </p>
+            <p class="ms-3 mt-2">Nombre de séances proposé: <%= @user.hosted_workouts.count %> </p>
             <div class="card-body">
-                <p>nombre de réservations: <%= @user.reserved_workouts.count %> </p>
+                <p>Nombre de réservations: <%= @user.reserved_workouts.count %> </p>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
         <div class="card me-auto h-100">
             <p class="card-header">Commentaires:</p>
             <div class="card-body">
-                <p>ajouter les commentaires</p>
+                <p>Ajouter les commentaires</p>
             </div>
             <div class="card-footer">
                 <div class="mb-3">
