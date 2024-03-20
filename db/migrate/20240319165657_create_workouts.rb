@@ -4,6 +4,7 @@ class CreateWorkouts < ActiveRecord::Migration[7.1]
       t.string :title
       t.datetime :start_date
       t.datetime :end_date
+      t.integer :participant_number
       t.text :description
       t.decimal :price
       t.string :location
