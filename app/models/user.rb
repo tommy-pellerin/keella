@@ -6,6 +6,11 @@ class User < ApplicationRecord
   
   after_commit :welcome_send, if: :email_confirmed?
 
+  has_many :reservations
+  has_many :reserved_workouts, through: :reservations, source: :workout
+  has_many :hosted_workouts, foreign_key: 'host_id', class_name: 'Workout'
+  belongs_to :city
+
   def welcome_send
     UserMailer.welcome_email(self).deliver_now
   end
