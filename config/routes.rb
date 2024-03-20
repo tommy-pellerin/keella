@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'workouts/new'
+  
   root "static_pages#index"
   devise_for :users
   resources :users
