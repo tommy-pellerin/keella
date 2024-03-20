@@ -9,11 +9,10 @@
             <h1 class="card-title">Profil de <%= @user.email %></h1>
             <div class="card-body">
                 <%= link_to "Modifier le profil", edit_user_registration_path, class: "btn btn-outline-primary" %>
-                <%= link_to "Supprimer le profile", registration_path(@user), :method => :delete, class: "btn btn-outline-danger", id: "delete_comment_button", data: {turbo: true, turbo_method: :delete, turbo_confirm: "Vous etes sure de vouloir vous déconnecter ?"} %>
+                <%= link_to "Supprimer le profile", registration_path(@user), :method => :delete, class: "btn btn-outline-danger", id: "delete_comment_button", data: {turbo: true, turbo_method: :delete, turbo_confirm: "Vous etes sure de vouloir supprimer votre compte ?"} %>
                 <div class="card-footer mt-2">
                     <p>Email: <%= @user.email %></p>
                     <p>Ville: <%= @user.city.name %></p>
-
                 </div>
             </div>
         </div>
