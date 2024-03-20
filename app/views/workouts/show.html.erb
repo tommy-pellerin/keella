@@ -1,23 +1,21 @@
+<section class="text-center py-5 bg-secondary">
+  <div><%= image_tag 'logokeella.png', alt: "workout-image" %></div>
+</section>
 <div class="container">
   <section>
+    <div class="row flex-column-reverse flex-md-row">
 
-  </section>
-    <div><%= image_tag 'logokeella.png', alt: "workout-image" %></div>
-  <section>
-    <div class="row">
-
-      <div class="col col-sm-8">
+      <div class="col col-md-8 mt-2">
         <h2><%= @workout.title %></h2>
-        <div><i class="bi bi-star">Note</i></div>
         <hr>
         <div>
           <div>Logo hote</div>
+          <div><%= @workout.host.email %></div>
           <div><i class="bi bi-star-fill">Note de l'hote</i></div>
         </div>
         <hr>
         <h3>Description</h3>
-        <p><%= @workout.description %>
-        </p>
+        <p><%= @workout.description %></p>
         <hr>
         <div>
           <h3>Equipements</h3>
@@ -29,17 +27,21 @@
         </div>
       </div>
 
-      <div class="col col-sm-4">
-        <div class="card">
+      <div class="col col-md-4 mt-2">
+        <div class="card shadow">
           <div class="card-body">
             <div class="d-flex">
-              <h5 class="card-title me-1"><%= @workout.price  %>€</h5>
+              <h5 class="card-title me-1"><%= @workout.price %>€</h5>
               <span class="card-title">par séance</span>
             </div>
-            
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
+            <h6>Nombre de participant maximum :<%= @workout.participant_number %></h6>  
+            <ul>
+              <li>Date de début : <strong><%= @workout.start_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
+              <li>Date de fin : <strong><%= @workout.end_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
+            </ul>
+            <div>
+              <%= button_to 'Envoyer une demande de réservation', reservations_path(@workout), class:"w-100 btn btn-lg btn-primary" %>
+            </div>
           </div>
         </div>
       </div>
