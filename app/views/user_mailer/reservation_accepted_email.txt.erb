@@ -1,0 +1,13 @@
+Bonjour <%= @user.email %>,
+
+Nous sommes ravis de vous informer que votre réservation a été acceptée !
+
+Voici les détails de la réservation :
+- Séance d'entraînement : <%= @reservation.workout.title %>
+- Date : <%= @reservation.created_at %>
+- Status : <%= @reservation.status %>
+
+Vous pouvez consulter plus de détails en vous connectant à votre compte, rubrique réservation <%# <%= link_to 'Reservation', reservation_url %>
+
+Merci,
+Votre équipe
