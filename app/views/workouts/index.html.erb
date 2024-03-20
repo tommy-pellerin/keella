@@ -1,25 +1,48 @@
 
 
-<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-  <% @workouts.each do |workout| %> 
-    <div class="card" style="width: 18rem;">
-      <img src="..." class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title"><%= workout.title %></h5>
-        <p class="card-text"><%= workout.description %></p>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item"><%= workout.price %></li>
-        <li class="list-group-item"><%= workout.start_date %></li>
-        <li class="list-group-item"><%= workout.end_date %></li>
-        <li class="list-group-item"><%= workout.location %></li>
-      </ul>
-      <div class="card-body">
-        <%= link_to 'Show', workout_path(workout), class: "card-link" %>
-        <a href="#" class="card-link">Another link</a>
-      </div>
+
+    <%= render 'searchbar' %>
+  
+    <div class="album py-5 text-center container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <% @workouts.each_with_index do |workout, index| %> 
+                <div class="col <%= index % 3 == 2 ? 'mb-4' : '' %>">
+                <a href="<%= workout_path(workout) %>">
+                    <div class="card shadow" style="max-width: 40rem;">
+                        <%= image_tag 'logokeella.png', alt: "workout-image", class: "card-img-top" %>
+                        <div class="card-title-container border rounded p-2">
+                            <h5 class="card-title"><%= workout.title %></h5>
+                            <i class="bi bi-star-fill">Note de l'hote</i>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <i class="bi bi-currency-dollar"></i>
+                                    <%= workout.price %>
+                            </li>
+  
+                            <li class="list-group-item">
+                                <i class="bi bi-calendar-check"></i>
+                                    <%= workout.start_date.strftime("%d/%m/%Y %H:%M") %>
+                                    
+                            </li>
+  
+                            <li class="list-group-item">
+                                <i class="bi bi-calendar-x-fill"></i>
+                                    <%= workout.end_date.strftime("%d/%m/%Y %H:%M") %>
+                            </li>
+                            
+                            <li class="list-group-item">
+                                <i class="bi bi-geo-alt"></i>
+                                    <%= workout.location %>
+                                    <%= link_to workout_path(workout) do %>
+                                        <% end %>
+                            </li>
+                        </ul>
+                    </div>
+                    </a>
+                </div>
+            <% end %>
+        </div>
     </div>
-  <% end %>
-</div>
 
-
+  
