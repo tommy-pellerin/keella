@@ -1,6 +1,6 @@
 class Reservation < ApplicationRecord
   after_create :send_reservation_request
-  after_update :send_email_on_condition
+  # after_update :send_email_on_condition
 
   belongs_to :user
   belongs_to :workout

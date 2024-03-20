@@ -5,17 +5,13 @@ class ReservationsController < ApplicationController
     puts "Je suis dans create de reservations_controller.rb"
     puts params
     puts "#"*50
-    #create a reservation to pre-reserve a place
+    #create a reservation to pre-reserve a place, be careful, if the host doesn't refuse, the place is still reserved => need a conditoin to delete it after 48h ?
     @workout = Workout.find(params[:workout_id])
     @reservation = Reservation.create(workout: @workout, user: current_user)
-    puts "$"*50
-    puts @reservation
 
     #change status to pending
     @reservation.status = "pending"
     @reservation.save
-    puts "$"*50
-    puts @reservation.status
 
     #send email to host => this job is done by the model itself with the callback after_create
     redirect_to root_path    
