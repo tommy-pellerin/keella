@@ -1,7 +1,10 @@
 class Reservation < ApplicationRecord
-  after_create :reservation_email
+  after_create :set_pending_and_send_email
+
   
-  def reservation_email
+  def set_pending_and_send_email
+    self.status = :pending
+    self.save
     UserMailer.reservation_email(self).deliver_now
   end
 

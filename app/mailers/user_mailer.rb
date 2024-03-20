@@ -13,6 +13,9 @@ class UserMailer < ApplicationMailer
   end
 
   def reservation_email(reservation)
+    reservation.status = :pending
+    reservation.save
+
     @reservation = reservation
     @host = reservation.workout.host
     @url  = 'http://monsite.fr/login'
