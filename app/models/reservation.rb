@@ -9,4 +9,11 @@ class Reservation < ApplicationRecord
     cancelled: 3,
     closed: 4
   }
+
+  def accept
+    self.status = :accepted
+    self.save
+    UserMailer.reservation_accepted_email(self).deliver_now
+  end
+  
 end
