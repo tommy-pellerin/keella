@@ -7,6 +7,8 @@
 
       <div class="col col-md-8 mt-2">
         <h2><%= @workout.title %></h2>
+        <p>Lieu : <%= @workout.location %></p>
+        <p>Ville : <%= @workout.city.name %></p>
         <hr>
         <div>
           <div>Logo hote</div>
@@ -40,7 +42,7 @@
               <li>Date de fin : <strong><%= @workout.end_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
             </ul>
             <div>
-              <%= button_to 'Envoyer une demande de réservation', reservations_path(@workout), class:"w-100 btn btn-lg btn-primary" %>
+              <%= button_to 'Envoyer une demande de réservation', workout_reservations_path(@workout), method: :post, class:"w-100 btn btn-lg btn-primary" %>
             </div>
           </div>
         </div>
