@@ -1,0 +1,40 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card-body text-center"> 
+                <h1 class="card-title">Profil de <%= @user.email %></h1>
+            </div>
+        </div>
+    </div>
+</div>
+<% if current_user == @user %>
+    <div class="d-flex justify-content-center">
+        <%= link_to "Modifier le profil", edit_user_registration_path, class: "btn btn-outline-primary" %>
+    </div>
+<% end %>
+<div class="container mt-3">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <%=  image_tag "iconeuser.png", alt: "Description de l'image", class: "ml-3" %>
+                        <div>
+                            <p>Email: <%= @user.email %></p>
+                            <p>Utilisateur: <%= @user.id %></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-3">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+                <p>nombre de séance <%= @nombre %> </p>
+                <p>nombre de réservation <%= @number %> </p>
+            </div>
+        </div>
+    </div>
+</div>
