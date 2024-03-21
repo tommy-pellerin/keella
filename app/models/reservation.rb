@@ -8,7 +8,8 @@ class Reservation < ApplicationRecord
 
   def workout_full?
     @workout = self.workout
-    if @workout.reservations.count >= @workout.participant_number
+    @reservation_accepted = @workout.reservations.where(status: "accepted")
+    if @reservation_accepted.count >= @workout.participant_number
       errors.add(:base, "Il n'y a plus de places disponibles pour cette séance. Veuillez choisir une autre séance.")
       throw :abort
     end

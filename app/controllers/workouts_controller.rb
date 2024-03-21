@@ -6,7 +6,8 @@ class WorkoutsController < ApplicationController
 
   def show
     @workout = Workout.find(params[:id])
-    @place_available = @workout.participant_number.to_i - @workout.reservations.count.to_i
+    @reservation_accepted = @workout.reservations.where(status: "accepted")
+    @place_available = @workout.participant_number.to_i - @reservation_accepted.count.to_i
   end
 
   def new
