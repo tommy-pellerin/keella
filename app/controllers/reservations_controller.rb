@@ -7,6 +7,10 @@ class ReservationsController < ApplicationController
   def index
     
   end
+  def show
+    @user = User.find(params[:user_id])
+    @reservations = @user.reservations
+  end
   def create
     puts "#"*50
     puts "Je suis dans create de reservations_controller.rb"
