@@ -34,6 +34,22 @@
                 </div>
                 </td>
             </tr>
+            <%@participants.each do |participant|%>
+                 <td><%=participant.email%></td>
+                    <td><%=participant.id%></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                <td>
+                <div class="btn-group">
+                <%= link_to "Consulter la page Profil", user_path(participant), class: 'btn btn-success small'%>
+                <%= link_to "Accepter/supprimer la reservation", edit_workout_path(host), class: 'btn btn-danger small'%>
+                </div>
+                </td>
+                </tr>
+                <%end%>         
         <%end%>
           </tbody>
         </table>
