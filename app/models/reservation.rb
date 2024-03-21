@@ -1,9 +1,18 @@
 class Reservation < ApplicationRecord
+  before_create :workout_full?
   after_create :send_reservation_request
   # after_update :send_email_on_condition
 
   belongs_to :user
   belongs_to :workout
+
+  def workout_full?
+    @workout = self.workout
+    if @workout.reservations.count >= @workout.participant_number
+      errors.add(:base, "Il n'y a plus de places disponibles pour cette séance. Veuillez choisir une autre séance.")
+      throw :abort
+    end
+  end
 
   def send_reservation_request
     HostMailer.reservation_request(self).deliver_now

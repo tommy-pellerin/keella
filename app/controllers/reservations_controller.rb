@@ -1,6 +1,9 @@
 class ReservationsController < ApplicationController
   before_action :authenticate_user!
-  
+  before_action :is_host?, only: [:edit]
+  before_action :status_is_pending?, only: [:edit]
+
+
   def create
     puts "#"*50
     puts "Je suis dans create de reservations_controller.rb"
@@ -13,6 +16,8 @@ class ReservationsController < ApplicationController
     #change status to pending
     @reservation.status = "pending"
     @reservation.save
+    puts "$"*50
+    puts @reservation.status
 
     #send email to host => this job is done by the model itself with the callback after_create
     redirect_to root_path    
@@ -58,5 +63,26 @@ class ReservationsController < ApplicationController
     #if user confirm that the workout went well change status to closed
     #paie user => paiement status = paid
   end
+
+  private
+
+  def is_host?
+    if current_user.id != Reservation.find(params[:id]).workout.host_id
+      redirect_to root_path
+    end
+  end
+
+  def status_is_pending?
+    puts "#"*50
+    puts params
+    puts  "#"*50
+    @reservation = Reservation.find(params[:id])
+    if @reservation.status != "pending"
+      puts "$"*50
+      puts "status is not pending"
+      redirect_to root_path, notice: 'Vous avez déjà pris une décision pour cette réservation.'
+    end
+  end
+
   
 end
