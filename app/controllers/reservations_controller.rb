@@ -4,7 +4,9 @@ class ReservationsController < ApplicationController
   # before_action :status_is_pending?, only: [:edit]
   before_action :no_cache, only: [:edit]
 
-
+  def index
+    
+  end
   def create
     puts "#"*50
     puts "Je suis dans create de reservations_controller.rb"
