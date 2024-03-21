@@ -14,4 +14,12 @@ class HostMailer < ApplicationMailer
     # c'est cet appel à mail() qui permet d'envoyer l’e-mail en définissant destinataire et sujet.
     mail(to: @host.email, subject: 'Demande de reservation !') 
   end
+
+  def payment_confirmation(reservation)
+    @reservation = reservation
+    @host = @reservation.workout.host
+    @user = @reservation.user
+    @workout = @reservation.workout
+    mail(to: @host.email, subject: 'Confirmation de paiement')
+  end
 end

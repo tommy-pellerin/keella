@@ -1,7 +1,7 @@
 class Reservation < ApplicationRecord
   before_create :workout_full?
   after_create :send_reservation_request
-  # after_update :send_email_on_condition
+  after_update :send_email_on_condition
 
   belongs_to :user
   belongs_to :workout
@@ -19,28 +19,30 @@ class Reservation < ApplicationRecord
     HostMailer.reservation_request(self).deliver_now
   end
 
-  # def send_reservation_confirmation
-  #   UserMailer.reservation_confirmed(self).deliver_now
-  # end
+  def send_accepted_email
+    UserMailer.accepted_email(self).deliver_now
+  end
 
-  # def send_reservation_refused
-  #   UserMailer.reservation_refused(self).deliver_now
-  # end
+  def send_refused_email
+    UserMailer.refused_email(self).deliver_now
+  end
 
   # def workout_cancelled
   #   UserMailer.reservation_cancelled(self).deliver_now
   # end
 
-  # def send_email_on_condition
-  #   case status
-  #   when "accepted"
-  #     send_reservation_confirmation
-  #   when "refused"
-  #     send_reservation_refused
-  #   when "cancelled"
-  #     reservation_cancelled
-  #   end
-  # end
+  def send_email_on_condition
+    case status
+    when "accepted"
+      send_accepted_email
+    when "refused"
+      send_refused_email
+    # when "cancelled"
+    #   reservation_cancelled
+    # when  "closed"
+    #   send_evaluate_email
+    end
+  end
 
   enum status: {
     pending: 0,

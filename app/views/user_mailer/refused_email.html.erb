@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Salut <%= @user.email %>,</h1>
+    <h2>Mauvaise nouvelle, ta demande a été refusée. </h2>
+    <p>Vous serez remboursé dans les 48h.</p>
+    <p>Veuillez nous contacter en cas de probleme : <a href="#">Nous contacter</a></p>
+
+    <h2>Vous souhaitez chercher une autre séance ?</h2>
+    <p>C'est par ici :</p>
+    <div>
+      <button><a href="<%= workouts_url %>">Aller à la page recherche</a></button>
+    </div>
+    <p>Vous pouvez également copier et coller ce lien dans la barre d'adresse de votre navigateur.</p>
+    <p>Sportivement,</p>
+    <p>À très vite sur keella.fly.dev !</p>
+  </body>
+</html>
