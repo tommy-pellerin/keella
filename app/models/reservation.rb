@@ -30,6 +30,11 @@ class Reservation < ApplicationRecord
   # def workout_cancelled
   #   UserMailer.reservation_cancelled(self).deliver_now
   # end
+  def send_cancellation_email
+    if status == "cancelled"
+      HostMailer.cancellation_notification(self).deliver_now
+    end
+  end
 
   def send_email_on_condition
     case status
@@ -37,8 +42,8 @@ class Reservation < ApplicationRecord
       send_accepted_email
     when "refused"
       send_refused_email
-    # when "cancelled"
-    #   reservation_cancelled
+    when "cancelled"
+      send_cancellation_email
     # when  "closed"
     #   send_evaluate_email
     end

@@ -22,4 +22,15 @@ class HostMailer < ApplicationMailer
     @workout = @reservation.workout
     mail(to: @host.email, subject: 'Confirmation de paiement')
   end
+
+
+
+  def cancellation_notification(reservation)
+    @reservation = reservation
+    @host = @reservation.workout.host
+    @user = @reservation.user
+    @workout = @reservation.workout
+    mail(to: @host.email, subject: 'Notification d\'annulation de réservation')
+  end
+
 end

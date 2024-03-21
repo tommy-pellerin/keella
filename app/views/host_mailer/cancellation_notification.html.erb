@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Notification d'annulation de réservation</h1>
+    <p>Bonjour <%= @host.email %>,</p>
+    <p>Nous sommes désolés de vous informer que la réservation pour la séance de <%= @workout.title %> a été annulée par <%= @user.email %>.</p>
+    <p>Si vous avez des questions, n'hésitez pas à nous contacter.</p>
+    <p>Cordialement,</p>
+    <p>Votre équipe</p>
+  </body>
+</html>
