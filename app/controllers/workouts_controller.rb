@@ -13,7 +13,20 @@ class WorkoutsController < ApplicationController
   def new
     @workout = Workout.new
   end
-  
+  def edit
+    @workout = Workout.find(params[:id])
+  end
+  def update
+    puts params.inspect
+    @workout = Workout.find(params[:id])
+    if @workout.update(workout_params)
+        redirect_to @workout, notice: "Workout mis à jour avec succès."
+    else
+        flash[:error] = "Il y a une erreur lors de l'update de la réservation : #{@workout.errors.full_messages.to_sentence}"
+        render :edit
+    end
+  end
+
   def create
     @workout = Workout.create(workout_params)
     if @workout.save
@@ -25,6 +38,9 @@ class WorkoutsController < ApplicationController
     end
   end
   private
+  def find_workout
+    @workout = Workout.find(params[:id])
+  end
   def workout_params
     params.require(:workout).permit(:title, :start_date, :end_date, :participant_number, :description, :price, :location, :city_id, :host_id)
   end
