@@ -1,13 +1,13 @@
 <h1>Historique des réservations</h1>
 
 <% @reservations.each do |reservation| %>
-    <div class="card mb-3 border border-2" style="max-width: 80%;">
+    <div class="card mb-2 border border-2" style="max-width: 80%">
         <div class="row g-0">
             <div class="col-md-4">
                 <%= image_tag 'logokeella.png', alt: "workout-image", class: "img-fluid" %>
             </div>
                 <div class="col-md-8">
-                    <div class="card-body">
+                <div class="card-body">
                         <h5 class="card-title"><%= reservation.workout.title %></h5>
                         <p class="card-text">Utilisateur : <%= reservation.user.email %></p>
                         <p class="card-text">Date : <%= reservation.created_at.strftime("%d/%m/%Y %H:%M") %></p>
@@ -17,7 +17,7 @@
                         <div class="btn-group">
                             <% if reservation.status == 'accepted' %>
                                 <%= button_to 'Note ton hôte', '#', method: :get, class: 'btn btn-primary' %>
-                                <%= button_to 'Annuler', '#', method: :get, class: 'btn btn-danger' %>
+                                <%= button_to 'Annuler', cancel_reservation_path(reservation), method: :put, class: 'btn btn-danger' %>
                             <% elsif reservation.status == 'pending' %>
                                 <%= button_to 'Relancer la demande', '#', method: :get, class: 'btn btn-secondary' %>
                             <% elsif reservation.status == 'refused' %>
