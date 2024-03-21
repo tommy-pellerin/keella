@@ -7,6 +7,8 @@
 
       <div class="col col-md-8 mt-2">
         <h2><%= @workout.title %></h2>
+        <p>Lieu : <%= @workout.location %></p>
+        <p>Ville : <%= @workout.city.name %></p>
         <hr>
         <div>
           <div>Logo hote</div>
@@ -34,13 +36,18 @@
               <h5 class="card-title me-1"><%= @workout.price %>€</h5>
               <span class="card-title">par séance</span>
             </div>
-            <h6>Nombre de participant maximum :<%= @workout.participant_number %></h6>  
+            <h6>Nombre de participant maximum : <%= @workout.participant_number %></h6>
+            <span>Nombre de place restant : <%= @place_available %></span>  
             <ul>
               <li>Date de début : <strong><%= @workout.start_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
               <li>Date de fin : <strong><%= @workout.end_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
             </ul>
             <div>
-              <%= button_to 'Envoyer une demande de réservation', reservations_path(@workout), class:"w-100 btn btn-lg btn-primary" %>
+              <% if @place_available > 0 %>
+                <%= button_to 'Envoyer une demande de réservation', workout_reservations_path(@workout), method: :post, class:"w-100 btn btn-lg btn-primary" %>
+              <% else %>
+                <%= button_to "Il n'y a plus de place", workout_reservations_path(@workout), method: :post, class:"w-100 btn btn-lg btn-primary disabled" %>
+              <% end %>
             </div>
           </div>
         </div>
