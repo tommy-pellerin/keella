@@ -65,6 +65,9 @@ class ReservationsController < ApplicationController
     #   @reservation.status = "cancelled"
     #   @reservation.save
       #send email to host to notify
+    elsif decision == "closed"
+      @reservation.status = "closed"
+      @reservation.save
     end
     puts "$"*50
     puts @reservation.status

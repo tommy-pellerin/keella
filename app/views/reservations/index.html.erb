@@ -22,7 +22,7 @@
                     <div class="row">
                         <div class="btn-group">
                             <% if reservation.status == 'accepted' %>
-                                <%= button_to 'Note ton hôte', '#', method: :get, class: 'btn btn-secondary disabled' %>
+                            <%= button_to 'Confirmer fin de séance', reservation_path(reservation, decision: "closed"), method: :patch, class: 'btn btn-primary' %>
                                 <%= button_to 'Annuler', reservation_path(reservation, decision: "cancelled"), method: :patch, class: 'btn btn-danger' %>
                             <% elsif reservation.status == 'pending' %>
                                 <%= button_to 'Relancer la demande', '#', method: :get, class: 'btn btn-secondary disabled' %>
