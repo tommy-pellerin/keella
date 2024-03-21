@@ -3,10 +3,9 @@ Rails.application.routes.draw do
   root "static_pages#index"
   devise_for :users
   resources :users
-  resources :workouts
-  resources :reservations
-
-
+  resources :workouts do
+    resources :reservations
+  end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
