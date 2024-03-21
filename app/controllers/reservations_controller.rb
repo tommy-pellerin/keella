@@ -1,6 +1,4 @@
 class ReservationsController < ApplicationController
-<<<<<<< HEAD
-=======
   before_action :authenticate_user!
   before_action :is_host?, only: [:edit]
   # before_action :status_is_pending?, only: [:edit]
@@ -97,5 +95,4 @@ class ReservationsController < ApplicationController
   end
 
   
->>>>>>> dev
 end
