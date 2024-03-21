@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  get 'reservations/index'
-  get 'reservations/show'
+
   
   root "static_pages#index"
   devise_for :users
@@ -11,8 +10,10 @@ Rails.application.routes.draw do
     resources :reservations
   end
 
-  resources :reservations do
-    patch :update, on: :member
+  resources :reservations do    
+    patch :update, on: :member 
+    # méthode HTTP PATCH pour l’action update
+    # on: :member signifie que cette route s’applique à une instance spécifique de Reservation , 
   end
   
 
