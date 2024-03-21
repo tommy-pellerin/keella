@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'reservations/index'
+  get 'reservations/show'
   
   root "static_pages#index"
   devise_for :users
