@@ -20,18 +20,21 @@ class ReservationsController < ApplicationController
     puts "#"*50
     #create a reservation to pre-reserve a place, be careful, if the host doesn't refuse, the place is still reserved => need a conditoin to delete it after 48h ?
     @workout = Workout.find(params[:workout_id])
-    @reservation = Reservation.create(workout: @workout, user: current_user)
-
+    @reservation = Reservation.new(workout: @workout, user: current_user)
     #change status to pending
     @reservation.status = "pending"
-    @reservation.save
-    puts "$"*50
-    puts @reservation.status
+    if @reservation.save      
+      puts "$"*50
+      puts @reservation.status
 
-    #send email to host => this job is done by the model itself with the callback after_create
-    redirect_to workout_path(@workout)
+      #send email to host => this job is done by the model itself with the callback after_create
+      #reserve paiement => paiement status = pending
 
-    #reserve paiement => paiement status = pending
+      redirect_to @workout, notice: "Votre demande de réservation a bien été envoyée. Vous recevrez un email dès que le coach aura pris une décision."
+    else
+      flash[:alert] = @reservation.errors.full_messages.join(", ")
+      render :new
+    end 
 
   end
 
@@ -57,15 +60,15 @@ class ReservationsController < ApplicationController
       @reservation.status = "accepted"
       @reservation.save
       #paiement status = pending
-      #send email to user to notify
+      #send email to user to notify => this job is done by the model itself with the callback after_update
     elsif decision == "refused"
       @reservation.status = "refused"
       @reservation.save
       #refund user
       #send email to user to notify
-    elsif decision == "cancelled"
-      @reservation.status = "cancelled"
-      @reservation.save
+    # elsif decision == "cancelled"
+    #   @reservation.status = "cancelled"
+    #   @reservation.save
       #send email to host to notify
     end
     puts "$"*50
@@ -77,7 +80,12 @@ class ReservationsController < ApplicationController
     #refund user
       
     #if user confirm that the workout went well change status to closed
-    #paie user => paiement status = paid
+    # if went_well
+    #   @reservation.status = "closed"
+    #   @reservation.save
+    #   #paie user => paiement status = paid
+    # end
+    
   end
 
   private
