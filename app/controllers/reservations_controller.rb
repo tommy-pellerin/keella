@@ -5,8 +5,9 @@ class ReservationsController < ApplicationController
   before_action :no_cache, only: [:edit]
 
   def index
-    
+    @reservations = current_user.reservations.order(created_at: :desc)
   end
+  
   def create
     puts "#"*50
     puts "Je suis dans create de reservations_controller.rb"
