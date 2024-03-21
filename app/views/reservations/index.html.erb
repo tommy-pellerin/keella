@@ -1,7 +1,11 @@
-<h1>Historique des réservations</h1>
 
+<section class="bg-primary py-5 text-center">
+    <h1 class="text-light">Réservations</h1>
+</section>
+
+<section class="container align-items-center justify-content-center">
 <% @reservations.each do |reservation| %>
-    <div class="card mb-2 border border-2" style="max-width: 80%">
+    <div class="card mb-2 border border-2" style="max-width: 100%">
         <div class="row g-0">
             <div class="col-md-4">
                 <%= image_tag 'logokeella.png', alt: "workout-image", class: "img-fluid" %>
@@ -10,14 +14,15 @@
                 <div class="card-body">
                         <h5 class="card-title"><%= reservation.workout.title %></h5>
                         <p class="card-text">Utilisateur : <%= reservation.user.email %></p>
-                        <p class="card-text">Date : <%= reservation.created_at.strftime("%d/%m/%Y %H:%M") %></p>
+                       
+                        <p class="card-text">Date de la réservation : <%= reservation.created_at.strftime("%d/%m/%Y %H:%M") %></p>
                         <p class="card-text">Status : <%= reservation.status %></p>
-                        <p class="card-text"><small class="text-body-secondary">Dernière mise à jour <%= reservation.updated_at.strftime("%d/%m/%Y %H:%M") %></small></p>
+                        <p class="card-text"><small class="text-body-secondary">Date de la réservation <%= reservation.created_at.strftime("%d/%m/%Y %H:%M") %></small></p>
                     <div class="row">
                         <div class="btn-group">
                             <% if reservation.status == 'accepted' %>
-                                <%= button_to 'Note ton hôte', '#', method: :get, class: 'btn btn-primary' %>
-                                <%= button_to 'Annuler', { action: "update", decision: "cancelled", id: reservation.id }, method: :put, class: 'btn btn-danger' %>
+                                <%= button_to 'Note ton hôte', '#', method: :get, class: 'btn btn-secondary disabled' %>
+                                <%= button_to 'Annuler', reservation_path(reservation, decision: "cancelled"), method: :patch, class: 'btn btn-danger' %>
                             <% elsif reservation.status == 'pending' %>
                                 <%= button_to 'Relancer la demande', '#', method: :get, class: 'btn btn-secondary' %>
                             <% elsif reservation.status == 'refused' %>
@@ -33,5 +38,6 @@
         </div>
     </div>
   <% end %>
+</section>
   
   

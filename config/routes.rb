@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   end
 
   resources :reservations do
-    put :update, on: :member
+    patch :update, on: :member
   end
   
 
