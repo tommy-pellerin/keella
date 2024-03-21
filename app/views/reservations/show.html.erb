@@ -1,13 +1,13 @@
 <section class="bg-primary py-5 text-center">
     <h1 class="text-light">Mes Annonces</h1>
 </section>
-<h2>Tableau</h2>
-      <div class="table-responsive small">
+<section class="container shadow rounded py-5">
+    <div class="table-responsive small">
         <table class="table table-striped table-sm">
           <thead>
             <tr>
               <th scope="col">Titre</th>
-              <th scope="col">Addresse</th>
+              <th scope="col">Adresse</th>
               <th scope="col">prix</th>
               <th scope="col">Nombre de participant</th>
               <th scope="col">Date</th>
@@ -17,20 +17,55 @@
             </tr>
           </thead>
           <tbody>
-        <%@reservations.each do |reservation|%>
+        <%@hosts.each do |host|%>
         <tr>
-              <td><%=reservation.workout.title%></td>
-              <td><%=reservation.workout.location%></td>
-              <td><%=reservation.workout.price%></td>
-              <td><%=reservation.workout.participant_number%></td>
-              <td><%=reservation.workout.start_date.strftime("%d %B %Y")%></td>
-              <td>De <%=reservation.workout.start_date.strftime("%H:%M")%> à <%=reservation.workout.end_date.strftime("%H:%M")%></td>
-              <td><%=reservation.workout.duration / 60%> minutes</td>
-                <td><button class="btn btn-primary">1</button><button class="btn btn-success">2</button><button class="btn btn-danger">3</button></td>
+              <td><%=host.title%></td>
+              <td><%=host.location%></td>
+              <td><%=host.price%> €</td>
+              <td><%=host.participant_number%></td>
+              <td><%=host.start_date.strftime("%d %B %Y")%></td>
+              <td>De <%=host.start_date.strftime("%H:%M")%> à <%=host.end_date.strftime("%H:%M")%></td>
+              <td><%=host.duration / 60%> minutes</td>
+                <td>
+                <div class="btn-group">
+                <%= link_to "Consulter la page workout", workout_path(host), class: 'btn btn-success small'%>
+                <%= link_to "Consulter l'edit", edit_workout_reservation_path(host), class: 'btn btn-warning small text-white'%>
+                <%= link_to "Modifier le workout", edit_workout_path(host), class: 'btn btn-danger small'%>
+                </div>
+                </td>
             </tr>
         <%end%>
           </tbody>
         </table>
-
-
-ID | TITLE | START_DATE | END_DATE   | PARTICIPANT_NUMBER | DESCRIPTION | PRICE | LOCATION | HOST_ID | CITY_ID | CREATED_AT | UPDATED_AT
+    </div>
+</section>
+<section class="container align-items-center justify-content-center shadow rounded py-5">
+<% @hosts.each do |host| %>
+    <div class="card mb-2 border border-2" style="max-width: 100%">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <%= image_tag 'logokeella.png', alt: "workout-image", class: "img-fluid" %>
+            </div>
+                <div class="col-md-8">
+                <div class="card-body">
+                        <h5 class="card-title"><%= host.title %></h5>
+                        <p class="card-text">Adresse : <%= host.location %></p>
+                        <p class="card-text">Prix : <%= host.price %> €</p>
+                        <p class="card-text">Date : <%= host.start_date.strftime("%d %B %Y") %></p>
+                        <p class="card-text">Durée : De <%=host.start_date.strftime("%H:%M")%> à <%=host.end_date.strftime("%H:%M")%> soit <%=host.duration / 60%> minutes</p>
+                        <p class="card-text">Nombre de participant : <%=host.participant_number%></p>
+                        
+                        <p class="card-text"><small class="text-body-secondary">Date de la création <%= host.created_at.strftime("%d/%m/%Y %H:%M") %></small></p>
+                    <div class="row">
+                        <div class="btn-group">
+                            <%= link_to "Consulter la page workout", workout_path(host), class: 'btn btn-success'%>
+                            <%= link_to "Consulter l'edit", edit_workout_reservation_path(host), class: 'btn btn-warning text-white'%>
+                            <%= link_to "Modifier le workout", edit_workout_path(host), class: 'btn btn-danger'%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  <% end %>
+</section>

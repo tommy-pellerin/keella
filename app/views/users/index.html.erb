@@ -16,8 +16,7 @@
             <p class="card-header">Mes reservations</p>
             <div class="card-body">
                 <h5 class="card-title">Cliquez pour voir vos reservations</h5>
-                <div class="card-footer">
-                    
+                <div class="card-footer">         
                     <%= link_to 'Reservations', reservations_path, class: 'btn btn-secondary btn-lg' %>
                 </div>
             </div>
@@ -29,8 +28,7 @@
             <div class="card-body">
                 <h5 class="card-title">Cliquez pour acceder a vos annonces</h5>
                 <div class="card-footer">
-                <%= link_to "Annonces", user_reservation_path(current_user.id,current_user.hosted_workouts), class: "btn btn-success btn-lg m-0" %>
-                    <button type="button" class="btn btn-success btn-lg m-0">Annonces</button>
+                    <%= link_to "Annonces", user_reservation_path(current_user.id,current_user.hosted_workouts), class: "btn btn-success btn-lg m-0" %>
                 </div>
             </div>
         </div>
