@@ -11,7 +11,6 @@ class WorkoutsController < ApplicationController
 
   def new
     @workout = Workout.new
-    @cities = City.all
   end
   
   def create

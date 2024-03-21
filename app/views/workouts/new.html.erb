@@ -52,7 +52,8 @@
 
             <%= form.label :city, "Ville",class:"floatingInput" %>
         <%= form.collection_select :city_id, City.all, :id, :name, { prompt: "Sélectionner une ville" }, class: "form-control" %>
-            <%= form.label :location, "Lieu",class:"floatingInput" %>
+
+            <%= form.label :location, "Adresse",class:"floatingInput" %>
             <%= form.text_field :location ,class:"form-control" %>
         </div>
         <div class="col py-3">
