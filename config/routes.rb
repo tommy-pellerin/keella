@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   
   root "static_pages#index"
   devise_for :users
-  resources :users
+  resources :users do
+    resources :reservations
+  end
   resources :workouts do
     resources :reservations
   end
