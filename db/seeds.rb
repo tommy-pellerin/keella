@@ -30,15 +30,17 @@ test_hosts.each do |test_host|
   test_host.save!
 end
 
-i=0
-test_users = []
-10.times do
+User.skip_confirmation_notification! do
+  i=0
+  test_users = []
+  10.times do
   i += 1
-  test_users << User.new(email: "user#{i}@yopmail.com", password: "azerty", password_confirmation: "azerty", city: City.all.sample)
-end
-test_users.each do |test_user|
-  test_user.skip_confirmation! #this will allow to create a user without the need of an email confirmation ask by devise
-  test_user.save!
+    test_users << User.new(email: "user#{i}@yopmail.com", password: "azerty", password_confirmation: "azerty", city: City.all.sample)
+    end
+    test_users.each do |test_user|
+    test_user.skip_confirmation! #this will allow to create a user without the need of an email confirmation ask by devise
+    test_user.save!
+    end
 end
 
 10.times do
