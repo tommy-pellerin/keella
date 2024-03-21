@@ -5,8 +5,9 @@ class ReservationsController < ApplicationController
   before_action :no_cache, only: [:edit]
 
   def index
-    
+    @reservations = current_user.reservations.order(created_at: :desc)
   end
+  
   def create
     puts "#"*50
     puts "Je suis dans create de reservations_controller.rb"
@@ -59,7 +60,11 @@ class ReservationsController < ApplicationController
       @reservation.status = "refused"
       @reservation.save
       #refund user
-      #send email to user to notify => this job is done by the model itself with the callback after_update
+      #send email to user to notify
+    # elsif decision == "cancelled"
+    #   @reservation.status = "cancelled"
+    #   @reservation.save
+      #send email to host to notify
     end
     puts "$"*50
     puts @reservation.status
