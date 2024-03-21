@@ -17,7 +17,7 @@
                         <div class="btn-group">
                             <% if reservation.status == 'accepted' %>
                                 <%= button_to 'Note ton hôte', '#', method: :get, class: 'btn btn-primary' %>
-                                <%= button_to 'Annuler', cancel_reservation_path(reservation), method: :put, class: 'btn btn-danger' %>
+                                <%= button_to 'Annuler', { action: "update", decision: "cancelled", id: reservation.id }, method: :put, class: 'btn btn-danger' %>
                             <% elsif reservation.status == 'pending' %>
                                 <%= button_to 'Relancer la demande', '#', method: :get, class: 'btn btn-secondary' %>
                             <% elsif reservation.status == 'refused' %>
