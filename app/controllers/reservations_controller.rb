@@ -1,4 +1,5 @@
 class ReservationsController < ApplicationController
+  before_action :authenticate_user!
   
   def create
     puts "#"*50
@@ -41,7 +42,7 @@ class ReservationsController < ApplicationController
       #paiement status = pending
       #send email to user to notify
     elsif decision == "refused"
-      @reservation.status = "accepted"
+      @reservation.status = "refused"
       @reservation.save
       #refund user
       #send email to user to notify    

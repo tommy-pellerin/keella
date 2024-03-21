@@ -32,7 +32,7 @@ end
 
 i=0
 test_users = []
-10.times do
+5.times do
   i += 1
   test_users << User.new(email: "user#{i}@yopmail.com", password: "azerty", password_confirmation: "azerty", city: City.all.sample)
 end
@@ -42,7 +42,7 @@ test_users.each do |test_user|
 end
 
 10.times do
-  workout =  Workout.create!(title: Faker::Lorem.sentence(word_count: 3), start_date: Faker::Time.between_dates(from: Date.today + 1, to: Date.today + 3, period: :day), end_date: Faker::Time.between_dates(from: Date.today + 4, to: Date.today + 7, period: :day), description: Faker::Lorem.sentence(word_count: 10), price: Faker::Number.decimal(l_digits: 2), location: Faker::Address.full_address, host: test_hosts.sample, city: City.all.sample)
+  workout =  Workout.create!(title: Faker::Lorem.sentence(word_count: 3), start_date: Faker::Time.between_dates(from: Date.today + 1, to: Date.today + 3, period: :day), end_date: Faker::Time.between_dates(from: Date.today + 4, to: Date.today + 7, period: :day), description: Faker::Lorem.sentence(word_count: 10), price: Faker::Number.decimal(l_digits: 2), location: Faker::Address.full_address, host: test_hosts.sample, city: City.all.sample, participant_number: Faker::Number.between(from: 1, to: 20))
 end
 
 10.times do 

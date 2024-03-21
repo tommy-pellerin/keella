@@ -6,7 +6,7 @@ class WorkoutsController < ApplicationController
 
   def show
     @workout = Workout.find(params[:id])
-    # @reservation = Reservation.new
+    @place_available = @workout.participant_number.to_i - @workout.reservations.count.to_i
   end
 
   

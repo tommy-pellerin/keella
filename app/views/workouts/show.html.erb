@@ -36,7 +36,8 @@
               <h5 class="card-title me-1"><%= @workout.price %>€</h5>
               <span class="card-title">par séance</span>
             </div>
-            <h6>Nombre de participant maximum :<%= @workout.participant_number %></h6>  
+            <h6>Nombre de participant maximum : <%= @workout.participant_number %></h6>
+            <span>Nombre de place restant : <%= @place_available %></span>  
             <ul>
               <li>Date de début : <strong><%= @workout.start_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
               <li>Date de fin : <strong><%= @workout.end_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
