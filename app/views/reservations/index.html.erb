@@ -31,6 +31,7 @@
                             
                             <% elsif reservation.status == 'closed' %>
                                 <%= button_to 'Laisse un commentaire', '#', method: :get, class: 'btn btn-secondary disabled' %>
+                                <%= button_to 'Laisse une note', '#', method: :get, class: 'btn btn-secondary disabled' %>
                             <% end %>
                         </div>
                     </div>
