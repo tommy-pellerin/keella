@@ -19,6 +19,7 @@ class WorkoutsController < ApplicationController
       redirect_to @workout, notice: 'La séance a été créé avec succès.'
     else
       puts @workout.errors.full_messages.to_sentence
+      flash[:error] = "Il y a une erreur lors de la création de la réservation : #{@workout.errors.full_messages.to_sentence}"
       render :new
     end
   end
