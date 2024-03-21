@@ -54,12 +54,12 @@ class ReservationsController < ApplicationController
       @reservation.status = "accepted"
       @reservation.save
       #paiement status = pending
-      #send email to user to notify
+      #send email to user to notify => this job is done by the model itself with the callback after_update
     elsif decision == "refused"
       @reservation.status = "refused"
       @reservation.save
       #refund user
-      #send email to user to notify    
+      #send email to user to notify => this job is done by the model itself with the callback after_update
     end
     puts "$"*50
     puts @reservation.status
@@ -70,7 +70,12 @@ class ReservationsController < ApplicationController
     #refund user
       
     #if user confirm that the workout went well change status to closed
-    #paie user => paiement status = paid
+    # if went_well
+    #   @reservation.status = "closed"
+    #   @reservation.save
+    #   #paie user => paiement status = paid
+    # end
+    
   end
 
   private
