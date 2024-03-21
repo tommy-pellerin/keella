@@ -1,33 +1,22 @@
-<div class="p-3 mt-3 border-0 bd-example m-0 border-0 row row-cols-1 row-cols-md-2 g-4">
-  <div class="col"> 
-      <div class="card ms-auto h-100" >
-        <%=  image_tag "landing_page1.jpg", alt: "image de profile" %>
-      </div>
-  </div>
-  <div class="me-auto h-100 mt-5" >
-    <h1 class="mb-4">(Re)Découvrez vos talents sportifs</h1>
-    <h5 class="mb-4">Ici, vous pourrez loué des équipements et des locaux sportif partout en france</h5>
-    <p>"Bonjour et bienvenue chez Keella !
-    Nous sommes votre plateforme de référence pour la location d'équipements sportifs entre particuliers. 
-    Que vous soyez un passionné de sport à la recherche d'équipement ou un propriétaire désireux de rentabiliser vos articles sportifs, nous avons la solution pour vous.
-    Avec notre vaste sélection d'équipements de qualité, mise à disposition par des particuliers comme vous, vous pouvez trouver tout ce dont vous avez besoin pour vos activités sportives préférées.
-    Nous facilitons la mise en relation entre locataires et propriétaires, garantissant une expérience fluide, sécurisée et conviviale pour tous.
-    Rejoignez-nous dès aujourd'hui et découvrez comment keella peut transformer votre manière de pratiquer le sport, en rendant l'accès à l'équipement plus facile et plus économique que jamais !
-    </p>
-  </div>
+<div class="jumbotron text-center" style="background-image: url('<%= asset_path('jumbotron.jpg') %>'); background-size: cover; background-position: center; height: 70vh; color: white;">
+  <h1>(Re)Découvrez vos talents sportifs</h1>
+  <h5 class="mb-4">Ici, vous pourrez louer ou mettre à disposition des équipements et des locaux sportifs partout en France</h5>
 </div>
+
+
 <div class="container">
-  <div class="row justify-content-center align-items-center vh-100" >
-    <h5 class="col-12 text-center" style="max-width: 30rem;">Vous disposez d’équipement sportif de qualité et vous souhaitez les partagés avec la communauté ? </h5>
+  <div class="row justify-content-center align-items-center " >
+    <h1 class="text-center mt-5" >Vous disposez d'équipements sportifs de qualité et vous souhaitez les partager avec la communauté ?</h1>
     <div class="card border-0 d-flex justify-content-center mb-4">
       <%=  image_tag "landing_page2.png", alt: "image de profile" %>
     </div>
     <div class="d-flex justify-content-center">
-      <%= link_to "Proposez votre équipement a la communauté", new_workout_path, class: "btn btn-outline-secondary btn-lg m-0" %>
+      <%= link_to "Proposez vos équipements à la communauté", new_workout_path, class: "btn btn-outline-secondary btn-lg m-0" %>
     </div>
   </div>
 </div>
 <div class="album py-5 text-center container">
+  <h1>Nos dernières salles à disposition</h1>
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
     <% @workouts.take(3).each_with_index do |workout, index| %> 
       <a href="<%= workout_path(workout) %>">
@@ -70,4 +59,21 @@
 </div>
 <div class="d-flex justify-content-center">
   <%= link_to "Voir toutes les locations", workouts_path, class: "btn btn-outline-secondary btn-lg m-0" %>
+</div>
+<h4 class="mt-5 text-center">Ici, vous pourrez louer des équipements et des locaux sportifs partout en France.</h4>
+<div class="p-2 border-0 bd-example m-0 border-0 row row-cols-1 row-cols-md-2 g-4">
+
+  <div class="col"> 
+      <div class="card ms-auto h-100" >
+        <%=  image_tag "landing_page1.jpg", alt: "image de profile" %>
+      </div>
+  </div>
+  <div class="me-auto h-100 mt-5" >
+    <p>Bonjour et bienvenue chez Keella !
+    Nous sommes votre plateforme de référence pour la location d'équipements sportifs entre particuliers.
+    Que vous soyez un passionné de sport à la recherche d'équipements ou un propriétaire désireux de rentabiliser vos articles sportifs, nous avons la solution pour vous.
+    Avec notre vaste sélection d'équipements de qualité,mise à disposition par des particuliers comme vous, vous pouvez trouver tout ce dont vous avez besoin pour vos activités sportives préférées.
+    Nous facilitons la mise en relation entre locataires et propriétaires, garantissant une expérience fluide, sécurisée et conviviale pour tous.
+    Rejoignez-nous dès aujourd'hui et découvrez comment Keella peut transformer votre manière de pratiquer le sport, en rendant l'accès aux équipements plus facile et plus économique que jamais !</p>
+  </div>
 </div>
