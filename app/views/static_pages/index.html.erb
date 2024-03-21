@@ -1,30 +1,38 @@
-<h1>Bien venu dans la landing page</h1>
-<ul>
-  <% if user_signed_in? %>
-    <li>
-      <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
-    </li>
+<div class="p-3 mt-3 border-0 bd-example m-0 border-0 row row-cols-1 row-cols-md-2 g-4">
+  <div class="col"> 
+      <div class="card ms-auto h-100" >
+        <%=  image_tag "landing_page1.jpg", alt: "image de profile" %>
+      </div>
+  </div>
+  <div class="me-auto h-100 mt-5" >
+    <h1 class="mb-4">(Re)Découvrez vos talents sportifs</h1>
+    <h5 class="mb-4">Ici, vous pouvez loué un lieu de sport partout en france</h5>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+    Donec dapibus malesuada enim eu dapibus. 
+    Donec tempor orci ut orci tempus vulputate. 
+    In eleifend nibh quis lacus luctus, vitae mattis lorem cursus. 
+    Mauris consequat laoreet est nec consectetur. Integer non tempor nunc. 
+    Phasellus imperdiet purus eu turpis venenatis, eget molestie risus finibus. 
+    Mauris eu tortor mi. Aliquam imperdiet eros vitae feugiat ullamcorper. 
+    Nunc porttitor mollis mauris, ac rhoncus metus finibus molestie.
+    </p>
+  </div>
+</div>
+<div class="d-flex justify-content-center p-5 mb-2 ">
+  <div class="h-100" >
+    <h5 class="text-center mb-4 ms-5" style="max-width: 30rem;">Vous disposez d’équipement sportif de qualité et vous souhaitez les partagés avec la communauté ? </h5>
+    <div class="card d-flex justify-content-center mb-4">
+      <%=  image_tag "landing_page2.png", alt: "image de profile" %>
+    </div>
+    <div class="d-flex justify-content-center">
+      <button type="button" class="btn btn-outline-secondary btn-lg m-0 ">Proposez votre équipement a la communauté</button>
+    </div>
+  </div>
+</div>
 
-    <li>
-      Voici ton email : <%= current_user.email %>
-    </li>
 
-    <li>
-       
-    </li>
 
-    <li>
-      <%= link_to "Edit email / password", edit_user_registration_path %>
-    </li>
 
-  <% else %>
-    <li>    
-      <i class="bi bi-arrow-right-short"></i><%= link_to "Sign in", new_user_session_path %>
-    </li>
-
-    <li>
-      <i class="bi bi-arrow-right-short"></i><%= link_to "Sign up", new_user_registration_path %>
-    </li>
-
-  <% end %>
-</ul>
+<div class="d-flex justify-content-center">
+  <%= link_to "Voir toutes les locations", workouts_path, class: "btn btn-outline-secondary btn-lg m-0" %>
+</div>

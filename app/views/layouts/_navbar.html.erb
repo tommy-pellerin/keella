@@ -35,7 +35,7 @@
             <% if user_signed_in? %> 
             <li><a class="dropdown-item" href="#">Mes réservations</a></li>
             <li><a class="dropdown-item" href="#">Proposer une séance</a></li>
-            <li><a class="dropdown-item" href="users">Mon compte</a></li>
+            <li><%= link_to "Mon compte", user_registration_path, class: "dropdown-item" %></li>
             <li><%= button_to "Se deconnecter", destroy_user_session_path, method: :delete, data: {turbo: true, turbo_method: :delete, turbo_confirm: "Vous etes sure de vouloir vous déconnecter ?"}, class: "dropdown-item" %></li>
             <% else %>
             <li><%= link_to "Se connecter", new_user_session_path, class: "dropdown-item" %></li>
