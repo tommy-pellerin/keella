@@ -1,5 +1,5 @@
 <section class="text-center py-5 bg-secondary">
-  <div><%= image_tag 'logokeella.png', alt: "workout-image" %></div>
+  <div><%= image_tag 'logokeella.png', alt: "workout-image", class:"img-fluid" %></div>
 </section>
 <div class="container">
   <section>
@@ -10,10 +10,18 @@
         <p>Lieu : <%= @workout.location %></p>
         <p>Ville : <%= @workout.city.name %></p>
         <hr>
-        <div>
-          <div>Logo hote</div>
-          <div><%= @workout.host.email %></div>
-          <div><i class="bi bi-star-fill">Note de l'hote</i></div>
+        <div class="media">
+          <div class="media-body small">
+            <div>
+              <a href="<%= user_path(@workout.host.id) %>">
+                <div>
+                  <img alt="32x32" class="mr-2 rounded mb-1 bg-dark" style="width: 32px; height: 32px;" src="../assets/iconeuser.png" data-holder-rendered="true">
+                  <strong class="text-gray-dark"><%= @workout.host.email %></strong>
+                </div>
+              </a>
+            </div>            
+            <span><i class="bi bi-star-fill">Note de l'hote</i></span>
+          </div>
         </div>
         <hr>
         <h3>Description</h3>
@@ -22,9 +30,6 @@
         <div>
           <h3>Equipements</h3>
           <ul>
-            <li>Caractéristique 1</li>
-            <li>Caractéristique 2</li>
-            <li>Caractéristique 3</li>
           </ul>
         </div>
       </div>
@@ -37,7 +42,7 @@
               <span class="card-title">par séance</span>
             </div>
             <h6>Nombre de participant maximum : <%= @workout.participant_number %></h6>
-            <span>Nombre de place restant : <%= @place_available %></span>  
+            <span>Nombre de place restante : <%= @place_available %></span>  
             <ul>
               <li>Date de début : <strong><%= @workout.start_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
               <li>Date de fin : <strong><%= @workout.end_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
