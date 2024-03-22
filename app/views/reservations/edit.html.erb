@@ -1,0 +1,8 @@
+<div>
+  <p>Veuillez vérifier les places disponible avant d'accepter une personne</p>
+  <div>
+    <%= button_to "Accepter", workout_reservation_path(@reservation, host_decision: "accepted"), method: :patch, class:"btn btn-primary" %>
+    <%= button_to 'Refuser', workout_reservation_path(@reservation, host_decision: "refused"), method: :patch, class:"btn btn-danger" %>
+    <%= link_to 'Voir le profil', user_path(@user.id), class:"btn btn-info" %>
+  </div>
+</div>

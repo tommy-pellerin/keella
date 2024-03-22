@@ -4,13 +4,16 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
   
-  after_commit :welcome_send, if: :email_confirmed?
-
+  
   has_many :reservations
   has_many :reserved_workouts, through: :reservations, source: :workout
   has_many :hosted_workouts, foreign_key: 'host_id', class_name: 'Workout'
   belongs_to :city, optional: true
 
+  def after_confirmation
+    welcome_send
+  end
+  
   def welcome_send
     UserMailer.welcome_email(self).deliver_now
   end
@@ -20,6 +23,8 @@ class User < ApplicationRecord
   def email_confirmed?
     self.confirmed_at.present?
   end
+
+  
 
 
 end

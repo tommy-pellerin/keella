@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Keella</title>
+    <link rel="icon" type="image/x-icon" href="<%= image_path('favicon_keella.png') %>">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -13,6 +14,7 @@
 
   <body data-turbo="false">
     <%= render "layouts/navbar" %>
+    <%= render 'layouts/flash'%>
     <%= yield %>
 
     <%= render 'layouts/footer' %>

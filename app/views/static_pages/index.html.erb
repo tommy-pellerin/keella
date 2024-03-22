@@ -1,30 +1,96 @@
-<h1>Bien venu dans la landing page</h1>
-<ul>
-  <% if user_signed_in? %>
-    <li>
-      <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
-    </li>
+<div class="jumbotron text-center" style="background-image: url('<%= asset_path('jumbotron.jpg') %>'); background-size: cover; background-position: center; height: 70vh; color: white;">
+  <h1>(Re)Découvrez vos talents sportifs</h1>
+  <h5 class="mb-4">Ici, vous pourrez louer ou mettre à disposition des équipements et des locaux sportifs partout en France</h5>
+</div>
 
-    <li>
-      Voici ton email : <%= current_user.email %>
-    </li>
 
-    <li>
-       
-    </li>
+<div class="container">
+  <div class="row justify-content-center align-items-center " >
+    <h1 class="text-center mt-5" >Vous disposez d'équipements sportifs de qualité et vous souhaitez les partager avec la communauté ?</h1>
+    <div class="card border-0 d-flex justify-content-center mb-4">
+      <%=  image_tag "landing_page2.png", alt: "image de profile" %>
+    </div>
+    <div class="d-flex justify-content-center">
+      <%= link_to "Proposez vos équipements à la communauté", new_workout_path, class: "btn btn-outline-secondary btn-lg m-0" %>
+    </div>
+  </div>
+</div>
+<div class="album py-5 text-center container">
+  <h1>Nos dernières salles à disposition</h1>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    <% @workouts.take(3).each_with_index do |workout, index| %> 
+      <a href="<%= workout_path(workout) %>" class="text-decoration-none">
+      <div class="card shadow" style="max-width: 50rem; height: 450px;">
+              <div style="height: 200px; overflow: hidden;">
+                  <%= image_tag 'logokeella.png', alt: "workout-image", style:"width: 100%; height: 100%; object-fit: cover;"  %>
+              </div>
+                  <div class="card-title-container m-1 border rounded p-2">
+                      <h5 class="card-title"><%= workout.title %></h5>
+                          <i class="bi bi-star-fill">Note de l'hote</i>
+              </div>
+              <div class="row">
+                  <div class="col">
+                      <ul class="list-group list-group-flush">
+                          <li class="list-group-item border-0">
+                              <%= workout.price %>
+                              <i class="bi bi-currency-euro"></i>
+                          </li>
 
-    <li>
-      <%= link_to "Edit email / password", edit_user_registration_path %>
-    </li>
+                          <li class="list-group-item border-0">
+                              <% if workout.places_available > 0 %>
+                                  <i class="bi bi-person-fill-check"></i>
+                              <% else %>
+                                  <i class="bi bi-person-fill-lock"></i>
+                              <% end %>
+                                  Nombre de places restantes : <%= workout.places_available %>
+                          </li>
+                      </ul>
+                  </div>
+              
+                  <div class="col">
+                      <ul class="list-group list-group-flush">
+                          <li class="list-group-item border-0">
+                              <i class="bi bi-calendar-check"></i>
+                              <%= workout.start_date.strftime("%d/%m/%Y %H:%M") %>
+                          </li>
 
-  <% else %>
-    <li>    
-      <i class="bi bi-arrow-right-short"></i><%= link_to "Sign in", new_user_session_path %>
-    </li>
+                          <li class="list-group-item border-0">
+                              <i class="bi bi-calendar-x-fill"></i>
+                              <%= workout.end_date.strftime("%d/%m/%Y %H:%M") %>
+                          </li>
+                      </ul>
+                   </div>
 
-    <li>
-      <i class="bi bi-arrow-right-short"></i><%= link_to "Sign up", new_user_registration_path %>
-    </li>
+                  <li class="list-group-item border-0">
+                      <div class="text-center" style="display: flex; justify-content: center; align-items: center; margin: auto;">
+                          <i class="bi bi-geo-alt"></i>
+                          <%= workout.city.name %>
+                      </div>
+                  </li>
+                  
+              </div>
+          </div>
+      </a>
+    <% end %>
+  </div>
+</div>
+<div class="d-flex justify-content-center">
+  <%= link_to "Voir toutes les locations", workouts_path, class: "btn btn-outline-secondary btn-lg m-0" %>
+</div>
+<h4 class="mt-5 text-center">Ici, vous pourrez louer des équipements et des locaux sportifs partout en France.</h4>
+<div class="p-2 border-0 bd-example m-0 border-0 row row-cols-1 row-cols-md-2 g-4">
 
-  <% end %>
-</ul>
+  <div class="col"> 
+      <div class="card ms-auto h-100" >
+        <%=  image_tag "landing_page1.jpg", alt: "image de profile" %>
+      </div>
+  </div>
+  <div class="me-auto h-100 mt-5" >
+    <p>Bonjour et bienvenue chez Keella !
+    Nous sommes votre plateforme de référence pour la location d'équipements sportifs entre particuliers.
+    Que vous soyez un passionné de sport à la recherche d'équipements ou un propriétaire désireux de rentabiliser vos articles sportifs, nous avons la solution pour vous.
+    Avec notre vaste sélection d'équipements de qualité,mise à disposition par des particuliers comme vous, vous pouvez trouver tout ce dont vous avez besoin pour vos activités sportives préférées.
+    Nous facilitons la mise en relation entre locataires et propriétaires, garantissant une expérience fluide, sécurisée et conviviale pour tous.
+    Rejoignez-nous dès aujourd'hui et découvrez comment Keella peut transformer votre manière de pratiquer le sport, en rendant l'accès aux équipements plus facile et plus économique que jamais !</p>
+  </div>
+</div>

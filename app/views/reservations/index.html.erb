@@ -1,0 +1,45 @@
+
+<section class="bg-primary py-5 text-center">
+    <h1 class="text-light">Réservations</h1>
+</section>
+<br>
+
+<section class="container align-items-center justify-content-center">
+<% @reservations.each do |reservation| %>
+    <div class="card mb-2 border border-2" style="max-width: 100%">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <%= image_tag 'logokeella.png', alt: "workout-image", class: "img-fluid" %>
+            </div>
+                <div class="col-md-8">
+                <div class="card-body">
+                        <h5 class="card-title"><%= reservation.workout.title %></h5>
+                        <p class="card-text">Utilisateur : <%= reservation.user.email %></p>
+                        <p class="card-text">Date du début de l'entraînement : <%= reservation.workout.start_date.strftime("%d/%m/%Y %H:%M") %></p>
+                        <p class="card-text">Date de fin de l'entraînement : <%= reservation.workout.end_date.strftime("%d/%m/%Y %H:%M") %></p>
+                        <p class="card-text">Status : <%= reservation.status %></p>
+                        <p class="card-text"><small class="text-body-secondary">Date de la réservation <%= reservation.created_at.strftime("%d/%m/%Y %H:%M") %></small></p>
+                    <div class="row">
+                        <div class="btn-group">
+                            <% if reservation.status == 'accepted' %>
+                            <%= button_to 'Confirmer fin de séance', reservation_path(reservation, decision: "closed"), method: :patch, class: 'btn btn-primary' %>
+                                <%= button_to 'Annuler', reservation_path(reservation, decision: "cancelled"), method: :patch, class: 'btn btn-danger' %>
+                            <% elsif reservation.status == 'pending' %>
+                                <%= button_to 'Relancer la demande', '#', method: :get, class: 'btn btn-secondary disabled' %>
+                            <% elsif reservation.status == 'refused' %>
+
+                            
+                            <% elsif reservation.status == 'closed' %>
+                                <%= button_to 'Laisse un commentaire', '#', method: :get, class: 'btn btn-secondary disabled' %>
+                                <%= button_to 'Laisse une note', '#', method: :get, class: 'btn btn-secondary disabled' %>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  <% end %>
+</section>
+  
+  
