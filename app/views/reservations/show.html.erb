@@ -3,66 +3,75 @@
 </section>
 <section class="container shadow rounded py-5">
     <div class="table-responsive small">
-        <table class="table table-striped table-sm">
+        <table class="table table-striped ">
 
-          <tbody>
+        <tbody class="table-group-divider">
         <%@workouts.each do |workout|%>
-                  <thead>
-            <tr>
+                  <thead >
+            <tr class="table-primary">
               <th scope="col">Titre</th>
               <th scope="col">Adresse</th>
-              <th scope="col">prix</th>
-              <th scope="col">Nombre de participant</th>
+              <th scope="col">Prix</th>
+              <th scope="col">Capacité</th>
+              <th scope="col">Place disponible</th>
               <th scope="col">Date</th>
               <th scope="col">Début / Fin</th>
               <th scope="col">Durée</th>
               <th scope="col">Boutons</th>
             </tr>
           </thead>
-                    <tbody>
+        <tbody class="table-group-divider">
         <tr>
               <td><%=workout.title%></td>
               <td><%=workout.location%></td>
               <td><%=workout.price%> €</td>
-              <td><%=workout.participant_number%></td>
+              <td><%=workout.participant_number%> personnes</td>
+              <td><%=workout.participant_number.to_i - workout.reservations.count%></td>
               <td><%=workout.start_date.strftime("%d %B %Y")%></td>
               <td>De <%=workout.start_date.strftime("%H:%M")%> à <%=workout.end_date.strftime("%H:%M")%></td>
               <td><%=workout.duration / 60%> minutes</td>
                 <td>
                 <div class="btn-group">
-                <%= link_to "Consulter la page workout", workout_path(workout), class: 'btn btn-success btn-sm'%>
-                <%= link_to "Modifier le workout", edit_workout_path(workout), class: 'btn btn-warning  btn-sm'%>
+                <%= link_to "Voir la page workout", workout_path(workout), class: 'btn btn-success'%>
+                <%= link_to "Modifier le workout", edit_workout_path(workout), class: 'btn btn-warning'%>
                 </div>
                 </td>
             </tr>
             <thead>
-                <tr>
+                <tr class="table-success">
                     <th scope="col"></th>
                     <th scope="col">Email</th>
+                    <th scope="col">Note</th>
+                    <th scope="col">Ville</th>
                     <th scope="col">Status</th>
-                    <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody >
             <%workout.reservations.each do |participant|%>
                  <td class="bg-tertiary"></td>
                     <td><%=participant.user.email%></td>
+                    <td>⭐️</td>
+                    <td><%=participant.user.city.name%></td>
                     <td><%=participant.status%></td>
-                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
                 <td>
                 <div class="btn-group">
-                <%= link_to "Consulter la page Profil", user_path(participant.user), class: 'btn btn-success btn-sm'%>
-                <%= link_to "Accepter/refuser la reservation", edit_user_reservation_path(workout), class: 'btn btn-danger btn-sm'%>
+                    <%= link_to "Consulter la page Profil", user_path(participant.user), class: 'btn btn-success btn-sm'%>
+                    <% if participant.status == "pending"%>
+                        <%= link_to "Accepter/refuser la reservation", edit_user_reservation_path(participant,workout), class: 'btn btn-warning btn-sm'%>
+                    <% else%>
+                        <%= link_to "Accepter/refuser la reservation 🔒", edit_user_reservation_path(participant,workout), class: 'btn btn-warning btn-sm disabled'%>
+                    <%end%> 
                 </div>
                 </td>
                 </tr>
+     
                 <%end%>         
         <%end%>
           </tbody>
