@@ -73,4 +73,3 @@ gem 'table_print'
 gem "dockerfile-rails", ">= 1.6", :group => :development
 gem 'faker'
 gem 'pg_search'
-gem 'hotwire-rails'
