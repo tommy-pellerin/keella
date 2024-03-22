@@ -15,11 +15,12 @@ class HostMailer < ApplicationMailer
     mail(to: @host.email, subject: 'Demande de reservation !') 
   end
 
-  def payment_confirmation(reservation)
+  def evaluate_user(reservation)
     @reservation = reservation
     @host = @reservation.workout.host
     @user = @reservation.user
     @workout = @reservation.workout
-    mail(to: @host.email, subject: 'Confirmation de paiement')
+    mail(to: @host.email, subject: 'Séance terminée, merci pour votre confiance')
   end
+
 end

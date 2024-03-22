@@ -28,13 +28,13 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: 'Mauvaise nouvelle, votre réservation a été refusée')
   end
 
-  # def evaluate_email(reservation)
-  #   @reservation = reservation
-  #   @host = @reservation.workout.host
-  #   @user = @reservation.user
-  #   @workout = @reservation.workout
-  #   mail(to: @user.email, subject: 'Séance terminée, merci pour votre confiance')
-  # end
+  def evaluate_host(reservation)
+    @reservation = reservation
+    @host = @reservation.workout.host
+    @user = @reservation.user
+    @workout = @reservation.workout
+    mail(to: @user.email, subject: 'Séance terminée, merci pour votre confiance')
+  end
 
 
 
