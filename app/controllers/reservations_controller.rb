@@ -8,6 +8,11 @@ class ReservationsController < ApplicationController
     @reservations = current_user.reservations.order(created_at: :desc)
     
   end
+
+  def show
+    @user = User.find(params[:user_id])
+    @workouts = Workout.where(host_id: @user.id).order(created_at: :desc)
+  end
   
   def create
     puts "#"*50
