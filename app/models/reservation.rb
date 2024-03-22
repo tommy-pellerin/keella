@@ -30,7 +30,9 @@ class Reservation < ApplicationRecord
 
   def workout_cancelled
     UserMailer.workout_cancelled(self).deliver_now
-    HostMailer.workout_cancelled(self).deliver_now
+    if self.workout.reservations.order(:created_at).first == self
+      HostMailer.workout_cancelled(self).deliver_now
+    end
   end
 
   def reservation_cancelled

@@ -31,7 +31,7 @@ class ReservationsController < ApplicationController
       #send email to host => this job is done by the model itself with the callback after_create
       #reserve paiement => paiement status = pending
 
-      redirect_to @workout, notice: "Votre demande de réservation a bien été envoyée. Vous recevrez un email dès que le coach aura pris une décision."
+      redirect_to @workout, notice: "Votre demande de réservation a bien été envoyée. Vous recevrez un email dès que l'hote aura pris une décision."
     else
       flash[:alert] = @reservation.errors.full_messages.join(", ")
       redirect_to @workout
