@@ -61,9 +61,9 @@ class ReservationsController < ApplicationController
       @reservation.save
       #refund user
       #send email to user to notify
-    # elsif decision == "cancelled"
-    #   @reservation.status = "cancelled"
-    #   @reservation.save
+     elsif decision == "cancelled"
+       @reservation.status = "cancelled"
+       @reservation.save
       #send email to host to notify
     end
     puts "$"*50
