@@ -51,22 +51,22 @@
                 </tr>
             </thead>
             <tbody >
-            <%workout.reservations.each do |participant|%>
+            <%workout.reservations.each do |reservation|%>
                  <td class="bg-tertiary"></td>
-                    <td><%=participant.user.email%></td>
+                    <td><%=reservation.user.email%></td>
                     <td>⭐️</td>
-                    <td><%=participant.user.city.name%></td>
-                    <td><%=participant.status%></td>
+                    <td><%=reservation.user.city.name%></td>
+                    <td><%=reservation.status%></td>
                     <td></td>
                     <td></td>
                     <td></td>
                 <td>
                 <div class="btn-group">
-                    <%= link_to "Consulter la page Profil", user_path(participant.user), class: 'btn btn-success btn-sm'%>
-                    <% if participant.status == "pending"%>
-                        <%= link_to "Accepter/refuser la reservation", edit_user_reservation_path(participant,workout), class: 'btn btn-warning btn-sm'%>
+                    <%= link_to "Consulter la page Profil", user_path(reservation.user), class: 'btn btn-success btn-sm'%>
+                    <% if reservation.status == "pending"%>
+                        <%= link_to "Accepter/refuser la reservation", edit_user_reservation_path(workout,reservation), class: 'btn btn-warning btn-sm'%>
                     <% else%>
-                        <%= link_to "Accepter/refuser la reservation 🔒", edit_user_reservation_path(participant,workout), class: 'btn btn-warning btn-sm disabled'%>
+                        <%= link_to "Accepter/refuser la reservation 🔒", edit_user_reservation_path(workout,reservation), class: 'btn btn-warning btn-sm disabled'%>
                     <%end%> 
                 </div>
                 </td>
