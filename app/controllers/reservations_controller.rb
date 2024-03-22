@@ -53,42 +53,47 @@ class ReservationsController < ApplicationController
     puts params
     puts "#"*50
     @reservation = Reservation.find(params[:id])
-    decision = params[:decision]
+    host_decision = params[:host_decision]
+    user_decision = params[:user_decision]
+    
     puts "$"*50
     puts @reservation.status
 
-    if decision == "accepted"
+    #host_decision zone
+    if host_decision == "accepted"
       @reservation.status = "accepted"
       @reservation.save
       #paiement status = pending
       #send email to user to notify => this job is done by the model itself with the callback after_update
-    elsif decision == "refused"
+    elsif host_decision == "refused"
       @reservation.status = "refused"
       @reservation.save
       #refund user
-      #send email to user to notify
-    # elsif decision == "cancelled"
-    #   @reservation.status = "cancelled"
-    #   @reservation.save
-      #send email to host to notify
-    elsif decision == "closed"
+      #send email to user to notify => this job is done by the model itself with the callback after_update
+    elsif host_decision == "cancelled"
+      @reservation.status = "cancelled"
+      @reservation.save
+      #refund user
+      #send email to user to notify => this job is done by the model itself with the callback after_update
+    end
+
+    #user_decision zone
+    if user_decision == "cancelled"
+      @reservation.status = "cancelled"
+      @reservation.save
+      #refund user
+      #send email to host to notify => this job is done by the model itself with the callback after_update
+    elsif user_decision == "closed"
       @reservation.status = "closed"
       @reservation.save
+      #paie user => paiement status = paid
+      #send email to host to notify => this job is done by the model itself with the callback after_update
+      #send email to user to thank => this job is done by the model itself with the callback after_update
     end
+
     puts "$"*50
     puts @reservation.status
     redirect_to edit_workout_reservation_path(@reservation.workout, @reservation)
-
-    #if user cancel change status to canceled
-      #send email to host to notify
-    #refund user
-      
-    #if user confirm that the workout went well change status to closed
-    # if went_well
-    #   @reservation.status = "closed"
-    #   @reservation.save
-    #   #paie user => paiement status = paid
-    # end
     
   end
 
