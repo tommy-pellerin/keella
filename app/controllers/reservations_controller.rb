@@ -116,7 +116,7 @@ class ReservationsController < ApplicationController
     if @reservation.status != "pending"
       puts "$"*50
       puts "status is not pending"
-      redirect_to root_path, notice: 'Vous avez déjà pris une décision pour cette réservation.'
+      redirect_to root_path #, notice: 'Vous avez déjà pris une décision pour cette réservation.'
     end
   end 
 
