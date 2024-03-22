@@ -1,5 +1,6 @@
 <div class="d-flex justify-content-center align-items-center mt-5">
-    <form class="w-50 me-3" role="search">
-        <input type="search" class="form-control" placeholder="Cherche ta séance en fonction de ta ville..." aria-label="Search">
-    </form>
+        <%= form_with(url: workouts_path, method: :get, local: true, class: "w-50 me-3") do |form| %>
+            <%= form.collection_select :city_id, City.all, :id, :name, { prompt: "Sélectionner une ville" }, class: "form-control" %>
+            <%= form.text_field :query, class: "form-control", placeholder: "Cherche ta séance en fonction de ta ville...", aria: { label: "Search" } %>
+        <% end %>
 </div>

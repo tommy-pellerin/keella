@@ -1,9 +1,11 @@
 class WorkoutsController < ApplicationController
   
   def index
-    @workouts = Workout.all
-
-    
+    if params[:query].present?
+      @workouts = Workout.joins(:city).where("cities.name ILIKE ?", "%#{params[:query]}%")
+    else
+      @workouts = Workout.all
+    end
   end
 
   def show
