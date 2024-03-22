@@ -1,4 +1,8 @@
 class Workout < ApplicationRecord
+  include PgSearch::Model
+  multisearchable against: [:start_date, :end_date, :city]
+  
+  
   belongs_to :host, class_name: "User"
   belongs_to :city
   has_many :reservations

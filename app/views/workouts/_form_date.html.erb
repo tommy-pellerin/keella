@@ -1,0 +1,18 @@
+<div id="workouts_list">
+        <div class="d-flex justify-content-center align-items-center mt-5">
+        <%= form_with(url: workouts_path, method: :get, local: true, class: "w-50 me-3") do |form| %>
+            <%= form.label :start_date, "Date de début" %>
+            <%= form.date_field :start_date, class: "form-control" %>
+          
+            <%= form.label :end_date, "Date de fin" %>
+            <%= form.date_field :end_date, class: "form-control" %>
+
+            <div class="d-flex justify-content-center">
+                <%= form.submit "Afficher les résultats", class: "btn btn-primary mt-3" %>
+            </div>
+          
+            
+          <% end %>
+          
+        </div>
+</div>
