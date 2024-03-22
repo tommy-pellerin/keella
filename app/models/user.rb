@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :reserved_workouts, through: :reservations, source: :workout
   has_many :hosted_workouts, foreign_key: 'host_id', class_name: 'Workout'
   belongs_to :city, optional: true
+  has_one_attached :avatar
 
   def after_confirmation
     welcome_send

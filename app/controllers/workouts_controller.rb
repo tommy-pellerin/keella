@@ -22,7 +22,7 @@ class WorkoutsController < ApplicationController
   def create
     @workout = Workout.create(workout_params)
     if @workout.save
-      redirect_to @workout, notice: 'La séance a été créé avec succès.'
+      redirect_to edit_workout_path(@workout), notice: "Pour Finalisé la création de votre évènement, veuillez ajouter les images ici"
     else
       puts @workout.errors.full_messages.to_sentence
       flash[:error] = "Il y a une erreur lors de la création de la réservation : #{@workout.errors.full_messages.to_sentence}"

@@ -1,7 +1,19 @@
 <div class="p-3 me-5 ms-5 border-0 bd-example row row-cols-1 row-cols-md-2 g-4">
     <div class="col"> 
-        <div class="card ms-auto me-auto" style="max-width: 22rem;">
-            <%=  image_tag "iconeuser.png", alt: "image de profile" %>
+        <div class="card ms-auto text-center me-auto" style="max-width: 22rem;">
+            <h3>Avatar actuel</h3>
+                <%if @user.avatar.attached?%>
+                    <%= image_tag @user.avatar, alt: 'avatar' %>
+                <%else%>
+                    <%=  image_tag "iconeuser.png", alt: "image de profile" %>
+                    <p>Il n'y a pas encore d'avatar lié à cet utilisateur</p>
+                <%end%>
+                 <%if @user == current_user%>
+                    <%= form_tag user_avatars_path(@user), multipart: true do %>
+                        <%= file_field_tag :avatar, class:"fs-6 fw-lighter" %>
+                        <%= submit_tag "uploader l'avatar",class:"btn btn-outline-success btn-sm" %>
+                    <% end %>
+                <% end %>
         </div>
     </div>
     <div class="col">
