@@ -16,7 +16,7 @@ User.destroy_all
 City.destroy_all
 
 10.times do 
-  city = City.create!(name: Faker::Address.city, zip_code: Faker::Address.zip_code)
+  city = City.create!(name: Faker::Address.unique.city, zip_code: Faker::Address.unique.zip_code)
 end
 
 i=0
@@ -44,9 +44,9 @@ end
 
 
 10.times do
-  workout =  Workout.create!(title: Faker::Lorem.sentence(word_count: 3), start_date: Faker::Time.between_dates(from: Date.today + 1, to: Date.today + 3, period: :day), end_date: Faker::Time.between_dates(from: Date.today + 4, to: Date.today + 7, period: :day), description: Faker::Lorem.sentence(word_count: 10), price: Faker::Number.decimal(l_digits: 2), location: Faker::Address.full_address, host: test_hosts.sample, city: City.all.sample, participant_number: Faker::Number.between(from: 1, to: 20))
+  workout =  Workout.create!(title: Faker::Sport.sport(include_ancient: true, include_unusual: true), start_date: Faker::Time.between_dates(from: Date.today + 1, to: Date.today + 3, period: :day), end_date: Faker::Time.between_dates(from: Date.today + 4, to: Date.today + 7, period: :day), description: Faker::Lorem.sentence(word_count: 10), price: Faker::Number.between(from: 0.0, to: 20.0).round(2), location: Faker::Address.full_address, host: test_hosts.sample, city: City.all.sample, participant_number: Faker::Number.between(from: 1, to: 10))
 end
 
 10.times do 
- reservation = Reservation.create!(workout: Workout.all.sample, user: User.all.sample, host_rating: Faker::Number.between(from: 1, to: 5), user_rating: Faker::Number.between(from: 1, to: 5), user_comment: Faker::Lorem.sentence(word_count: 10), host_comment: Faker::Lorem.sentence(word_count: 10), status: 0)
+ reservation = Reservation.create!(workout: Workout.all.sample, user: User.all.sample, status: 0, host_rating: Faker::Number.between(from: 1, to: 5), user_rating: Faker::Number.between(from: 1, to: 5), user_comment: Faker::Lorem.sentence(word_count: 10), host_comment: Faker::Lorem.sentence(word_count: 10))
 end

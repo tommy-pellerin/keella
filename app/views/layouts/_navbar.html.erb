@@ -16,8 +16,13 @@
         </li>
       </ul>
       <ul class="navbar-nav me-1 mb-2 mb-sm-0">
+          <a href="<%= users_path %>">
+            <div class="w-100">
+              <img alt="32x32" class="mr-2 rounded mb-1 bg-dark" style="width: 32px; height: 32px;" src="<%= image_path('iconeuser.png') %>" data-holder-rendered="true">
+            </div>
+          </a>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Connexion</a>
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Menu</a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown03">
             <% if user_signed_in? %> 
             <li><%= link_to "Mes réservations", user_reservations_path(current_user), class: "dropdown-item" %></li>
