@@ -34,7 +34,7 @@ class ReservationsController < ApplicationController
       redirect_to @workout, notice: "Votre demande de réservation a bien été envoyée. Vous recevrez un email dès que le coach aura pris une décision."
     else
       flash[:alert] = @reservation.errors.full_messages.join(", ")
-      render :new
+      redirect_to @workout
     end 
 
   end
@@ -70,16 +70,16 @@ class ReservationsController < ApplicationController
       @reservation.save
       #refund user
       #send email to user to notify => this job is done by the model itself with the callback after_update
-    elsif host_decision == "cancelled"
-      @reservation.status = "cancelled"
-      @reservation.save
+    # elsif host_decision == "host_cancelled"
+    #   @reservation.status = "host_cancelled"
+    #   @reservation.save
       #refund user
       #send email to user to notify => this job is done by the model itself with the callback after_update
     end
 
     #user_decision zone
-    if user_decision == "cancelled"
-      @reservation.status = "cancelled"
+    if user_decision == "user_cancelled"
+      @reservation.status = "user_cancelled"
       @reservation.save
       #refund user
       #send email to host to notify => this job is done by the model itself with the callback after_update
@@ -89,10 +89,13 @@ class ReservationsController < ApplicationController
       #paie user => paiement status = paid
       #send email to host to notify => this job is done by the model itself with the callback after_update
       #send email to user to thank => this job is done by the model itself with the callback after_update
+
+      #if user_decision == "relauched", the status is already "pending" so no need to change it
     end
 
-    puts "$"*50
     puts @reservation.status
+    puts "$"*50
+    
     redirect_to edit_workout_reservation_path(@reservation.workout, @reservation)
     
   end

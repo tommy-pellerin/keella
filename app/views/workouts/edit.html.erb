@@ -65,5 +65,6 @@
                 <%= form.submit "Mettre à jour", class: "w-100 py-2 mb-2 btn btn-primary rounded-3" %>
             </div>
         <% end %>
+        <%= button_to "Supprimer l'annonce", workout_path(@workout), data: {turbo: true, turbo_confirm: "Vous etes sure de vouloir supprimer l'annonce ?"}, method: :delete, class: "w-100 py-2 mb-2 btn btn-danger rounded-3" %>
     </div>
 </section>

@@ -36,6 +36,22 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: 'Séance terminée, merci pour votre confiance')
   end
 
+  def reservation_cancelled(reservation)
+    @reservation = reservation
+    @host = @reservation.workout.host
+    @user = @reservation.user
+    @workout = @reservation.workout
+    mail(to: @user.email, subject: 'Confirmation de l\'annulation de la séance')
+  end
+
+  def workout_cancelled(reservation)
+    @reservation = reservation
+    @host = @reservation.workout.host
+    @user = @reservation.user
+    @workout = @reservation.workout
+    mail(to: @user.email, subject: 'La séance a été annulée par son hote')
+  end
+
 
 
 end
