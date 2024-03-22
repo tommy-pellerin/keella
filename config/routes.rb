@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   
   root "static_pages#index"
   devise_for :users
+  resources :users, only: [:show] do
+    resources :avatars, only: [:create]
+  end
   resources :users do
     resources :reservations
   end
