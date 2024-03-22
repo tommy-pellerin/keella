@@ -26,6 +26,10 @@ class Workout < ApplicationRecord
     (end_date - start_date).to_i
   end
 
+  def places_available
+    participant_number.to_i - reservations.where(status: "accepted").count.to_i
+  end
+
   private
 
   def start_date_in_past?
@@ -35,4 +39,7 @@ class Workout < ApplicationRecord
   def  end_date_after_start_date
     errors.add(:end_date, "doit être après la date de début") if end_date.present? && end_date <= start_date
   end
+
+ 
+
 end
