@@ -12,7 +12,7 @@
                 <%= link_to "Supprimer le profile", registration_path(@user), :method => :delete, class: "btn btn-outline-danger", id: "delete_comment_button", data: {turbo: true, turbo_method: :delete, turbo_confirm: "Vous etes sure de vouloir supprimer votre compte ?"} %>
                 <div class="card-footer mt-2">
                     <p>Email: <%= @user.email %></p>
-                    <p>Ville: <%= @user.city.name %></p>
+                    <p>Ville: <%= @user.city %></p>
                 </div>
             </div>
         </div>

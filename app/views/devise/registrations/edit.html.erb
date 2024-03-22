@@ -1,41 +1,47 @@
-<main class=" d-flex align-items-center pt-5 my-5 ">
+<main class="d-flex align-items-center pt-5 my-5 ">
   <div class="form-signin w-40 m-auto">
     <div class="modal-body p-5 rounded-4 shadow bg-body-tertiary">
       <h2>Modifier mon compte</h2>
 
-      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
         <%= render "devise/shared/error_messages", resource: resource %>
 
         <div class="field">
           <%= f.label :email,class:"floatingInput" %><br />
           <%= f.email_field :email, autofocus: true, autocomplete: "email",class:"form-control" %>
         </div>
-        <br>
+
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+        <% end %>
+
         <div class="field">
-          <%= f.label :mot_de_passe,class:"floatingInput" %> <i>(laissez vide si vous ne voullez pas changer)</i><br />
-          <%= f.password_field :mot_de_passe, autocomplete: "new-password",class:"form-control" %>
+          <%= f.label :mot_de_passe,class:"floatingInput mt-2" %> <i>(laissez vide si vous ne voullez pas changer)</i><br />
+          <%= f.password_field :password, autocomplete: "new-password",class:"form-control" %>
           <% if @minimum_password_length %>
-            <br />
             <em><%= @minimum_password_length %> caractères minimum</em>
           <% end %>
         </div>
-        <br>
+
         <div class="field">
-          <%= f.label :confirmer_le_mot_de_passe,class:"floatingInput" %><br />
+          <%= f.label :confirmez_le_mot_de_passe,class:"floatingInput mt-2" %><br />
           <%= f.password_field :password_confirmation, autocomplete: "new-password",class:"form-control" %>
         </div>
-        <br>
+
         <div class="field">
-          <%= f.label :mot_de_passe_actuel,class:"floatingInput" %> <i>(Nous avons besoin de votre mot de passe actuel pour confirmer)</i><br />
+          <%= f.label :mot_de_passe_actuel,class:"floatingInput mt-2" %> <i>(Nous en avons besoin pour confirmer les modifications)</i><br />
           <%= f.password_field :current_password, autocomplete: "current-password",class:"form-control" %>
         </div>
-        <br>
+
         <div class="actions">
-        <%= f.submit "Update",class:"w-100 py-2 mb-2 btn btn-outline-primary rounded-3" %>
-      </div>
-      <br>
+          <%= f.submit "Mettre à jour",class:"w-100 py-2 mb-2 mt-2 btn btn-outline-primary rounded-3" %>
+        </div>
       <% end %>
-      <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete,class:"w-100 py-2 mb-2 btn btn-outline-danger rounded-3" %>
+
+      <h3>Supprimer mon compte</h3>
+
+      <div><%= link_to "Supprimer le profile", registration_path(@user), :method => :delete,class:"w-100 py-2 mb-2 mt-2 btn btn-outline-danger rounded-3", id: "delete_comment_button", data: {turbo: true, turbo_method: :delete, turbo_confirm: "Vous etes sure de vouloir supprimer votre compte ?"} %></div>
+
       <%= link_to "Back", :back %>
     </div>
   </div>
