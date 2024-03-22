@@ -1,10 +1,15 @@
 class WorkoutsController < ApplicationController
   
   def index
-    if params[:query].present?
-      @workouts = Workout.joins(:city).where("cities.name ILIKE ?", "%#{params[:query]}%")
+    if params[:city_id].present?
+      @workouts = Workout.where(city_id: params[:city_id])
     else
       @workouts = Workout.all
+    end
+  
+    respond_to do |format|
+      format.html
+      format.turbo_stream
     end
   end
 
