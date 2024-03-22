@@ -1,7 +1,7 @@
 class ReservationsController < ApplicationController
   before_action :authenticate_user!
   before_action :is_host?, only: [:edit]
-  # before_action :status_is_pending?, only: [:edit]
+  before_action :status_is_pending?, only: [:edit]
   before_action :no_cache, only: [:edit]
 
   def index
@@ -36,9 +36,9 @@ class ReservationsController < ApplicationController
   def edit
     @reservation = Reservation.find(params[:id])
     @user = @reservation.user
-    if @reservation.status != "pending"
-      redirect_to root_path, alert: "Vous avez déjà pris une décision pour cette réservation."
-    end
+    # if @reservation.status != "pending"
+    #   redirect_to root_path, alert: "Vous avez déjà pris une décision pour cette réservation."
+    # end
   end
 
   def update
@@ -91,17 +91,17 @@ class ReservationsController < ApplicationController
     end
   end
 
-  # def status_is_pending?
-  #   puts "#"*50
-  #   puts params
-  #   puts  "#"*50
-  #   @reservation = Reservation.find(params[:id])
-  #   if @reservation.status != "pending"
-  #     puts "$"*50
-  #     puts "status is not pending"
-  #     redirect_to root_path, notice: 'Vous avez déjà pris une décision pour cette réservation.'
-  #   end
-  # end 
+  def status_is_pending?
+    puts "#"*50
+    puts params
+    puts  "#"*50
+    @reservation = Reservation.find(params[:id])
+    if @reservation.status != "pending"
+      puts "$"*50
+      puts "status is not pending"
+      redirect_to root_path, notice: 'Vous avez déjà pris une décision pour cette réservation.'
+    end
+  end 
 
   def no_cache
     response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
