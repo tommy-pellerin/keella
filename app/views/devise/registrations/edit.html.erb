@@ -11,12 +11,17 @@
           <%= f.email_field :email, autofocus: true, autocomplete: "email",class:"form-control" %>
         </div>
 
+        <div class="field">
+          <%= f.label :current_password,class:"floatingInput mt-2" %> <i>(Nous en avons besoin pour confirmer les modifications)</i><br />
+          <%= f.password_field :current_password, autocomplete: "current-password",class:"form-control" %>
+        </div>
+
         <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
           <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
         <% end %>
 
         <div class="field">
-          <%= f.label :mot_de_passe,class:"floatingInput mt-2" %> <i>(laissez vide si vous ne voullez pas changer)</i><br />
+          <%= f.label :password,class:"floatingInput mt-2" %> <i>(laissez vide si vous ne voulez pas le changer)</i><br />
           <%= f.password_field :password, autocomplete: "new-password",class:"form-control" %>
           <% if @minimum_password_length %>
             <em><%= @minimum_password_length %> caractères minimum</em>
@@ -24,14 +29,10 @@
         </div>
 
         <div class="field">
-          <%= f.label :confirmez_le_mot_de_passe,class:"floatingInput mt-2" %><br />
+          <%= f.label :password_confirmation,class:"floatingInput mt-2" %><br />
           <%= f.password_field :password_confirmation, autocomplete: "new-password",class:"form-control" %>
         </div>
 
-        <div class="field">
-          <%= f.label :mot_de_passe_actuel,class:"floatingInput mt-2" %> <i>(Nous en avons besoin pour confirmer les modifications)</i><br />
-          <%= f.password_field :current_password, autocomplete: "current-password",class:"form-control" %>
-        </div>
 
         <div class="actions">
           <%= f.submit "Mettre à jour",class:"w-100 py-2 mb-2 mt-2 btn btn-outline-primary rounded-3" %>
