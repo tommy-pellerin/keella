@@ -10,7 +10,7 @@
                 <%end%>
                  <%if @user == current_user%>
                     <%= form_tag user_avatars_path(@user), multipart: true do %>
-                        <%= file_field_tag :avatar, class:"fs-6 fw-light" %>
+                        <%= file_field_tag :avatar, class:"fs-6 fw-lighter" %>
                         <%= submit_tag "uploader l'avatar",class:"btn btn-outline-success btn-sm" %>
                     <% end %>
                 <% end %>

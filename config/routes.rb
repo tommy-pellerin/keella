@@ -3,14 +3,20 @@ Rails.application.routes.draw do
   
   root "static_pages#index"
   devise_for :users
-  resources :users, only: [:show] do
-    resources :avatars, only: [:create]
-  end
+
   resources :users do
     resources :reservations
   end
   resources :workouts do
     resources :reservations
+  end
+  resources :users, only: [:show] do
+    resources :avatars, only: [:create]
+  end
+  resources :workouts, only: [:edit] do
+    resources :image1, only: [:create]
+    resources :image2, only: [:create]
+    resources :image3, only: [:create]
   end
 
   resources :reservations do    
