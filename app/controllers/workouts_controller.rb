@@ -1,8 +1,12 @@
 class WorkoutsController < ApplicationController
   
   def index
-    @workouts = Workout.all
-    
+    if params[:city_id].present?
+      @workouts = Workout.where(city_id: params[:city_id])
+    else
+      @workouts = Workout.all
+    end
+  
   end
 
   def show
