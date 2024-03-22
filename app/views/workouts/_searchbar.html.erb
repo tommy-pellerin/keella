@@ -2,7 +2,6 @@
         <div class="d-flex justify-content-center align-items-center mt-5">
             <%= form_with(url: workouts_path, method: :get, local: true, class: "w-50 me-3") do |form| %>
             <%= form.collection_select :city_id, City.all, :id, :name, { prompt: "Sélectionner une ville" }, { class: "form-control", id: "city_select", data: { action: "change->workouts#update" } } %>
-            
                 <div class="d-flex justify-content-center">
                     <%= form.submit "Afficher les résultats", class: "btn btn-primary mt-3" %>
                 </div>
