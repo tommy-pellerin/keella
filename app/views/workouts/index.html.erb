@@ -29,10 +29,7 @@
                                             Nombre de places restantes : <%= workout.places_available %>
                                     </li>
                                     
-                                    <li class="list-group-item border-0">
-                                        <i class="bi bi-geo-alt"></i>
-                                        <%= workout.city.name %>
-                                    </li>
+                                    
                                 </ul>
                             </div>
                         
@@ -47,10 +44,18 @@
                                         <i class="bi bi-calendar-x-fill"></i>
                                         <%= workout.end_date.strftime("%d/%m/%Y %H:%M") %>
                                     </li>
-
-                                    
                                 </ul>
+                                
+                            
+
+                                
                             </div>
+                            <li class="list-group-item border-0">
+                                <div class="text-center" style="display: flex; justify-content: center; align-items: center; margin: auto;">
+                                    <i class="bi bi-geo-alt"></i>
+                                    <%= workout.city.name %>
+                                </div>
+                            </li>
                         </div>
                     </div>
                 </a>
