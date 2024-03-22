@@ -47,8 +47,13 @@
             <div>
               <a href="<%= user_path(@workout.host.id) %>">
                 <div>
+                <%if @workout.host.avatar.attached?%>
+                  <%= image_tag @workout.host.avatar, alt: '32x32', class:"mr-2 rounded mb-1 bg-dark", style:"width: 32px; height: 32px;" %>
+                  <strong class="text-gray-dark"><%= @workout.host.email %></strong>
+                <%else%>
                   <img alt="32x32" class="mr-2 rounded mb-1 bg-dark" style="width: 32px; height: 32px;" src="../assets/iconeuser.png" data-holder-rendered="true">
                   <strong class="text-gray-dark"><%= @workout.host.email %></strong>
+                <%end%>
                 </div>
               </a>
             </div>            

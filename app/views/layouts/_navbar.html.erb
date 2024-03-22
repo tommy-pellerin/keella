@@ -18,7 +18,11 @@
       <ul class="navbar-nav me-1 mb-2 mb-sm-0">
           <a href="<%= users_path %>">
             <div class="w-100">
-              <img alt="32x32" class="mr-2 rounded mb-1 bg-dark" style="width: 32px; height: 32px;" src="<%= image_path('iconeuser.png') %>" data-holder-rendered="true">
+              <% if user_signed_in? && current_user.avatar.attached? %>
+                <%= image_tag current_user.avatar, alt: '32x32', class:"mr-2 rounded mb-1 bg-dark", style:"width: 32px; height: 32px;" %>
+              <%else%>
+                <img alt="32x32" class="mr-2 rounded mb-1 bg-dark" style="width: 32px; height: 32px;" src="<%= image_path('iconeuser.png') %>" data-holder-rendered="true">
+              <%end%>
             </div>
           </a>
         <li class="nav-item dropdown">
