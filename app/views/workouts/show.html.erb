@@ -79,14 +79,29 @@
               <span class="card-title">par séance</span>
             </div>
             <h6>Nombre de participant maximum : <%= @workout.participant_number %></h6>
-            <span>Nombre de place restante : <%= @place_available %></span>  
+            <span>Nombre de place restante : <%= @workout.places_available %></span>  
             <ul>
               <li>Date de début : <strong><%= @workout.start_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
               <li>Date de fin : <strong><%= @workout.end_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
             </ul>
             <div>
-              <% if @place_available > 0 %>
+              <div class="d-flex justify-content-between">
+                <p><%= @workout.price %> x 1 personnne</p>
+                <p><%= @workout.price %>€</p>
+              </div>
+              <div class="d-flex justify-content-between">
+                <p>Frais de service :</p>
+                <p>1€</p>
+              </div>
+              <div class="d-flex justify-content-between">
+                <p><strong>Total :</strong></p>
+                <p><strong><%= @total %>€</strong></p>
+              </div>
+            </div>
+            <div>
+              <% if @workout.places_available > 0 %>
                 <%= button_to 'Envoyer une demande de réservation', workout_reservations_path(@workout), method: :post, class:"w-100 btn btn-lg btn-primary" %>
+                <%= button_to "Passer commande de #{@total}€", checkout_create_path(total: @total), class: "btn btn-success", remote: true %>
               <% else %>
                 <%= button_to "Il n'y a plus de place", workout_reservations_path(@workout), method: :post, class:"w-100 btn btn-lg btn-primary disabled" %>
               <% end %>
