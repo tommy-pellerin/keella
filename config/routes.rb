@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   
   root "static_pages#index"
+  get '/aide', to: 'static_pages#aide'
   devise_for :users
 
   resources :users do
