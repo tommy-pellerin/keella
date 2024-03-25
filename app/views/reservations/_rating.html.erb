@@ -4,18 +4,15 @@
       Laisse une note
     </button>
     <ul class="dropdown-menu">
-      <% @reservations.each do |reservation| %>
-        <% if reservation.status == 'closed' %>
-          <%= form_with(model: reservation, url: rate_host_reservation_path(reservation), method: :patch, local: true) do |form| %>
-            <%= form.label :host_rating, 'Note pour le host' %>
-            <% 5.times do |i| %>
-              <%= form.radio_button :host_rating, i + 1 %>
-              <i class="bi bi-star-fill"></i>
-            <% end %>
-            <%= form.submit 'Noter le host' %>
-          <% end %>
+    
+        <%= form_with(model: [reservation.workout, reservation], url: rate_host_reservation_path(reservation), method: :patch, local: true) do |form| %>
+          <div class="field">
+            <%= form.label :host_rating, 'Note pour l\'hôte' %>
+            <%= form.number_field :host_rating, in: 1..5, step: 1 %>
+          </div>
+        <%= form.submit 'Noter le hôte' %>
         <% end %>
-      <% end %>
+    
     </ul>
   </div>
 </div>

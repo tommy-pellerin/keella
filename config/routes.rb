@@ -21,7 +21,7 @@ Rails.application.routes.draw do
 
   resources :reservations do    
     patch :update, on: :member 
-    patch :rate_host, on: :member
+    #patch :rate_host, on: :member
     # méthode HTTP PATCH pour l’action update
     # on: :member signifie que cette route s’applique à une instance spécifique de Reservation , 
   end
