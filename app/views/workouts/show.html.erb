@@ -3,22 +3,22 @@
     <div class="carousel-inner">
       <% if @workout.image1.attached? %>
         <div class="carousel-item active">
-          <%= image_tag @workout.image1, alt: 'image1', class: "d-block mx-auto img-fluid", style:"max-height: 800px; max-width: 100%;" %>
+          <%= image_tag @workout.image1, alt: 'image1', class: "d-block mx-auto img-fluid", style:"max-height: 500px; max-width: 100%;" %>
         </div>
       <% else %>
         <div class="carousel-item active">
-          <%= image_tag 'logokeella.png', alt: "workout-image", class: "d-block mx-auto img-fluid", style:"max-height: 800px; max-width: 100%;" %>
+          <%= image_tag 'logokeella.png', alt: "workout-image", class: "d-block mx-auto img-fluid", style:"max-height: 500px; max-width: 100%;" %>
         </div>
       <% end %>
       <!-- Ajoutez ici les autres images du carrousel si nécessaire -->
       <% if @workout.image2.attached? %>
         <div class="carousel-item">
-          <%= image_tag @workout.image2, alt: 'image2', class: "d-block mx-auto img-fluid", style:"max-height: 800px; max-width: 100%;" %>
+          <%= image_tag @workout.image2, alt: 'image2', class: "d-block mx-auto img-fluid", style:"max-height: 500px; max-width: 100%;" %>
         </div>
       <% end %>
       <% if @workout.image3.attached? %>
         <div class="carousel-item">
-          <%= image_tag @workout.image3, alt: 'image3', class: "d-block mx-auto img-fluid", style:"max-height: 800px; max-width: 100%;" %>
+          <%= image_tag @workout.image3, alt: 'image3', class: "d-block mx-auto img-fluid", style:"max-height: 500px; max-width: 100%;" %>
         </div>
       <% end %>
     </div>
