@@ -3,6 +3,9 @@ class ReservationsController < ApplicationController
   before_action :is_host?, only: [:edit]
   before_action :status_is_pending?, only: [:edit]
   before_action :no_cache, only: [:edit]
+  #before_action :set_reservation, only: [:rate_host]
+
+  
 
   def index
     @reservations = current_user.reservations.order(created_at: :desc)
@@ -10,8 +13,11 @@ class ReservationsController < ApplicationController
   end
 
   def show
+    #@reservation = Reservation.find(params[:id])
+    #@user = @reservation.user
     @user = User.find(params[:user_id])
     @workouts = Workout.where(host_id: @user.id).order(created_at: :desc)
+    
   end
   
   def create
@@ -95,12 +101,36 @@ class ReservationsController < ApplicationController
 
     puts @reservation.status
     puts "$"*50
-    
+
     redirect_to edit_workout_reservation_path(@reservation.workout, @reservation)
     
   end
 
+  #def rate_host
+    #if @reservation.user == current_user && @reservation.status == 'closed'
+      #if @reservation.host_rating.nil?
+        #@reservation.update(host_rating: params[:host_rating])
+        #"redirect_to @reservation, notice: 'Votre note a été enregistrée avec succès.'
+      #else
+        #redirect_to @reservation, alert: 'Vous avez déjà noté cette réservation.'
+      #end
+    #else
+      #"redirect_to @reservation, alert: 'Vous ne pouvez pas noter cette réservation.'
+    #end
+  #end
+  
+
+
+
   private
+
+  #def set_reservation
+    #@reservation = Reservation.find(params[:id])
+  #end
+
+  def reservation_params
+    params.require(:reservation).permit(:host_rating)
+  end
 
   def is_host?
     if current_user.id != Reservation.find(params[:id]).workout.host_id

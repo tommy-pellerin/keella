@@ -24,6 +24,23 @@
                 <%= link_to "Supprimer le profile", registration_path(@user), :method => :delete, class: "btn btn-outline-danger", id: "delete_comment_button", data: {turbo: true, turbo_method: :delete, turbo_confirm: "Vous etes sure de vouloir supprimer votre compte ?"} %>
                 <div class="card-footer mt-2">
                     <p>Email: <%= @user.email %></p>
+                    <p>Notes des tes hôtes : 
+                    <% @user.reservations.each do |reservation| %>
+                      <p>
+                        <%= reservation.workout.host.email %> a noté :
+                        <% if reservation.host_rating %>
+                        <% reservation.host_rating.times do %>
+                          <i class="bi bi-star-fill"></i>
+                        <% end %>
+                        <% else %>
+                        Pas encore noté
+                        <% end %>
+                        <br>
+                        Commentaire de l'hôte : <%= reservation.host_comment %>
+                        <br>
+                      </p>
+                    <% end %>
+                  </p>
                 </div>
             </div>
         </div>
