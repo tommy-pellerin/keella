@@ -30,9 +30,8 @@ class ReservationsController < ApplicationController
       #send email to host => this job is done by the model itself with the callback after_create
       #reserve paiement => paiement status = pending
       respond_to do |format|
-        format.html { redirect_to @workout, notice: "Votre réservation a bien été prise en compte" }      
+        format.html { redirect_to @workout, notice: "Votre réservation a bien été prise en compte. Vous recevrez un email de confirmation. Pensez à vérifier vos spams." }      
       end
-      # flash[:success] = "Votre réservation a bien été prise en compte. Vous recevrez un email de confirmation. Pensez à vérifier vos spams"
     else
       flash[:alert] = @reservation.errors.full_messages.join(", ")
       redirect_to @workout

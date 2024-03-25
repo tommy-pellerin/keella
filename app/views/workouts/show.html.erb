@@ -74,13 +74,13 @@
       <div class="col col-md-4 mt-2">
         <div class="card shadow">
           <div class="card-body">
-            <%= turbo_frame_tag "places-available" do %>
+          <%= turbo_frame_tag "places-available" do %>
             <div class="d-flex">
               <h5 class="card-title me-1"><%= @workout.price %>€</h5>
               <span class="card-title">par séance</span>
             </div>
             <h6>Nombre de participant maximum : <%= @workout.participant_number %></h6>
-            <%= render "places_available", workout: @workout %>            
+            <%= render "places_available", workout: @workout %>
             <ul>
               <li>Date de début : <strong><%= @workout.start_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
               <li>Date de fin : <strong><%= @workout.end_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
@@ -96,7 +96,7 @@
                 <% end %>
               <% end %>
             </div>
-            <% end %>
+          <% end %>
           </div>
         </div>
       </div>
