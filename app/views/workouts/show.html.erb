@@ -79,19 +79,22 @@
               <span class="card-title">par séance</span>
             </div>
             <h6>Nombre de participant maximum : <%= @workout.participant_number %></h6>
-            <span>Nombre de place restante : <%= @place_available %></span>  
+            <%= turbo_frame_tag "places_available" do %>
+            <span><%= render "workouts/places_available", places_available: @workout.places_available%></span>
+            <% end %> 
+            
             <ul>
               <li>Date de début : <strong><%= @workout.start_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
               <li>Date de fin : <strong><%= @workout.end_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
             </ul>
             <div>
               <% if @workout.is_free %>
-                <%= button_to 'Envoyer une demande de réservation gratuite', workout_reservations_path(@workout), method: :post, class:"w-100 btn btn-lg btn-primary" %>              
+                <%= button_to 'Envoyer une demande de réservation gratuite', workout_reservations_path(@workout), method: :post, data:{turbo_frame: "places_available"}, class:"w-100 btn btn-lg btn-primary" %>              
               <% else %>
-                <% if @place_available > 0 %>
-                  <%= button_to "Envoyer une demande de réservation #{@workout.price}€", workout_reservations_path(@workout), method: :post, class:"w-100 btn btn-lg btn-primary" %>
+                <% if @workout.places_available > 0 %>
+                  <%= button_to "Envoyer une demande de réservation #{@workout.price}€", workout_reservations_path(@workout), method: :post, data:{turbo_frame: "places_available"}, class:"w-100 btn btn-lg btn-primary" %>
                 <% else %>
-                  <%= button_to "Il n'y a plus de place", workout_reservations_path(@workout), method: :post, class:"w-100 btn btn-lg btn-primary disabled" %>
+                  <%= button_to "Il n'y a plus de place", workout_reservations_path(@workout), method: :post, data:{'turbo-frame': "places_available"}, class:"w-100 btn btn-lg btn-primary disabled" %>
                 <% end %>
               <% end %>
             </div>
