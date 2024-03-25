@@ -41,7 +41,24 @@
                                 
                                 <%= button_to 'Laisser un commentaire', '#', method: :get, class: 'btn btn-secondary disabled' %>
                                 
-                                    #<%= render 'rating' %>
+                                <%= form_with(model: reservation, url: reservation_path(reservation), method: :patch) do |form| %>
+                                    <div class="dropdown">
+                                      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Choisis ta note
+                                      </a>
+                                      <ul class="dropdown-menu">
+                                        <% (1..5).each do |rating| %>
+                                          <li>
+                                            <%= form.radio_button :host_rating, rating %>
+                                            <%= form.label "host_rating_#{rating}", "#{rating} étoiles" %>
+                                          </li>
+                                        <% end %>
+                                      </ul>
+                                    </div>
+                                    <%= form.label :host_comment, 'Commentaire pour l\'hôte' %>
+                                    <%= form.text_area :host_comment %>
+                                    <%= form.submit 'Envoyer' %>
+                                  <% end %>
                                     
                                 
                                 <%= button_to 'Laisser une note', '#', method: :get, class: 'btn btn-secondary disabled' %>

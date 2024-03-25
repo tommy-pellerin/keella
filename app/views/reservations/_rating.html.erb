@@ -1,19 +1,18 @@
-<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-  <div class="btn-group" role="group">
-    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-      Laisse une note
-    </button>
+<%= form_with(model: reservation, url: reservation_path(reservation), method: :patch) do |form| %>
+  <div class="dropdown">
+    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Choisis ta note
+    </a>
     <ul class="dropdown-menu">
-    
-        <%= form_with(model: [reservation.workout, reservation], url: rate_host_reservation_path(reservation), method: :patch, local: true) do |form| %>
-          <div class="field">
-            <%= form.label :host_rating, 'Note pour l\'hôte' %>
-            <%= form.number_field :host_rating, in: 1..5, step: 1 %>
-          </div>
-        <%= form.submit 'Noter le hôte' %>
-        <% end %>
-    
+      <% (1..5).each do |rating| %>
+        <li>
+          <%= form.radio_button :host_rating, rating %>
+          <%= form.label "host_rating_#{rating}", "#{rating} étoiles" %>
+        </li>
+      <% end %>
     </ul>
   </div>
-</div>
-
+  <%= form.label :host_comment, 'Commentaire pour l\'hôte' %>
+  <%= form.text_area :host_comment %>
+  <%= form.submit 'Envoyer' %>
+<% end %>

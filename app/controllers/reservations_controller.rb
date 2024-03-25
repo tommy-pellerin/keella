@@ -9,7 +9,7 @@ class ReservationsController < ApplicationController
 
   def index
     @reservations = current_user.reservations.order(created_at: :desc)
- 
+    
   end
 
   def show
@@ -90,6 +90,8 @@ class ReservationsController < ApplicationController
     elsif user_decision == "closed"
       @reservation.status = "closed"
       @reservation.save
+      if @reservation.update(reservation_params)
+      end
       #paie user => paiement status = paid
       #send email to host to notify => this job is done by the model itself with the callback after_update
       #send email to user to thank => this job is done by the model itself with the callback after_update
@@ -112,7 +114,7 @@ class ReservationsController < ApplicationController
 
 
   def reservation_params
-    params.require(:reservation).permit(:host_rating)
+    params.require(:reservation).permit(:status, :host_comment, :user_comment, :host_rating, :user_rating)
   end
 
   def is_host?
