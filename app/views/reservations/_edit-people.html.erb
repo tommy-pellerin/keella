@@ -1,0 +1,2 @@
+<%= button_to "Accepter", workout_reservation_path(reservation, host_decision: "accepted"), method: :patch, class:"btn btn-primary" %>
+<%= button_to 'Refuser', workout_reservation_path(reservation, host_decision: "refused"), method: :patch, class:"btn btn-danger" %>
