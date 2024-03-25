@@ -7,6 +7,9 @@ class Workout < ApplicationRecord
   belongs_to :city
   has_many :reservations
   has_many :users, through: :reservations
+  has_one_attached :image1
+  has_one_attached :image2
+  has_one_attached :image3
 
   validates :title,
     presence: true,

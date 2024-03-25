@@ -17,6 +17,7 @@ class Reservation < ApplicationRecord
 
   def send_reservation_request
     HostMailer.reservation_request(self).deliver_now
+    # UserMailer.reservation_request(self).deliver_now
   end
 
   def send_accepted_email
@@ -29,7 +30,9 @@ class Reservation < ApplicationRecord
 
   def workout_cancelled
     UserMailer.workout_cancelled(self).deliver_now
-    HostMailer.workout_cancelled(self).deliver_now
+    if self.workout.reservations.order(:created_at).first == self
+      HostMailer.workout_cancelled(self).deliver_now
+    end
   end
 
   def reservation_cancelled
@@ -37,14 +40,10 @@ class Reservation < ApplicationRecord
     UserMailer.reservation_cancelled(self).deliver_now
   end
 
-  def send_evaluate_host
+  def send_evaluation
     UserMailer.evaluate_host(self).deliver_now
     HostMailer.evaluate_user(self).deliver_now
   end
-
-  # def send_evaluate_user
-  #   HostMailer.evaluate_user(self).deliver_now
-  # end
 
   def send_email_on_condition
     case status
@@ -57,8 +56,9 @@ class Reservation < ApplicationRecord
     when "user_cancelled"
       reservation_cancelled
     when  "closed"
-      send_evaluate_host
-      # send_evaluate_user
+      send_evaluation
+    when "pending"
+      send_reservation_request
     end
   end
 
@@ -68,7 +68,8 @@ class Reservation < ApplicationRecord
     refused: 2,
     host_cancelled: 3,
     user_cancelled: 4,
-    closed: 5
+    closed: 5,
+    relaunched: 6
   }
 
 end

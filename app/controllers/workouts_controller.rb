@@ -23,9 +23,22 @@ class WorkoutsController < ApplicationController
   def new
     @workout = Workout.new
   end
+
+  def create
+    @workout = Workout.create(workout_params)
+    if @workout.save
+      redirect_to edit_workout_path(@workout), notice: "Pour Finalisé la création de votre évènement, veuillez ajouter les images ici"
+    else
+      puts @workout.errors.full_messages.to_sentence
+      flash[:error] = "Il y a une erreur lors de la création de la réservation : #{@workout.errors.full_messages.to_sentence}"
+      render :new
+    end
+  end
+
   def edit
     @workout = Workout.find(params[:id])
   end
+
   def update
     puts params.inspect
     @workout = Workout.find(params[:id])
@@ -37,16 +50,22 @@ class WorkoutsController < ApplicationController
     end
   end
 
-  def create
-    @workout = Workout.create(workout_params)
-    if @workout.save
-      redirect_to @workout, notice: 'La séance a été créé avec succès.'
+  def destroy
+    @workout = Workout.find(params[:id])
+    @reservations = @workout.reservations
+    puts @reservations.inspect
+    if @workout.destroy
+      @reservations.each do |reservation|
+        reservation.status = "host_cancelled"
+        reservation.save
+      end
+      redirect_to workouts_path, notice: "Workout supprimé avec succès."
     else
-      puts @workout.errors.full_messages.to_sentence
-      flash[:error] = "Il y a une erreur lors de la création de la réservation : #{@workout.errors.full_messages.to_sentence}"
-      render :new
+      flash[:error] = "Il y a une erreur lors de la suppression de la réservation : #{workout.errors.full_messages.to_sentence}"
+      render :show
     end
   end
+  
   private
   def workout_params
     params.require(:workout).permit(:title, :start_date, :end_date, :participant_number, :description, :price, :location, :city_id, :host_id)

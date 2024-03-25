@@ -1,6 +1,38 @@
 <section class="text-center py-5 bg-secondary">
-  <div><%= image_tag 'logokeella.png', alt: "workout-image", class:"img-fluid" %></div>
+  <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <% if @workout.image1.attached? %>
+        <div class="carousel-item active">
+          <%= image_tag @workout.image1, alt: 'image1', class: "d-block mx-auto img-fluid", style:"max-height: 800px; max-width: 100%;" %>
+        </div>
+      <% else %>
+        <div class="carousel-item active">
+          <%= image_tag 'logokeella.png', alt: "workout-image", class: "d-block mx-auto img-fluid", style:"max-height: 800px; max-width: 100%;" %>
+        </div>
+      <% end %>
+      <!-- Ajoutez ici les autres images du carrousel si nécessaire -->
+      <% if @workout.image2.attached? %>
+        <div class="carousel-item">
+          <%= image_tag @workout.image2, alt: 'image2', class: "d-block mx-auto img-fluid", style:"max-height: 800px; max-width: 100%;" %>
+        </div>
+      <% end %>
+      <% if @workout.image3.attached? %>
+        <div class="carousel-item">
+          <%= image_tag @workout.image3, alt: 'image3', class: "d-block mx-auto img-fluid", style:"max-height: 800px; max-width: 100%;" %>
+        </div>
+      <% end %>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
 </section>
+
 <div class="container">
   <section>
     <div class="row flex-column-reverse flex-md-row">
@@ -15,8 +47,13 @@
             <div>
               <a href="<%= user_path(@workout.host.id) %>">
                 <div>
-                  <img alt="32x32" class="mr-2 rounded mb-1 bg-dark" style="width: 32px; height: 32px;" src="../assets/iconeuser.png" data-holder-rendered="true">
+                <%if @workout.host.avatar.attached?%>
+                  <%= image_tag @workout.host.avatar, alt: '32x32', class:"mr-2 rounded mb-1 bg-dark", style:"width: 32px; height: 32px;" %>
                   <strong class="text-gray-dark"><%= @workout.host.email %></strong>
+                <%else%>
+                  <img alt="32x32" class="mr-2 rounded mb-1 bg-dark" style="width: 32px; height: 32px;" src="<%= image_path('iconeuser.png') %>" data-holder-rendered="true">
+                  <strong class="text-gray-dark"><%= @workout.host.email %></strong>
+                <%end%>
                 </div>
               </a>
             </div>            
