@@ -1,4 +1,6 @@
 class WorkoutsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :is_host?, only: [:edit]
   
   def index
     if params[:city_id].present?
@@ -65,4 +67,14 @@ class WorkoutsController < ApplicationController
   def workout_params
     params.require(:workout).permit(:title, :start_date, :end_date, :participant_number, :description, :price, :location, :city_id, :host_id)
   end
+
+
+  def is_host?
+    @workout = Workout.find(params[:id])
+    if current_user.id != @workout.host_id
+      flash[:error] = "Vous n'êtes pas l'hôte de cet événement."
+      redirect_to root_path
+    end
+  end
+
 end

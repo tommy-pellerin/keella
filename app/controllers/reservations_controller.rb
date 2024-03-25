@@ -42,9 +42,6 @@ class ReservationsController < ApplicationController
   def edit
     @reservation = Reservation.find(params[:id])
     @user = @reservation.user
-    # if @reservation.status != "pending"
-    #   redirect_to root_path, alert: "Vous avez déjà pris une décision pour cette réservation."
-    # end
   end
 
   def update

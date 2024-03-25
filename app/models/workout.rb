@@ -9,7 +9,7 @@ class Workout < ApplicationRecord
 
   validates :title,
     presence: true,
-    length: { in: 5..140 }
+    length: { in: 4..140 }
 
   validates :description,
     presence: true,
@@ -21,7 +21,14 @@ class Workout < ApplicationRecord
   validates :end_date, presence: true
     validate :end_date_after_start_date, on: [:create, :update] #verify that the end_date is after the start_date
 
-  validates :price, presence: true #No more conditoin because the price can be free
+  validates :price, 
+    presence: true,
+    numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 1000 }
+
+  validates :participant_number, 
+    presence: true,
+    numericality: { greater_than_or_equal_to: 1, less_than_or_equal_to: 1000 }
+
   validates :location, presence: true
   validates :city, presence: true
 
@@ -31,6 +38,10 @@ class Workout < ApplicationRecord
 
   def places_available
     participant_number.to_i - reservations.where(status: "accepted").count.to_i
+  end
+  
+  def is_free
+    self.price == 0
   end
 
   private
