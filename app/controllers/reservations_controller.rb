@@ -89,9 +89,15 @@ class ReservationsController < ApplicationController
       #send email to host to notify => this job is done by the model itself with the callback after_update
     elsif user_decision == "closed"
       @reservation.status = "closed"
-      @reservation.save
+      
       if @reservation.update(reservation_params)
-      end
+      flash[:notice] = "La note et le commentaire ont été enregistrés avec succès."
+    else
+      flash[:alert] = "Il y a eu un problème lors de l'enregistrement de la note et du commentaire."
+    
+    puts @reservation.errors.full_messages
+    end
+    @reservation.save
       #paie user => paiement status = paid
       #send email to host to notify => this job is done by the model itself with the callback after_update
       #send email to user to thank => this job is done by the model itself with the callback after_update
