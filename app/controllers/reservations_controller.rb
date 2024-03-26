@@ -99,20 +99,23 @@ class ReservationsController < ApplicationController
     
 
     puts @reservation.status
-    #puts reservation_params[:user_rating]
+    puts reservation_params[:user_rating]
    
     puts "$"*50
     puts "je suis devant la condition rating"
-    if @reservation.status == "closed" && params[:reservation][:user_rating] != nil || params[:reservation][:user_comment] != nil
-      puts "j'update rating et comment"
-      
-      if @reservation.update(status: params[:reservation][:status], host_comment: params[:reservation][:host_comment], user_comment: params[:reservation][:user_comment], host_rating: params[:reservation][:host_rating], user_rating: params[:reservation][:user_rating])
-        flash[:success] = "La note et le commentaire ont été enregistrés avec succès."
-      else
-        flash[:danger] = "Il y a eu un problème lors de l'enregistrement de la note et du commentaire."
-      end
-    end
+    if @reservation.status == "closed" && reservation_params[:user_rating] != nil || reservation_params[:user_comment] != nil
+
+    puts "j'update rating et comment"
+
     
+    if @reservation.update(reservation_params)
+      flash[:success] = "La note et le commentaire ont été enregistrés avec succès."
+    else
+      flash[:danger] = "Il y a eu un problème lors de l'enregistrement de la note et du commentaire."
+    
+    
+    end
+  end
 
     
     redirect_to reservation_path
@@ -126,10 +129,10 @@ class ReservationsController < ApplicationController
 
 
 
-  #def reservation_params
-   #params.require(:reservation).permit(:status, :host_comment, :user_comment, :host_rating, :user_rating)
+  def reservation_params
+   params.require(:reservation).permit(:status, :host_comment, :user_comment, :host_rating, :user_rating)
        
-  #end
+  end
 
   def is_host?
     if current_user.id != Reservation.find(params[:id]).workout.host_id
