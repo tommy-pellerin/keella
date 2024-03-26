@@ -29,7 +29,7 @@
                     <p>Notes des tes hôtes : 
                     <% @user.reservations.each do |reservation| %>
                       <p>
-                        <%= reservation.workout.host.email %> a noté :
+                      <%= link_to reservation.workout.host.email, user_path(reservation.workout.host) %> a noté :
                         <% if reservation.host_rating %>
                         <% reservation.host_rating.times do %>
                           <i class="bi bi-star-fill"></i>
