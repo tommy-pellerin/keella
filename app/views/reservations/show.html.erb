@@ -72,17 +72,15 @@
                     <div class="btn-group">
                         <%= link_to "Consulter la page Profil", user_path(reservation.user), class: 'btn btn-success btn-sm'%>
                         <% if reservation.status == "pending" %>
-                            <%= link_to "Accepter/refuser la reservation", edit_user_reservation_path(workout,reservation), remote: true, class: 'btn btn-warning btn-sm', id: 'toggle-dropdown'%>
+                            <button class="btn btn-warning btn-sm" id="toggle-dropdown">Accepter/refuser la reservation</button>
+                                <div class="dropdown" id="dropdown">
+                                    <%= turbo_frame_tag "edit-people" do %>
+                                        <%= render "edit-people", reservation: reservation, user: reservation.user %>
+                                    <% end %>
+                                </div>
                         <% else %>
                             <%= link_to "Accepter/refuser la reservation 🔒", edit_user_reservation_path(workout,reservation), class: 'btn btn-warning btn-sm disabled'%>
                         <% end %> 
-                        <% if reservation.status == "pending" %>
-                            <div class="dropdown" id="edit-people-dropdown">
-                                <%= turbo_frame_tag "edit-people" do %>
-                                    <%= render "edit-people", reservation: reservation, user: reservation.user %>
-                                <% end %>
-                            </div>
-                        <% end %>
                     </div>
                 </td>
                 </tr>       
