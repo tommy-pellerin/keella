@@ -3,9 +3,11 @@ class Workout < ApplicationRecord
   belongs_to :city
   has_many :reservations
   has_many :users, through: :reservations
-  has_one_attached :image1
-  has_one_attached :image2
-  has_one_attached :image3
+
+  has_many_attached :images
+
+  validates :images, 
+  length: { in: 0..3, notice: "doit contenir entre 0 et 3 images" }
 
   validates :title,
     presence: true,
