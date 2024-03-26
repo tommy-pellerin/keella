@@ -23,7 +23,7 @@
         <% end %>
         <%# Texte indiquant l'image (peut être modifié pour correspondre à l'image réelle) %>
         <p>il y a <%=@workout.images.count%> images</p>
-        <%until @workout.images.count < 3 %>
+        <%if @workout.images.count < 3 %>
             <%= form_tag workout_images_path(@workout), multipart: true do %>
                 <%= file_field_tag :images, class: "fs-6 fw-light" %> <%# Champ de fichier pour télécharger une nouvelle image %>
                 <%= submit_tag "Ajouter une image", class: "btn btn-outline-secondary" %> <%# Bouton de soumission pour télécharger l'image %>
