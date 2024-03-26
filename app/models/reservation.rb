@@ -57,8 +57,10 @@ class Reservation < ApplicationRecord
       workout_cancelled
     when "user_cancelled"
       reservation_cancelled
-    when  "closed"
+    when  "closed" 
+      if self.host_rating == nil && self.host_comment ==nil && self.user_rating == nil && self.user_comment == nil
       send_evaluation
+    end
     when "pending"
       send_reservation_request
     end

@@ -87,13 +87,6 @@ class ReservationsController < ApplicationController
     elsif user_decision == "closed"
       @reservation.status = "closed"
       
-      if @reservation.update(reservation_params)
-      flash[:success] = "La note et le commentaire ont été enregistrés avec succès."
-    else
-      flash[:danger] = "Il y a eu un problème lors de l'enregistrement de la note et du commentaire."
-    
-    puts @reservation.errors.full_messages
-    end
     @reservation.save
       #paie user => paiement status = paid
       #send email to host to notify => this job is done by the model itself with the callback after_update
@@ -102,8 +95,26 @@ class ReservationsController < ApplicationController
       #if user_decision == "relauched", the status is already "pending" so no need to change it
     end
 
+    
+
     puts @reservation.status
+    puts reservation_params[:host_rating]
+   
     puts "$"*50
+    puts "je suis devant la condition rating"
+  if @reservation.status == "closed" && reservation_params[:host_rating] != nil
+    puts "j'update rating et comment"
+
+    
+    if @reservation.update(reservation_params)
+      flash[:success] = "La note et le commentaire ont été enregistrés avec succès."
+    else
+      flash[:danger] = "Il y a eu un problème lors de l'enregistrement de la note et du commentaire."
+    
+    puts @reservation.errors.full_messages
+    end
+  end
+
     
     redirect_to root_path
     
@@ -117,7 +128,8 @@ class ReservationsController < ApplicationController
 
 
   def reservation_params
-    params.require(:reservation).permit(:status, :host_comment, :user_comment, :host_rating, :user_rating)
+   params.require(:reservation).permit(:status, :host_comment, :user_comment, :host_rating, :user_rating)
+       
   end
 
   def is_host?
