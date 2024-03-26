@@ -93,7 +93,7 @@ class ReservationsController < ApplicationController
     puts @reservation.status
     puts "$"*50
     
-    redirect_to root_path
+    render :show
     
   end
 
