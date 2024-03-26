@@ -18,6 +18,7 @@ class WorkoutsController < ApplicationController
   def show
     @workout = Workout.find(params[:id])
     @reservation_accepted = @workout.reservations.where(status: "accepted")
+    
   end
 
   def new

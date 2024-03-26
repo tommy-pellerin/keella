@@ -26,23 +26,9 @@
                 <% end %>
                 <div class="card-footer mt-2">
                     <p>Email: <%= @user.email %></p>
-                    <p>Notes des tes hôtes : 
-                    <% @user.reservations.each do |reservation| %>
-                      <p>
-                      <%= link_to reservation.workout.host.email, user_path(reservation.workout.host) %> a noté :
-                        <% if reservation.host_rating %>
-                        <% reservation.host_rating.times do %>
-                          <i class="bi bi-star-fill"></i>
-                        <% end %>
-                        <% else %>
-                        Pas encore noté
-                        <% end %>
-                        <br>
-                        Commentaire de l'hôte : <%= reservation.host_comment %>
-                        <br>
-                      </p>
-                    <% end %>
-                  </p>
+                    <%= render 'hostrating' %>
+                    
+                  
                 </div>
             </div>
         </div>
