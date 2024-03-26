@@ -51,7 +51,10 @@
                                   <% (1..5).each do |rating| %>
                                     <li>
                                       <%= form.radio_button :host_rating, rating %>
-                                      <%= form.label "host_rating_#{rating}", raw("#{rating} <i class='bi bi-star-fill'></i>") %>
+                                      <%= form.label "host_rating_#{rating}" do %>
+                                      <%= raw("<i class='bi bi-star-fill'></i>" * rating) %>
+                                        <% end %>
+                                      
                                     </li>
                                   <% end %>
                                   <%= form.submit 'Envoyer' %>
