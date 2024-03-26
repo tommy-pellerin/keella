@@ -1,0 +1,24 @@
+
+<% if reservation.host_rating.nil? %>
+    <%= form_with(model: reservation, url: reservation_path(reservation), method: :patch) do |form| %>
+        <div class="dropdown">
+            <a class="btn btn-primary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Laisse une note
+            </a>
+                <ul class="dropdown-menu">
+                    <% (1..5).each do |rating| %>
+                        <li>
+                            <%= form.radio_button :host_rating, rating %>
+                            <%= form.label "host_rating_#{rating}" do %>
+                            <%= raw("<i class='bi bi-star-fill'></i>" * rating) %>
+                            <% end %>
+                                      
+                        </li>
+                    <% end %>
+                            <%= form.submit 'Envoyer', class: 'btn btn-light  btn-sm' %>
+                </ul>
+        </div>
+    <% end %>
+            <% else %>
+            <p>Vous avez déjà soumis une note pour cette réservation.</p>
+<% end %>
