@@ -7,7 +7,7 @@ class WorkoutsController < ApplicationController
     puts params
     puts "#"*50
     @page = params[:page].to_i + 1 if params[:page].present? || 1
-    workout_number = @page * 3
+    workout_number = @page * 6
     if params[:city_id].present?
       @workouts = Workout.where(city_id: params[:city_id]).limit(workout_number)
     else
