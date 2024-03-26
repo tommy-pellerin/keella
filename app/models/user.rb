@@ -13,7 +13,7 @@ class User < ApplicationRecord
 
   validates :pseudo, presence: true
   validates :phone, presence: true, 
-  format: { with: /\A(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})\z/, message: "please enter a valid french number" }
+  format: { with: /\A(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})\z/, message: "please enter a valid french number" } #french phone number start with +33, 0033 or 0, following by 9 numbers that can be separate by space, dot or dash
 
 
   def after_confirmation
