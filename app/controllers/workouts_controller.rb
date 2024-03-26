@@ -8,6 +8,10 @@ class WorkoutsController < ApplicationController
     else
       @workouts = Workout.all
     end
+
+    @average_user_ratings = @workouts.map do |workout|
+      workout.reservations.average(:user_rating)
+    end
   
   end
 
