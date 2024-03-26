@@ -20,8 +20,10 @@
         <div class="card me-auto h-100">
             <h1 class="card-title">Profil de <%= @user.email %></h1>
             <div class="card-body">
-                <%= link_to "Modifier le profil", edit_user_registration_path, class: "btn btn-outline-primary" %>
-                <%= link_to "Supprimer le profile", registration_path(@user), :method => :delete, class: "btn btn-outline-danger", id: "delete_comment_button", data: {turbo: true, turbo_method: :delete, turbo_confirm: "Vous etes sure de vouloir supprimer votre compte ?"} %>
+                <% if current_user == @user %>
+                    <%= link_to "Modifier le profil", edit_user_registration_path, class: "btn btn-outline-primary" %>
+                    <%= link_to "Supprimer le profile", registration_path(@user), :method => :delete, class: "btn btn-outline-danger", id: "delete_comment_button", data: {turbo: true, turbo_method: :delete, turbo_confirm: "Vous etes sure de vouloir supprimer votre compte ?"} %>
+                <% end %>
                 <div class="card-footer mt-2">
                     <p>Email: <%= @user.email %></p>
                     <p>Notes des tes hôtes : 

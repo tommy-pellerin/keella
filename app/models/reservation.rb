@@ -15,6 +15,8 @@ class Reservation < ApplicationRecord
     end
   end
 
+  private
+
   def send_reservation_request
     HostMailer.reservation_request(self).deliver_now
     # UserMailer.reservation_request(self).deliver_now

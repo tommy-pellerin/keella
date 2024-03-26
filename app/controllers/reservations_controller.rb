@@ -31,11 +31,11 @@ class ReservationsController < ApplicationController
     if @reservation.save      
       puts "$"*50
       puts @reservation.status
-
       #send email to host => this job is done by the model itself with the callback after_create
       #reserve paiement => paiement status = pending
-
-      redirect_to @workout, notice: "Votre demande de réservation a bien été envoyée. Vous recevrez un email dès que l'hote aura pris une décision."
+      respond_to do |format|
+        format.html { redirect_to @workout, notice: "Votre réservation a bien été prise en compte. Vous recevrez un email de confirmation. Pensez à vérifier vos spams." }      
+      end
     else
       flash[:alert] = @reservation.errors.full_messages.join(", ")
       redirect_to @workout
@@ -46,9 +46,6 @@ class ReservationsController < ApplicationController
   def edit
     @reservation = Reservation.find(params[:id])
     @user = @reservation.user
-    # if @reservation.status != "pending"
-    #   redirect_to root_path, alert: "Vous avez déjà pris une décision pour cette réservation."
-    # end
   end
 
   def update
@@ -107,8 +104,8 @@ class ReservationsController < ApplicationController
 
     puts @reservation.status
     puts "$"*50
-
-    redirect_to edit_workout_reservation_path(@reservation.workout, @reservation)
+    
+    redirect_to root_path
     
   end
 
