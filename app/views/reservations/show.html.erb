@@ -75,7 +75,7 @@
                         <% if reservation.status == "pending" %>
                             <div class="dropdown" id="edit-people-dropdown">
                                 <%= turbo_frame_tag "edit-people" do %>
-                                    <%= render "edit-people", reservation: @reservation, user: reservation.user %>
+                                    <%= render "edit-people", reservation: reservation, user: reservation.user %>
                                 <% end %>
                             </div>
                         <% end %>
