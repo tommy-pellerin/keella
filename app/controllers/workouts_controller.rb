@@ -4,6 +4,7 @@ class WorkoutsController < ApplicationController
   
   def index
     puts "#"*50
+    puts "je suis dans index de workouts_controller.rb"
     puts params
     puts "#"*50
     showed_workout_number = params[:showed_workout_number] ? params[:showed_workout_number].to_i : 3   
@@ -13,8 +14,11 @@ class WorkoutsController < ApplicationController
     else
       @workouts = Workout.all.limit(showed_workout_number)
     end
+    
     @next_workouts = showed_workout_number + 3
-    @no_more_to_show = no_more_to_show(showed_workout_number, @workouts)
+    puts showed_workout_number
+    @all_showed = all_showed(showed_workout_number)
+    
    
   
   end
@@ -86,8 +90,11 @@ class WorkoutsController < ApplicationController
     end
   end
 
-  def no_more_to_show(showed_workout_number, workouts)
-    showed_workout_number >= workouts.count
+  def all_showed(showed_workout_number)
+    @all_workouts = Workout.all
+    puts "je suis dans all_showed de workouts_controller.rb"
+    puts @workouts.count
+    return showed_workout_number >= @all_workouts.count
   end
 
 end
