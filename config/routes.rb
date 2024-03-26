@@ -2,11 +2,7 @@ Rails.application.routes.draw do
 
   
   root "static_pages#index"
-  resources :static_pages, only: [:index] do
-    collection do
-      get 'aide', to: 'static_pages#aide'
-    end
-  end
+  get 'aide', to: 'static_pages#aide'
   devise_for :users
 
   resources :users do
