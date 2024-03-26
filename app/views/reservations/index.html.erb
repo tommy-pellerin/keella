@@ -39,7 +39,7 @@
                                 <%= button_to 'Relancer la demande', reservation_path(reservation, user_decision: "relaunched"), method: :patch, class: 'btn btn-secondary disabled' %>                            
                             <% elsif reservation.status == 'closed' %>
                                 
-                                <%= button_to 'Laisser un commentaire', '#', method: :get, class: 'btn btn-secondary disabled' %>
+                        
                                 
                                 <%= form_with(model: reservation, url: reservation_path(reservation), method: :patch) do |form| %>
                                     <div class="dropdown">
@@ -50,18 +50,33 @@
                                         <% (1..5).each do |rating| %>
                                           <li>
                                             <%= form.radio_button :host_rating, rating %>
-                                            <%= form.label "host_rating_#{rating}", "#{rating} étoiles" %>
+                                            <%= form.label "host_rating_#{rating}", raw("#{rating} <i class='bi bi-star-fill'></i>") %>
                                           </li>
                                         <% end %>
+                                        <%= form.submit 'Envoyer' %>
                                       </ul>
                                     </div>
-                                    <%= form.label :host_comment, 'Commentaire pour l\'hôte' %>
+                                 
+                                  <% end %>
+
+
+                                  <%= form_with(model: reservation, url: reservation_path(reservation), method: :patch) do |form| %>
+                                    <div class="dropdown">
+                                      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Laisse un commentaire
+                                      </a>
+                                      <ul class="dropdown-menu">
+                                      <%= form.label :host_comment, 'Commentaire pour l\'hôte' %>
                                     <%= form.text_area :host_comment %>
                                     <%= form.submit 'Envoyer' %>
                                   <% end %>
+                                        
+                                      </ul>
+                                    </div>
+                                    
                                     
                                 
-                                <%= button_to 'Laisser une note', '#', method: :get, class: 'btn btn-secondary disabled' %>
+                                
                             <% end %>
                         </div>
                     </div>

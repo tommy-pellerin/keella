@@ -111,7 +111,7 @@ class ReservationsController < ApplicationController
     else
       flash[:danger] = "Il y a eu un problème lors de l'enregistrement de la note et du commentaire."
     
-    puts @reservation.errors.full_messages
+    
     end
   end
 
