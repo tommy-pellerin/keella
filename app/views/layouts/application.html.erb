@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Keella</title>
+    <title><%= yield :title %> | Keella </title>
+    <meta name="description" content="<%= content_for?(:meta_description) ? yield(:meta_description) : 'Louez des équipements pour vos séances de sport à un particulier' %>">
+
     <link rel="icon" type="image/x-icon" href="<%= image_path('favicon_keella.png') %>">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
@@ -13,6 +15,7 @@
   </head>
 
   <body data-turbo="false">
+    <a id="top-anchor"></a>
     <%= render "layouts/navbar" %>
     <%= render 'layouts/flash'%>
     <%= yield %>
