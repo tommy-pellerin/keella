@@ -91,9 +91,9 @@ class ReservationsController < ApplicationController
       @reservation.status = "closed"
       
       if @reservation.update(reservation_params)
-      flash[:notice] = "La note et le commentaire ont été enregistrés avec succès."
+      flash[:success] = "La note et le commentaire ont été enregistrés avec succès."
     else
-      flash[:alert] = "Il y a eu un problème lors de l'enregistrement de la note et du commentaire."
+      flash[:danger] = "Il y a eu un problème lors de l'enregistrement de la note et du commentaire."
     
     puts @reservation.errors.full_messages
     end
