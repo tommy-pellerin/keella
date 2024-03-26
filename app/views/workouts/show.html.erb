@@ -1,9 +1,13 @@
+<head>
+<% content_for :title, "Séance" %>
+<% content_for :meta_description, "Si la séance vous plait n'hésitez pas à faire une demande de réservation" %>
+</head>
 <section class="text-center py-5 bg-secondary">
   <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
-      <% if @workout.image1.attached? %>
+      <% if @workout.images.attached? %>
         <div class="carousel-item active">
-          <%= image_tag @workout.image1, alt: 'image1', class: "d-block mx-auto img-fluid", style:"max-height: 500px; max-width: 100%;" %>
+          <%= image_tag @workout.images[0], alt: "image 1", class: "d-block mx-auto img-fluid", style:"max-height: 500px; max-width: 100%;" %>
         </div>
       <% else %>
         <div class="carousel-item active">
@@ -11,16 +15,16 @@
         </div>
       <% end %>
       <!-- Ajoutez ici les autres images du carrousel si nécessaire -->
-      <% if @workout.image2.attached? %>
+      <% if @workout.images[1] != nil %>
         <div class="carousel-item">
-          <%= image_tag @workout.image2, alt: 'image2', class: "d-block mx-auto img-fluid", style:"max-height: 500px; max-width: 100%;" %>
+          <%= image_tag @workout.images[1], alt: 'image2', class: "d-block mx-auto img-fluid", style:"max-height: 500px; max-width: 100%;" %>
         </div>
-      <% end %>
-      <% if @workout.image3.attached? %>
+        <%end%>
+        <% if @workout.images[2]!= nil %>
         <div class="carousel-item">
-          <%= image_tag @workout.image3, alt: 'image3', class: "d-block mx-auto img-fluid", style:"max-height: 500px; max-width: 100%;" %>
+          <%= image_tag @workout.images[2], alt: 'image3', class: "d-block mx-auto img-fluid", style:"max-height: 500px; max-width: 100%;" %>
         </div>
-      <% end %>
+        <% end %>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -74,27 +78,29 @@
       <div class="col col-md-4 mt-2">
         <div class="card shadow">
           <div class="card-body">
+          <%= turbo_frame_tag "places-available" do %>
             <div class="d-flex">
               <h5 class="card-title me-1"><%= @workout.price %>€</h5>
               <span class="card-title">par séance</span>
             </div>
             <h6>Nombre de participant maximum : <%= @workout.participant_number %></h6>
-            <span>Nombre de place restante : <%= @place_available %></span>  
+            <%= render "places_available", workout: @workout %>
             <ul>
               <li>Date de début : <strong><%= @workout.start_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
               <li>Date de fin : <strong><%= @workout.end_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
             </ul>
             <div>
               <% if @workout.is_free %>
-                <%= button_to 'Envoyer une demande de réservation gratuite', workout_reservations_path(@workout), method: :post, class:"w-100 btn btn-lg btn-primary" %>              
+                <%= button_to 'Envoyer une demande de réservation gratuite', workout_reservations_path(@workout), method: :post, data:{turbo_frame: "places-available"}, class:"w-100 btn btn-lg btn-primary" %>              
               <% else %>
-                <% if @place_available > 0 %>
-                  <%= button_to "Envoyer une demande de réservation #{@workout.price}€", workout_reservations_path(@workout), method: :post, class:"w-100 btn btn-lg btn-primary" %>
+                <% if @workout.places_available > 0 %>
+                  <%= button_to "Envoyer une demande de réservation #{@workout.price}€", workout_reservations_path(@workout), method: :post, data:{turbo_frame: "places-available"}, class:"w-100 btn btn-lg btn-primary" %>
                 <% else %>
-                  <%= button_to "Il n'y a plus de place", workout_reservations_path(@workout), method: :post, class:"w-100 btn btn-lg btn-primary disabled" %>
+                  <%= button_to "Il n'y a plus de place", workout_reservations_path(@workout), method: :post, data:{turbo_frame: "places-available"}, class:"w-100 btn btn-lg btn-primary disabled" %>
                 <% end %>
               <% end %>
             </div>
+          <% end %>
           </div>
         </div>
       </div>

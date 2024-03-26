@@ -3,9 +3,11 @@ class Workout < ApplicationRecord
   belongs_to :city
   has_many :reservations
   has_many :users, through: :reservations
-  has_one_attached :image1
-  has_one_attached :image2
-  has_one_attached :image3
+
+  has_many_attached :images
+
+  validates :images, 
+  length: { in: 0..3, notice: "doit contenir entre 0 et 3 images" }
 
   validates :title,
     presence: true,
@@ -16,10 +18,10 @@ class Workout < ApplicationRecord
     length: { in: 20..1000 }
 
   validates :start_date, presence: true
-    validate :start_date_in_past?, on: [:create, :update] #verify that the start_date is not in the past
+  validate :start_date_in_past?, on: [:create, :update] #verify that the start_date is not in the past
 
   validates :end_date, presence: true
-    validate :end_date_after_start_date, on: [:create, :update] #verify that the end_date is after the start_date
+  validate :end_date_after_start_date, on: [:create, :update] #verify that the end_date is after the start_date
 
   validates :price, 
     presence: true,
@@ -37,7 +39,7 @@ class Workout < ApplicationRecord
   end
 
   def places_available
-    participant_number.to_i - reservations.where(status: "accepted").count.to_i
+    participant_number.to_i - reservations.where(status: ["accepted", "pending"]).count.to_i
   end
   
   def is_free

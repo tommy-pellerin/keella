@@ -1,3 +1,7 @@
+<head>
+<% content_for :title, "Accueil" %>
+<% content_for :meta_description, "Louez des équipements pour vos séances de sport à un particulier" %>
+</head>
 <div class="jumbotron text-center" style="background-image: url('<%= asset_path('jumbotron.jpg') %>'); background-size: cover; background-position: center; height: 70vh; color: white;">
   <h1>(Re)Découvrez vos talents sportifs</h1>
   <h5 class="mb-4">Ici, vous pourrez louer ou mettre à disposition des équipements et des locaux sportifs partout en France</h5>
@@ -8,7 +12,7 @@
   <div class="row justify-content-center align-items-center " >
     <h1 class="text-center mt-5" >Vous disposez d'équipements sportifs de qualité et vous souhaitez les partager avec la communauté ?</h1>
     <div class="card border-0 d-flex justify-content-center mb-4">
-      <%=  image_tag "landing_page2.png", alt: "image de profile" %>
+      <%=  image_tag "landing_page2.jpg", alt: "image de profile" %>
     </div>
     <div class="d-flex justify-content-center">
       <%= link_to "Proposez vos équipements à la communauté", new_workout_path, class: "btn btn-outline-secondary btn-lg m-0" %>
@@ -22,8 +26,8 @@
       <a href="<%= workout_path(workout) %>" class="text-decoration-none">
       <div class="card shadow" style="max-width: 50rem; height: 450px;">
               <div style="height: 200px; overflow: hidden;">
-                  <%if workout.image1.attached?%>
-                    <%= image_tag workout.image1, alt: "workout-image", style:"width: 100%; height: 100%; object-fit: cover;"  %>
+                  <%if workout.images.attached?%>
+                    <%= image_tag workout.images[0], alt: "workout-image", style:"width: 100%; height: 100%; object-fit: cover;"  %>
                   <%else%>
                     <%= image_tag 'logokeella.png', alt: "workout-image", style:"width: 100%; height: 100%; object-fit: cover;"  %>
                   <% end %>
