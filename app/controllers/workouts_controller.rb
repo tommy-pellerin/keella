@@ -3,11 +3,28 @@ class WorkoutsController < ApplicationController
   before_action :is_host?, only: [:edit]
   
   def index
-    if params[:city_id].present?
-      @workouts = Workout.where(city_id: params[:city_id])
-    else
-      @workouts = Workout.all
+    puts "#"*50
+    puts "je suis dans index de workouts_controller.rb"
+    puts params
+    puts "#"*50
+    
+    if params[:showed_workout_number]
+      
+      showed_workout_number = params[:showed_workout_number].to_i
+    else 
+      showed_workout_number = 3 #number of workout to show at the beginning
     end
+
+    if params[:city_id].present?
+      @workouts = Workout.where(city_id: params[:city_id]).limit(showed_workout_number)
+    else
+      @workouts = Workout.all.limit(showed_workout_number)
+    end
+    
+    @next_workouts = showed_workout_number + 3 #number of workout to show at the beginning and to show more after clicking on "voir plus"
+    puts showed_workout_number
+    puts @next_workouts
+    @all_showed = all_showed(showed_workout_number)
   
   end
 
@@ -61,7 +78,9 @@ class WorkoutsController < ApplicationController
       render :show
     end
   end
+
   
+
   private
   def workout_params
     params.require(:workout).permit(:title, :start_date, :end_date, :participant_number, :description, :price, :location, :city_id, :host_id)
@@ -74,6 +93,16 @@ class WorkoutsController < ApplicationController
       flash[:error] = "Vous n'êtes pas l'hôte de cet événement."
       redirect_to root_path
     end
+  end
+
+  def all_showed(showed_workout_number)
+
+    if params[:city_id].present?
+      @all_workouts = Workout.where(city_id: params[:city_id])
+    else
+      @all_workouts = Workout.all
+    end
+    return showed_workout_number >= @all_workouts.count
   end
 
 end
