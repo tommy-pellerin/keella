@@ -6,16 +6,16 @@ class WorkoutsController < ApplicationController
     puts "#"*50
     puts params
     puts "#"*50
-    @page = params[:page].to_i + 1 if params[:page].present? || 1
-    workout_number = @page * 6
+    showed_workout_number = params[:showed_workout_number] ? params[:showed_workout_number].to_i : 3   
+    # showed_workout_number += 3 #it is indicated 3 but there are 6 showed in index
     if params[:city_id].present?
-      @workouts = Workout.where(city_id: params[:city_id]).limit(workout_number)
+      @workouts = Workout.where(city_id: params[:city_id]).limit(showed_workout_number)
     else
-      @workouts = Workout.all.limit(workout_number)
+      @workouts = Workout.all.limit(showed_workout_number)
     end
-    respond_to do |format|
-      format.html
-    end
+    @next_workouts = showed_workout_number + 3
+    @no_more_to_show = no_more_to_show(showed_workout_number, @workouts)
+   
   
   end
 
@@ -69,7 +69,9 @@ class WorkoutsController < ApplicationController
       render :show
     end
   end
+
   
+
   private
   def workout_params
     params.require(:workout).permit(:title, :start_date, :end_date, :participant_number, :description, :price, :location, :city_id, :host_id)
@@ -82,6 +84,10 @@ class WorkoutsController < ApplicationController
       flash[:error] = "Vous n'êtes pas l'hôte de cet événement."
       redirect_to root_path
     end
+  end
+
+  def no_more_to_show(showed_workout_number, workouts)
+    showed_workout_number >= workouts.count
   end
 
 end

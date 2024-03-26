@@ -5,8 +5,10 @@
             <%= turbo_frame_tag "workouts-boxes" do %>
   <%= render "workouts", workouts: @workouts %>
 <% end %>
+        <% unless @no_more_to_show %>
         
-        <%= link_to "Voir plus", workouts_path(page: @page), id: 'load-more', data:{turbo_frame: "workouts-boxes"} %>
+        <%= link_to "Voir plus", workouts_path(showed_workout_number: @next_workouts), id: 'load-more', data:{turbo_frame: "workouts-boxes"} %>
+        <% end %>
     </div>
 
   
