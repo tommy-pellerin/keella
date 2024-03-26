@@ -1,12 +1,12 @@
-<% if reservation.host_comment.nil? %>
+<% if reservation.user_comment.nil? %>
     <%= form_with(model: reservation, url: reservation_path(reservation), method: :patch) do |form| %>
         <div class="dropdown">
             <a class="btn btn-primary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Laisse un commentaire
             </a>
             <ul class="dropdown-menu">
-                    <%= form.label :host_comment, 'Commentaire pour l\'hôte' %>
-                    <%= form.text_area :host_comment, rows: 5, cols: 40 %>
+                    <%= form.label :user_comment, 'Commentaire pour l\'hôte' %>
+                    <%= form.text_area :user_comment, rows: 5, cols: 40 %>
                     <%= form.submit 'Envoyer', class: 'btn btn-light  btn-sm' %>
             </ul>
         </div>

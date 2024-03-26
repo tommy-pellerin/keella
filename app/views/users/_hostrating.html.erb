@@ -1,33 +1,23 @@
-<p>Notes des tes hôtes : 
-                    <% @workouts.each do |workout| %>
-                        <% workout.reservations.each do |reservation| %>
-                      <p>
-                      <%= link_to reservation.workout.host.email, user_path(reservation.workout.host) %> a noté :
-                        <% if reservation.user_rating %>
-                        <% reservation.user_rating.times do %>
-                          <i class="bi bi-star-fill"></i>
-                        <% end %>
-                        <% else %>
-                        Pas encore noté
-                        <% end %>
-                        <br>
-                        Commentaire de l'hôte : <%= reservation.host_comment %>
-                        <br>
-                      </p>
-                        <% end %>
-                    <% end %>
-                    
-                    <% if @reservation %>
-  <p>ID: <%= @reservation.id %></p>
-  <p>Workout ID: <%= @reservation.workout_id %></p>
-  <p>User ID: <%= @reservation.user_id %></p>
-  <p>Status: <%= @reservation.status %></p>
-  <p>Host Comment: <%= @reservation.host_comment %></p>
-  <p>User Comment: <%= @reservation.user_comment %></p>
-  <p>Host Rating: <%= @reservation.host_rating %></p>
-  <p>User Rating: <%= @reservation.user_rating %></p>
-  <p>Created At: <%= @reservation.created_at %></p>
-  <p>Updated At: <%= @reservation.updated_at %></p>
-<% else %>
-  <p>Aucune réservation trouvée</p>
+<% @workouts.each do |workout| %>
+    <% workout.reservations.each do |reservation| %>
+        
+    Invité : <%= link_to reservation.user.email, user_path(reservation.user) %>
+    <br>
+    Note :
+    <% if reservation.user_rating %>
+        <% reservation.user_rating.times do %>
+        <i class="bi bi-star-fill"></i>
+    <% end %>
+    <% else %>
+    Pas encore noté
+    <% end %>
+    <br>
+    Commentaire de la séance : <%= reservation.user_comment %>
+    <br>
+    </p>
+            
+    <% end %>
 <% end %>
+                    
+                    
+ 
