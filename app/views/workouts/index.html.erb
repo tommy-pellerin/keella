@@ -1,15 +1,14 @@
 <%= render 'searchbar' %>
   
-    <div class="album py-5 text-center container">
-        
-            <%= turbo_frame_tag "workouts-boxes" do %>
-  <%= render "workouts", workouts: @workouts %>
-        <% if @all_showed %>
-        <%= link_to "Remonter", "#top-anchor", class: 'btn btn-primary' %>
-        <% else %>
-        <%= link_to "Voir plus", workouts_path(showed_workout_number: @next_workouts), id: 'load-more', data:{turbo: true, turbo_frame: "workouts-boxes"}, class: 'btn btn-primary' %>
+    <div class="album py-5 text-center container">        
+        <%= turbo_frame_tag "workouts-boxes" do %>
+            <%= render "workouts", workouts: @workouts %>
+            <% if @all_showed %>
+            <%= link_to "Remonter", "#top-anchor", class: 'btn btn-primary' %>
+            <% else %>
+            <%= link_to "Voir plus",  workouts_path(showed_workout_number: @next_workouts, city_id: params[:city_id]), id: 'load-more', data:{turbo: true, turbo_frame: "workouts-boxes"}, class: 'btn btn-primary' %>
+            <% end %>
         <% end %>
-<% end %>
     </div>
 
   

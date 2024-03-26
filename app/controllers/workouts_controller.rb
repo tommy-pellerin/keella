@@ -96,9 +96,12 @@ class WorkoutsController < ApplicationController
   end
 
   def all_showed(showed_workout_number)
-    @all_workouts = Workout.all
-    puts "je suis dans all_showed de workouts_controller.rb"
-    puts @workouts.count
+
+    if params[:city_id].present?
+      @all_workouts = Workout.where(city_id: params[:city_id])
+    else
+      @all_workouts = Workout.all
+    end
     return showed_workout_number >= @all_workouts.count
   end
 
