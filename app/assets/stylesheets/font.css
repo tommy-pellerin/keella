@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'OpenDyslexic';
+    src: url('OpenDyslexic3-Regular.ttf') format('truetype'); /* Modifier le chemin selon l'emplacement de vos fichiers */
+    
+}
+body {
+  font-family: 'Arial', sans-serif; /* Police principale */
+
+}
+.altFont {
+  font-family: 'OpenDyslexic', Arial, sans-serif; /* Police secondaire */
+}
