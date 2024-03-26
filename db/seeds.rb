@@ -23,7 +23,7 @@ i=0
 test_hosts = []
 5.times do
   i += 1
-  test_hosts << User.new(email: "host#{i}@yopmail.com", password: "azerty", password_confirmation: "azerty", city: City.all.sample, pseudo: Faker::Name.unique.first_name, phone: "060000000#{i}")
+  test_hosts << User.new(email: "host#{i}@yopmail.com", password: "azerty", password_confirmation: "azerty", city: City.all.sample, pseudo: "host#{i}", phone: "060000000#{i}")
 end
 test_hosts.each do |test_host|
   test_host.skip_confirmation! #this will allow to create a user without the need of an email confirmation ask by devise
@@ -35,7 +35,7 @@ end
   test_users = []
   5.times do
     i += 1
-    test_users << User.new(email: "user#{i}@yopmail.com", password: "azerty", password_confirmation: "azerty", city: City.all.sample, pseudo: Faker::Name.unique.first_name, phone: "070000000#{i}")
+    test_users << User.new(email: "user#{i}@yopmail.com", password: "azerty", password_confirmation: "azerty", city: City.all.sample, pseudo: "user#{i}", phone: "070000000#{i}")
   end
   test_users.each do |test_user|
     test_user.skip_confirmation! #this will allow to create a user without the need of an email confirmation ask by devise
