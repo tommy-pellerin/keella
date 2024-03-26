@@ -55,8 +55,10 @@ class ReservationsController < ApplicationController
     puts params
     puts "#"*50
     @reservation = Reservation.find(params[:id])
+    
     host_decision = params[:host_decision]
     user_decision = params[:user_decision]
+    
     
     puts "$"*50
     puts @reservation.status
@@ -118,7 +120,7 @@ class ReservationsController < ApplicationController
   end
 
     
-    redirect_to reservation_path
+    redirect_to root_path
     
   end
 
@@ -130,7 +132,7 @@ class ReservationsController < ApplicationController
 
 
   def reservation_params
-   params.require(:reservation).permit(:status, :host_comment, :user_comment, :host_rating, :user_rating)
+   params.require(:reservation).permit(:status, :host_comment, :user_comment, :host_rating, :user_rating, :host_decision, :user_decision)
        
   end
 
