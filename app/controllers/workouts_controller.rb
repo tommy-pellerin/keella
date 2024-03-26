@@ -3,10 +3,18 @@ class WorkoutsController < ApplicationController
   before_action :is_host?, only: [:edit]
   
   def index
+    puts "#"*50
+    puts params
+    puts "#"*50
+    @page = params[:page].to_i + 1 if params[:page].present? || 1
+    workout_number = @page * 3
     if params[:city_id].present?
-      @workouts = Workout.where(city_id: params[:city_id])
+      @workouts = Workout.where(city_id: params[:city_id]).limit(workout_number)
     else
-      @workouts = Workout.all
+      @workouts = Workout.all.limit(workout_number)
+    end
+    respond_to do |format|
+      format.html
     end
   
   end
