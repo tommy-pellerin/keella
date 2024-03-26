@@ -1,10 +1,9 @@
 <section class="text-center py-5 bg-secondary">
   <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
-        <% @workout.images.each_with_index do |image, index| %>
-      <% if @workout.image[index].attached? %>
+      <% if @workout.images.attached? %>
         <div class="carousel-item active">
-          <%= image_tag @workout.image[index], alt: 'image1', class: "d-block mx-auto img-fluid", style:"max-height: 500px; max-width: 100%;" %>
+          <%= image_tag @workout.images[0], alt: "image 1", class: "d-block mx-auto img-fluid", style:"max-height: 500px; max-width: 100%;" %>
         </div>
       <% else %>
         <div class="carousel-item active">
@@ -12,14 +11,16 @@
         </div>
       <% end %>
       <!-- Ajoutez ici les autres images du carrousel si nécessaire -->
+      <% if @workout.images[1] != nil %>
         <div class="carousel-item">
-          <%#= image_tag @workout.image2, alt: 'image2', class: "d-block mx-auto img-fluid", style:"max-height: 500px; max-width: 100%;" %>
+          <%= image_tag @workout.images[1], alt: 'image2', class: "d-block mx-auto img-fluid", style:"max-height: 500px; max-width: 100%;" %>
         </div>
-        
+        <%end%>
+        <% if @workout.images[2]!= nil %>
         <div class="carousel-item">
-          <%#= image_tag @workout.image3, alt: 'image3', class: "d-block mx-auto img-fluid", style:"max-height: 500px; max-width: 100%;" %>
+          <%= image_tag @workout.images[2], alt: 'image3', class: "d-block mx-auto img-fluid", style:"max-height: 500px; max-width: 100%;" %>
         </div>
-      <% end %>
+        <% end %>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>

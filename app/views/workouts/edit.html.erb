@@ -8,11 +8,10 @@
         <% @workout.images.each do |image| %>
             <div class="col-lg-4">
                 <div>
-                    <%# Vérifie si une image est attachée %>
                     <% if image != nil %>
                         <%= image_tag image, alt: 'image', class: "bd-placeholder", width: "300", height: "140" %>
+                    <%= button_to "Supprimer l'image", workout_image_path(@workout, image), data: {turbo: true}, method: :delete, class: "btn btn-outline-danger my-2" %>
                     <% else %>
-                        <%# Si aucune image n'est attachée, affiche un espace réservé %>
                         <svg class="bd-placeholder-img" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
                             <title>Placeholder</title>
                             <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
@@ -21,7 +20,6 @@
                 </div>
             </div>
         <% end %>
-        <%# Texte indiquant l'image (peut être modifié pour correspondre à l'image réelle) %>
         <p>il y a <%=@workout.images.count%> images</p>
         <%if @workout.images.count < 3 %>
             <%= form_tag workout_images_path(@workout), multipart: true do %>
