@@ -102,7 +102,8 @@ class ReservationsController < ApplicationController
    
     puts "$"*50
     puts "je suis devant la condition rating"
-  if @reservation.status == "closed" && reservation_params[:host_rating] != nil
+    if @reservation.status == "closed" && reservation_params[:host_rating] != nil || reservation_params[:host_comment] != nil
+
     puts "j'update rating et comment"
 
     

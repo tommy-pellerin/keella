@@ -43,36 +43,38 @@
                                 
                                 <%= form_with(model: reservation, url: reservation_path(reservation), method: :patch) do |form| %>
                                     <div class="dropdown">
-                                      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                      <a class="btn btn-primary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         Choisis ta note
                                       </a>
                                       <ul class="dropdown-menu">
-                                        <% (1..5).each do |rating| %>
-                                          <li>
-                                            <%= form.radio_button :host_rating, rating %>
-                                            <%= form.label "host_rating_#{rating}", raw("#{rating} <i class='bi bi-star-fill'></i>") %>
-                                          </li>
-                                        <% end %>
+                                            <% (1..5).each do |rating| %>
+                                                <li>
+                                                    <%= form.radio_button :host_rating, rating %>
+                                                    <%= form.label "host_rating_#{rating}", raw("#{rating} <i class='bi bi-star-fill'></i>") %>
+                                                </li>
+                                            <% end %>
                                         <%= form.submit 'Envoyer' %>
                                       </ul>
                                     </div>
                                  
-                                  <% end %>
+                                <% end %>
 
 
-                                  <%= form_with(model: reservation, url: reservation_path(reservation), method: :patch) do |form| %>
+                                <%= form_with(model: reservation, url: reservation_path(reservation), method: :patch) do |form| %>
                                     <div class="dropdown">
-                                      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Laisse un commentaire
-                                      </a>
-                                      <ul class="dropdown-menu">
-                                      <%= form.label :host_comment, 'Commentaire pour l\'hôte' %>
-                                    <%= form.text_area :host_comment %>
-                                    <%= form.submit 'Envoyer' %>
-                                  <% end %>
-                                        
-                                      </ul>
+                                            <a class="btn btn-primary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Laisse un commentaire
+                                            </a>
+                                        <ul class="dropdown-menu">
+                                        <%= form.label :host_comment, 'Commentaire pour l\'hôte' %>
+                                        <%= form.text_area :host_comment %>
+                                        <%= form.submit 'Envoyer' %>
+                                       
+                                        </ul>
                                     </div>
+                                <% end %>   
+                                    
+                                    
                                     
                                     
                                 
