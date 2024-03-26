@@ -15,9 +15,7 @@ Rails.application.routes.draw do
     resources :avatars, only: [:create]
   end
   resources :workouts, only: [:edit] do
-    resources :image1, only: [:create]
-    resources :image2, only: [:create]
-    resources :image3, only: [:create]
+    resources :images, only: [:create, :destroy]
   end
 
   resources :reservations do    

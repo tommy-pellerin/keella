@@ -7,54 +7,33 @@
 </section>
 
 <section class="container align-items-center">
-<div class="row text-center py-5 bg-tertiary rounded-4 shadow">
-    <div class="col-lg-4">
-        <div>
-        <%if @workout.image1.attached?%>
-                    <%= image_tag @workout.image1, alt: 'image1',class:"bd-placeholder", width:"300", height:"140" %>
-            <%else%>
-                <svg class="bd-placeholder-img " width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
-                </svg>
+    <div class="row text-center py-5 bg-tertiary rounded-4 shadow">
+        <%# Pour chaque image dans la collection de l'entraînement %>
+        <% @workout.images.each do |image| %>
+            <div class="col-lg-4">
+                <div>
+                    <% if image != nil %>
+                        <%= image_tag image, alt: 'image', class: "bd-placeholder", width: "300", height: "140" %>
+                    <%= button_to "Supprimer l'image", workout_image_path(@workout, image), data: {turbo: true}, method: :delete, class: "btn btn-outline-danger my-2" %>
+                    <% else %>
+                        <svg class="bd-placeholder-img" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
+                            <title>Placeholder</title>
+                            <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
+                        </svg>
+                    <% end %>
+                </div>
+            </div>
         <% end %>
-        </div>
-        <p>Image 1</p>
-        <%= form_tag workout_image1_index_path(@workout), multipart: true do %>
-            <%= file_field_tag :image1, class:"fs-6 fw-light" %>
-            <%= submit_tag "uploader l'image",class:"btn btn-outline-secondary" %>
-        <% end %>
+        <p>il y a <%=@workout.images.count%> images</p>
+        <%if @workout.images.count < 3 %>
+            <%= form_tag workout_images_path(@workout), multipart: true do %>
+                <%= file_field_tag :images, class: "fs-6 fw-light" %> <%# Champ de fichier pour télécharger une nouvelle image %>
+                <%= submit_tag "Ajouter une image", class: "btn btn-outline-secondary" %> <%# Bouton de soumission pour télécharger l'image %>
+            <% end %>
+        <%end%>
     </div>
-    <div class="col-lg-4">
-        <div>
-        <%if @workout.image2.attached?%>
-                    <%= image_tag @workout.image2, alt: 'image2',class:"bd-placeholder", width:"300", height:"140" %>
-            <%else%>
-                <svg class="bd-placeholder-img " width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
-                </svg>
-        <% end %>
-        </div>
-        <p>Image 2</p>
-        <%= form_tag workout_image2_index_path(@workout), multipart: true do %>
-            <%= file_field_tag :image2, class:"fs-6 fw-light" %>
-            <%= submit_tag "uploader l'image",class:"btn btn-outline-secondary" %>
-        <% end %>
-    </div>
-    <div class="col-lg-4">
-        <div>
-        <%if @workout.image3.attached?%>
-                    <%= image_tag @workout.image3, alt: 'image3',class:"bd-placeholder", width:"300", height:"140" %>
-            <%else%>
-                <svg class="bd-placeholder-img " width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
-                </svg>
-        <% end %>
-        </div>
-        <p>Image 3</p>
-        <%= form_tag workout_image3_index_path(@workout), multipart: true do %>
-            <%= file_field_tag :image3, class:"fs-6 fw-light" %>
-            <%= submit_tag "uploader l'image",class:"btn btn-outline-secondary" %>
-        <% end %>
-    </div>
-</div>
 </section>
+
 
 <section class="align-items-center">
     <div class="form container my-4 py-4 rounded-4 bg-tertiary rounded-4 shadow">

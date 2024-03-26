@@ -12,8 +12,8 @@
     <div class="card mb-2 border border-2" style="max-width: 100%">
         <div class="row g-0">
             <div class="col-md-4">
-                <%if reservation.workout.image1.attached?%>
-                    <%= image_tag reservation.workout.image1, alt: "workout-image", class: "img-fluid" %>
+                <%if reservation.workout.images.attached?%>
+                    <%= image_tag reservation.workout.images[0], alt: "workout-image", class: "img-fluid" %>
                 <%else%>
                     <%= image_tag 'logokeella.png', alt: "workout-image", class: "img-fluid" %>
                 <%end%>
