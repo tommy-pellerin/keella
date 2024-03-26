@@ -7,8 +7,14 @@ class WorkoutsController < ApplicationController
     puts "je suis dans index de workouts_controller.rb"
     puts params
     puts "#"*50
-    showed_workout_number = params[:showed_workout_number] ? params[:showed_workout_number].to_i : 3   
-    # showed_workout_number += 3 #it is indicated 3 but there are 6 showed in index
+    # showed_workout_number = params[:showed_workout_number] ? params[:showed_workout_number].to_i : 3  
+    if params[:showed_workout_number]
+      
+      showed_workout_number = params[:showed_workout_number].to_i
+    else 
+      showed_workout_number = 3
+    end
+
     if params[:city_id].present?
       @workouts = Workout.where(city_id: params[:city_id]).limit(showed_workout_number)
     else
@@ -17,9 +23,8 @@ class WorkoutsController < ApplicationController
     
     @next_workouts = showed_workout_number + 3
     puts showed_workout_number
+    puts @next_workouts
     @all_showed = all_showed(showed_workout_number)
-    
-   
   
   end
 
