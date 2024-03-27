@@ -12,11 +12,11 @@ class Workout < ApplicationRecord
     (user_ratings.sum.to_f / user_ratings.size).round(1)
   end
 
-  #def average_rating
-    #ratings = reservations.where(status: "closed").pluck(:user_rating, :host_rating).flatten.compact
-    #return "Pas encore d'évaluation" if ratings.empty?
-    #(ratings.sum.to_f / ratings.size).round(3)
-  #end
+  def average_rating
+    ratings = reservations.where(status: "closed").pluck(:user_rating, :host_rating).flatten.compact
+    return "Pas encore d'évaluation" if ratings.empty?
+    (ratings.sum.to_f / ratings.size).round(3)
+  end
 
   validates :images, 
   length: { in: 0..3, notice: "doit contenir entre 0 et 3 images" }

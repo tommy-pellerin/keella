@@ -1,23 +1,22 @@
-<% @workouts.each do |workout| %>
-    <% workout.reservations.each do |reservation| %>
+<% @user.reservations.each do |reservation| %>
+    <% if reservation.workout.host == current_user %>
         
-    Invité : <%= link_to reservation.user.email, user_path(reservation.user) %>
+    Tu as participé à un workout voici les notes/commentaires de ton hôte : <%= link_to reservation.workout.host.email, user_path(reservation.workout.host) %>
     <br>
     Note :
-    <% if reservation.user_rating %>
-        <% reservation.user_rating.times do %>
+    <% if reservation.host_rating %>
+        <% reservation.host_rating.times do %>
         <i class="bi bi-star-fill"></i>
     <% end %>
     <% else %>
     Pas encore noté
     <% end %>
     <br>
-    Commentaire de la séance : <%= reservation.user_comment %>
+    Commentaire de la séance : <%= reservation.host_comment %>
     <br>
     </p>
             
     <% end %>
 <% end %>
                     
-                    
- 
+          
