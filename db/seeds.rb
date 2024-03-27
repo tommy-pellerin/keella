@@ -51,5 +51,5 @@ end
 end
 
 10.times do 
- reservation = Reservation.create!(workout: Workout.all.sample, user: User.all.sample, status: 0, host_rating: Faker::Number.between(from: 1, to: 5), user_rating: Faker::Number.between(from: 1, to: 5), user_comment: Faker::Lorem.sentence(word_count: 10), host_comment: Faker::Lorem.sentence(word_count: 10))
+ reservation = Reservation.create!(workout: Workout.all.sample, user: User.all.sample, quantity: 1,status: 0, host_rating: Faker::Number.between(from: 1, to: 5), user_rating: Faker::Number.between(from: 1, to: 5), user_comment: Faker::Lorem.sentence(word_count: 10), host_comment: Faker::Lorem.sentence(word_count: 10))
 end
