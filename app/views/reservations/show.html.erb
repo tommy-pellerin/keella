@@ -59,7 +59,7 @@
                  <td class="bg-tertiary"></td>
                     
                  <td><%= link_to reservation.user.email, user_path(reservation.user) %></td>
-                    <td>⭐️<%= workout.average_user_rating %></td>
+                    <td>⭐️<%= reservation.host_rating %></td>
                         <%if reservation.user.city != nil %>
                             <td><%=reservation.user.city.name%></td>
                         <%else%>

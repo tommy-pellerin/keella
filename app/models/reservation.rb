@@ -6,6 +6,8 @@ class Reservation < ApplicationRecord
   belongs_to :user
   belongs_to :workout
 
+ 
+
   def workout_full?
     @workout = self.workout
     @reservation_accepted = @workout.reservations.where(status: "accepted")
