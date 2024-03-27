@@ -1,6 +1,6 @@
 class WorkoutsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :is_host?, only: [:edit]
+  before_action :authenticate_user!, except: [:index, :show] 
+  before_action :is_host?, only: [:edit, :update, :destroy]
   
   def index
     puts "#"*50
