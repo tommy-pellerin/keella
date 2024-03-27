@@ -73,9 +73,9 @@
                     <%= link_to "Consulter la page Profil", user_path(reservation.user), class: 'btn btn-success btn-sm'%>
                     <% if reservation.status == "pending"%>
                         <%= link_to "Accepter/refuser la reservation", edit_user_reservation_path(workout,reservation), class: 'btn btn-warning btn-sm'%>
-                        <% elsif%>
+                        <% elsif% reservation.status == 'closed' %>
                         <%= link_to "Accepter/refuser la reservation 🔒", edit_user_reservation_path(workout,reservation), class: 'btn btn-warning btn-sm disabled'%>
-                    <% reservation.status == 'closed' %>
+                    
                                 
                         <div class="row">
                             <div class="col-lg-6 col-sm-12"> 
@@ -86,7 +86,7 @@
                             </div>
                         </div> 
                         <% else %>
-                        <%= link_to "Accepter/refuser la reservation 🔒", edit_user_reservation_path(workout,reservation), class: 'btn btn-warning btn-sm disabled'%>   
+                        <%= link_to "Accepter/refuser la reservation 🔒", edit_user_reservation_path(workout,reservation), class: 'btn btn-warning btn-sm'%>   
                     
                     <%end%> 
                 </div>
