@@ -123,6 +123,26 @@ class ReservationsController < ApplicationController
         puts @reservation.errors.full_messages
       end
     end
+
+    if params[:reservation][:host_rating] != nil
+      if @reservation.update(host_rating: params[:reservation][:host_rating])
+        flash[:success] = "La note de l'hôte a été enregistrée avec succès."
+      else
+        flash[:error] = "Il y a eu un problème lors de l'enregistrement de la note de l'hôte."
+        puts @reservation.errors.full_messages
+      end
+    end
+  
+    if params[:reservation][:host_comment] != nil
+      if @reservation.update(host_comment: params[:reservation][:host_comment])
+        flash[:success] = "Le commentaire de l'hôte a été enregistré avec succès."
+      else
+        flash[:error] = "Il y a eu un problème lors de l'enregistrement du commentaire de l'hôte."
+        puts @reservation.errors.full_messages
+      end
+    end
+
+    
   end
 
     
