@@ -19,6 +19,15 @@
                     <% end %>
                 <% end %>
         </div>
+        <div class="card ms-auto me-auto" style="max-width: 22rem;">
+            
+        <div class="card-body">
+        <p class="ms-3 mt-2">Nombre de séances proposé: <%= @user.hosted_workouts.count %> </p>
+        <p class="ms-3 mt-2">Nombre de réservations: <%= @user.reserved_workouts.count %> </p>
+        <p class="ms-3 mt-2">Note en tant que participant: <%= @user.reserved_workouts.count %> </p>
+        <p class="ms-3 mt-2">Note en tant qu'hôte:<%= @user.reserved_workouts.count %> </p>
+        </div>
+    </div>
     </div>
     <div class="col">
         <div class="card me-auto h-100">
@@ -38,13 +47,7 @@
             </div>
         </div>
     </div>
-    <div class="col">
-        <div class="card ms-auto me-auto" style="max-width: 22rem;">
-            <p class="ms-3 mt-2">Nombre de séances proposé: <%= @user.hosted_workouts.count %> </p>
-            <div class="card-body">
-                <p>Nombre de réservations: <%= @user.reserved_workouts.count %> </p>
-            </div>
-        </div>
-    </div>
+    
+    
     
 </div>
