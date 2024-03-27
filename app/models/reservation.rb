@@ -6,6 +6,8 @@ class Reservation < ApplicationRecord
   belongs_to :user
   belongs_to :workout
 
+  validates :quantity, presence: true, numericality: { only_integer: true, greater_than: 0 }
+
   def workout_full?
     @workout = self.workout
     @reservation_accepted = @workout.reservations.where(status: "accepted")

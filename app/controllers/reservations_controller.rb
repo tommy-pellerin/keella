@@ -18,10 +18,13 @@ class ReservationsController < ApplicationController
     puts "#"*50
     puts "Je suis dans create de reservations_controller.rb"
     puts params
+    puts reservation_params
+    puts reservation_params[:workout_id]
     puts "#"*50
     #create a reservation to pre-reserve a place, be careful, if the host doesn't refuse, the place is still reserved => need a conditoin to delete it after 48h ?
-    @workout = Workout.find(params[:workout_id])
-    @reservation = Reservation.new(workout: @workout, user: current_user)
+    @workout = Workout.find(reservation_params[:workout_id])
+    @quantity = reservation_params[:quantity].to_i
+    @reservation = Reservation.new(workout: @workout, user: current_user, quantity: @quantity)
     #change status to pending
     @reservation.status = "pending"
     if @reservation.save      
@@ -123,5 +126,8 @@ class ReservationsController < ApplicationController
     response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
   end
 
+  def reservation_params
+    params.require(:reservation).permit(:workout_id, :quantity)
+  end
   
 end

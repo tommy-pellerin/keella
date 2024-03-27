@@ -39,7 +39,11 @@ class Workout < ApplicationRecord
   end
 
   def places_available
-    participant_number.to_i - reservations.where(status: ["accepted", "pending"]).count.to_i
+    if self.reservations
+      self.participant_number.to_i - self.reservations.sum(:quantity)
+    else
+      self.participant_number.to_i     
+    end
   end
   
   def is_free
