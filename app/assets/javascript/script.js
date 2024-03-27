@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Si la préférence de police est 'altFont', appliquer la classe 'altFont' au body
   if (fontPreference === 'altFont') {
     document.body.classList.add('altFont');
+    toggleFontButton.textContent = 'Utiliser la police principale';
   }
 
   toggleFontButton.addEventListener('click', function() {
@@ -15,8 +16,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Stocker la préférence de police dans localStorage
     if (document.body.classList.contains('altFont')) {
       localStorage.setItem('fontPreference', 'altFont');
+      toggleFontButton.textContent = 'Utiliser la police principale';
     } else {
       localStorage.removeItem('fontPreference');
+      toggleFontButton.textContent = 'Changer la police en Opendys';
     }
   });
 });
