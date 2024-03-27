@@ -16,7 +16,7 @@ class ReservationsController < ApplicationController
   def show
     @user = User.find(params[:user_id])
     @workouts = Workout.where(host_id: @user.id).order(created_at: :desc)
-    
+    #@reservation = Reservation.find(params[:id])
   end
   
   def create
@@ -101,21 +101,27 @@ class ReservationsController < ApplicationController
     
 
     puts @reservation.status
-    puts params[:user_rating]
+    #puts params[:reservation][:user_rating]
    
     puts "$"*50
     puts "je suis devant la condition rating"
-    if @reservation.status == "closed" && (params[:user_rating] != nil || params[:user_comment] != nil)
+    if @reservation.status == "closed" && params[:reservation]
+      if params[:reservation][:user_rating] != nil
+        if @reservation.update(user_rating: params[:reservation][:user_rating])
+          flash[:success] = "La note a été enregistrée avec succès."
+        else
+          flash[:error] = "Il y a eu un problème lors de l'enregistrement de la note."
+          puts @reservation.errors.full_messages
+        end
+    end
 
-    puts "j'update rating et comment"
-
-    
-    if @reservation.update(user_rating: params[:user_rating], user_comment: params[:user_comment])
-      flash[:success] = "La note et le commentaire ont été enregistrés avec succès."
-    else
-      flash[:danger] = "Il y a eu un problème lors de l'enregistrement de la note et du commentaire."
-    
-    
+    if params[:reservation][:user_comment] != nil
+      if @reservation.update(user_comment: params[:reservation][:user_comment])
+        flash[:success] = "Le commentaire a été enregistré avec succès."
+      else
+        flash[:error] = "Il y a eu un problème lors de l'enregistrement du commentaire."
+        puts @reservation.errors.full_messages
+      end
     end
   end
 
