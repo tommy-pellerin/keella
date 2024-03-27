@@ -11,12 +11,12 @@ class Workout < ApplicationRecord
     return "Pas encore d'évaluation" if user_ratings.empty?
     (user_ratings.sum.to_f / user_ratings.size).round(1)
   end
-
-  def average_rating
-    ratings = reservations.where(status: "closed").pluck(:user_rating, :host_rating).flatten.compact
-    return "Pas encore d'évaluation" if ratings.empty?
-    (ratings.sum.to_f / ratings.size).round(3)
-  end
+ #pluck récupère les valeurs des colonnes user_rating & host_rating
+  #flatten assemble les deux colonnes en une
+  #compact supprime les élément nil des colonnes pour ne pas faire baisser la moyenne
+  # sum additionne tous les élément du tableau ratings
+  #/
+  # size calcule le nombre d'élément dans le tableau
 
   validates :images, 
   length: { in: 0..3, notice: "doit contenir entre 0 et 3 images" }
