@@ -58,7 +58,7 @@
             <%workout.reservations.each do |reservation|%>
                  <td class="bg-tertiary"></td>
                     <td><%=reservation.user.email%></td>
-                    <td>⭐️<%= reservation.host_rating %></td>
+                    <td>⭐️<%= reservation.user.average_host_rating %></td>
                     <td><%= reservation.quantity %></td>
                         <%if reservation.user.city != nil %>
                             <td><%=reservation.user.city.name%></td>
@@ -70,26 +70,25 @@
                     <td></td>
                 <td>
                 <div class="btn-group">
-                    <%= link_to "Consulter la page Profil", user_path(reservation.user), class: 'btn btn-success btn-sm'%>
-                    <% if reservation.status == "pending"%>
-                        <%= link_to "Accepter/refuser la reservation", edit_user_reservation_path(workout,reservation), class: 'btn btn-warning btn-sm'%>
-                        <% elsif% reservation.status == 'closed' %>
-                        <%= link_to "Accepter/refuser la reservation 🔒", edit_user_reservation_path(workout,reservation), class: 'btn btn-warning btn-sm disabled'%>
+    <%= link_to "Consulter la page Profil", user_path(reservation.user), class: 'btn btn-success btn-sm'%>
+    <% if reservation.status == "pending"%>
+        <%= link_to "Accepter/refuser la reservation", edit_user_reservation_path(workout,reservation), class: 'btn btn-warning btn-sm'%>
+        <% elsif reservation.status == 'accepted' %>
+        <%= link_to "Accepter/refuser la reservation 🔒", edit_user_reservation_path(workout,reservation), class: 'btn btn-warning btn-sm disabled'%>
+        <% elsif reservation.status == 'closed' %>
+        <%= link_to "Accepter/refuser la reservation 🔒", edit_user_reservation_path(workout,reservation), class: 'btn btn-warning btn-sm disabled'%>
+        
+                <div class="row">
+                     
+                        <%= render 'hostrating', reservation: reservation %>
+                     
+                        
                     
-                                
-                        <div class="row">
-                            <div class="col-lg-6 col-sm-12"> 
-                                <%= render 'hostrating', reservation: reservation %>
-                            </div>    
-                            <div class="col-lg-6 col-sm-12"> 
-                            <%= render 'hostcomments', reservation: reservation %>
-                            </div>
-                        </div> 
-                        <% else %>
-                        <%= link_to "Accepter/refuser la reservation 🔒", edit_user_reservation_path(workout,reservation), class: 'btn btn-warning btn-sm'%>   
-                    
-                    <%end%> 
-                </div>
+                </div> 
+    <% else %>
+        <%= link_to "Accepter/refuser la reservation", edit_user_reservation_path(workout,reservation), class: 'btn btn-warning btn-sm'%>
+    <%end%> 
+</div>
                 </td>
                 </tr>
      

@@ -23,7 +23,7 @@ class User < ApplicationRecord
   
   def average_host_rating
     host_ratings = reservations.pluck(:host_rating).compact
-    return "Pas encore d'évaluation" if host_ratings.empty?
+    return "Pas encore de note" if host_ratings.empty?
     (host_ratings.sum.to_f / host_ratings.size).round(1)
   end
 
