@@ -42,7 +42,8 @@ class CheckoutController < ApplicationController
     puts @payment_intent
     @user_id = @session.metadata.user_id
     @user = User.find(@user_id)
-    @user.update(credit: @user.credit + @payment_intent.amount_received/100)
+    @user.update(credit: @user.credit + @payment_intent.amount_received.to_f/100)
+    UserMailer.payment_confirmation_email(@user, @payment_intent).deliver_now
   end
 
   def cancel

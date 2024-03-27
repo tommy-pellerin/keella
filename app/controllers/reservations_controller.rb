@@ -27,7 +27,8 @@ class ReservationsController < ApplicationController
     @price = reservation_params[:workout_price].to_f
     @quantity = reservation_params[:quantity].to_i
     @total = @price * @quantity
-    @reservation = Reservation.new(workout: @workout, user: current_user, quantity: @quantity)
+    @reservation = Reservation.new(workout: @workout, user: current_user, quantity: @quantity, total: @total)
+    #debit user
     @user = current_user
     @user.update(credit: @user.credit.to_f - @total)
     #change status to pending
@@ -35,7 +36,7 @@ class ReservationsController < ApplicationController
     if @reservation.save      
       puts "$"*50
       puts @reservation.status
-      flash[:notice] = "Votre réservation a bien été prise en compte. Nous avons procéder au débit de votre credit, il vous reste #{current_user.credit.round(2)} €."
+      flash[:notice] = "Votre réservation a bien été prise en compte. Nous avons procéder au débit de votre credit."
       #send email to host => this job is done by the model itself with the callback after_create
       #reserve paiement => paiement status = pending
       redirect_to @workout
@@ -77,7 +78,9 @@ class ReservationsController < ApplicationController
       @reservation.save
 
       #refund user
+      refund_user(@reservation)
       #send email to user to notify => this job is done by the model itself with the callback after_update
+
     # elsif host_decision == "host_cancelled"
     #   @reservation.status = "host_cancelled"
     #   @reservation.save
@@ -90,11 +93,13 @@ class ReservationsController < ApplicationController
       @reservation.status = "user_cancelled"
       @reservation.save
       #refund user
+      refund_user(@reservation)
       #send email to host to notify => this job is done by the model itself with the callback after_update
     elsif user_decision == "closed"
       @reservation.status = "closed"
       @reservation.save
-      #paie user => paiement status = paid
+      #pay host => paiement status = paid
+      @reservation.workout.host.update(credit: @reservation.workout.host.credit.to_f + @reservation.total)
       #send email to host to notify => this job is done by the model itself with the callback after_update
       #send email to user to thank => this job is done by the model itself with the callback after_update
 
@@ -149,9 +154,10 @@ class ReservationsController < ApplicationController
     end
   end
 
-  def refund_user
+  def refund_user(reservation)
+    @reservation = reservation
     amont_to_refund = @reservation.total
-    @user.update(credit: @user.credit.to_f + )
+    @user.update(credit: @user.credit.to_f + amont_to_refund)
   end
 
 end

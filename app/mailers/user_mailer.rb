@@ -12,6 +12,12 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: 'Bienvenue chez nous !') 
   end
 
+  def payment_confirmation_email(user, payment_intent)
+    @user = user
+    @paid_amount = (payment_intent.amount_received.to_f/100)
+    mail(to: @user.email, subject: 'Confirmation de votre paiement')
+  end
+
   def accepted_email(reservation)
     @reservation = reservation
     @host = @reservation.workout.host
