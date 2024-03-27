@@ -1,7 +1,7 @@
 <% @workouts.each do |workout| %>
     <% workout.reservations.each do |reservation| %>
         
-    La personne qui est venu chez moi me note et commente : 
+    C'est la personne qui est venu chez moi et qui me note et commente : 
     <br>
     <%= link_to reservation.user.email, user_path(reservation.user) %>
     <br>
