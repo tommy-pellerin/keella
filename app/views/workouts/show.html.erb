@@ -90,16 +90,19 @@
               <li>Date de début : <strong><%= @workout.start_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
               <li>Date de fin : <strong><%= @workout.end_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
             </ul>
+            <p><Strong>Attention, la somme prélevé sera : le nombre de place choisi multipliée par le prix unitaire</Strong></p>
+            <p>Le site set en développement, nous ne pouvons pas encore afficher la somme</p>
             <div>
               <% if user_signed_in?  %>
                   <% if @workout.places_available > 0 %>
                     <%= form_with(model: @reservation, local: true) do |form| %>                    
                     
                       <%= form.hidden_field :workout_id, value: @workout.id %>
+                      <%= form.hidden_field :workout_price, value: @workout.price %>
                       <%= form.label :quantity, "Nombre de place",class:"floatingInput" %>
                       <%= form.select :quantity, options_for_select((1..@workout.places_available).to_a), class: "form-control" %>
                                           
-                      <%= button_to "Payer et envoyer une demande de réservation",'#', method: :submit, class:"w-100 py-1 my-2 btn btn-primary rounded-3", data: { confirm: "Êtes-vous sûr de vouloir envoyer une demande de réservation ?" } %>
+                      <%= form.submit "Payer et envoyer une demande de réservation", class:"w-100 py-1 my-2 btn btn-primary rounded-3" %>
                       
                     <% end %>
                     <%#= button_to "Envoyer une demande de réservation #{@workout.price}€", workout_reservations_path(@workout), method: :post, data:{turbo_frame: "places-available"}, class:"w-100 btn btn-lg btn-primary" %>
