@@ -26,7 +26,6 @@ Rails.application.routes.draw do
   
   scope '/checkout' do
       get 'index', to: 'checkout#index', as: 'checkouts'
-      get 'new', to: 'checkout#new', as: 'checkout_new'
       post 'create', to: 'checkout#create', as: 'checkout_create'
       get 'success', to: 'checkout#success', as: 'checkout_success'
       get 'cancel', to: 'checkout#cancel', as: 'checkout_cancel'

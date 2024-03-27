@@ -1,8 +1,10 @@
 <div class="container">
   <h1>Vos crédits et paiements</h1>
+  <h2>Votre crédit : <%= @user.credit %> €</h2>
   <h2>Acheter des crédits</h2>
   <%= form_with url: checkout_create_path, method: :post, local: true do |form| %>
   <div class="form-group">
+    <%= form.hidden_field :user_id, value: @user.id %>
     <%= form.label :total, "Montant (minimum 1€)" %>
     <%= form.number_field :total, step: 0.01, min:1, class: "form-control" %>
   </div>
