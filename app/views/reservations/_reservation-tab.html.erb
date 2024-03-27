@@ -1,4 +1,56 @@
-<td class="bg-tertiary"></td>
+<section class="container shadow rounded py-5">
+
+    <div class="table-responsive small">
+        <table class="table table-striped ">
+
+        <tbody class="table-group-divider">
+        <%@workouts.each do |workout|%>
+                  <thead >
+            <tr class="table-primary">
+              <th scope="col">Titre</th>
+              <th scope="col">Adresse</th>
+              <th scope="col">Prix</th>
+              <th scope="col">Capacité</th>
+              <th scope="col">Place disponible</th>
+              <th scope="col">Date</th>
+              <th scope="col">Début / Fin</th>
+              <th scope="col">Durée</th>
+              <th scope="col">Boutons</th>
+            </tr>
+          </thead>
+        <tbody class="table-group-divider">
+            <tr>
+              <td><%=workout.title%></td>
+              <td><%=workout.location%></td>
+              <td><%=workout.price%> €</td>
+              <td><%=workout.participant_number%> personnes</td>
+              <td><%=workout.places_available%></td>
+              <td><%=workout.start_date.strftime("%d %B %Y")%></td>
+              <td>De <%=workout.start_date.strftime("%H:%M")%> à <%=workout.end_date.strftime("%H:%M")%></td>
+              <td><%=workout.duration / 60%> minutes</td>
+                <td>
+                <div class="btn-group">
+                <%= link_to "Voir la page workout", workout_path(workout), class: 'btn btn-success'%>                
+                <%= link_to "Modifier le workout", edit_workout_path(workout), class: 'btn btn-warning'%>
+                </div>
+                </td>
+            </tr>
+            <thead>
+                <tr class="table-success">
+                    <th scope="col"></th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Note</th>
+                    <th scope="col">Ville</th>
+                    <th scope="col">Status</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody >
+
+            <%workout.reservations.each do |reservation|%><td class="bg-tertiary"></td>
     <td><%=reservation.user.pseudo%></td>
     <td>⭐️</td>
         <%if reservation.user.city != nil %>
@@ -10,24 +62,27 @@
         <td></td>
         <td></td>
         <td></td>
-        <td>
-        <div class="btn-group">
-            <%= link_to "Consulter la page Profil", user_path(reservation.user), class: 'btn btn-success btn-sm'%>
-                <% if reservation.status == "pending" %>
-                    <div class="dropdown">
-                        <a class="btn btn-warning btn-sm dropdown-toggle" type="button" id="toggle-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Accepter/refuser la reservation</a>
-                        <div class="dropdown-menu" aria-labelledby="toggle-dropdown">
-                            <%= form_with url: user_reservation_path(id: reservation.id, host_decision: "accepted"), method: :patch, class: "dropdown-item", data: { turbo: "true", turbo_frame: "tab" } do %>
-                                <%= submit_tag "Accepter", class: "dropdown-item" %>
-                            <% end %>
-                            <%= form_with url: user_reservation_path(id: reservation.id, host_decision: "refused"), method: :patch, class: "dropdown-item", data: { turbo: "true", turbo_frame: "tab" } do %>
-                                <%= submit_tag "Refuser", class: "dropdown-item" %>
-                            <% end %>
-                        </div>
+                        <td>
+                    <div class="btn-group">
+                        <%= link_to "Consulter la page Profil", user_path(reservation.user), class: 'btn btn-success btn-sm'%>
+                        <% if reservation.status == "pending" %>
+                        <%= form_with url: user_reservation_path(id: reservation.id, host_decision: "accepted"), method: :patch, class: "btn btn-primary btn-sm", data: { turbo: "true" } do %>
+                            <%= submit_tag "Accepter", class: "btn btn-primary btn-sm" %>
+                        <% end %>
+
+                        <%= form_with url: user_reservation_path(id: reservation.id, host_decision: "refused"), method: :patch, class: "btn btn-danger btn-sm", data: { turbo: "true" } do %>
+                            <%= submit_tag "Refuser", class: "btn btn-danger btn-sm" %>
+                        <% end %>
                     </div>
                 <% else %>
                     <a class="btn btn-warning btn-sm disabled" type="button">Accepter/refuser la reservation 🔒</a>
                 <% end %> 
-        </div>
-        </td>
-        </tr> 
+                                    </div>
+                </td>
+            </tr> 
+                        <%end%> 
+        <%end%>
+          </tbody>
+        </table>
+    </div>
+</section>
