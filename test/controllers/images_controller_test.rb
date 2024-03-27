@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Image3ControllerTest < ActionDispatch::IntegrationTest
+class ImagesControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

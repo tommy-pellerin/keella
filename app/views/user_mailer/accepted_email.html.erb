@@ -4,13 +4,14 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Salut <%= @user.email %>,</h1>
+    <h1>Salut <%= @user.pseudo %>,</h1>
     <h2>Bonne nouvelle, ta demande a été accepté !</h2>
-    <p>Votre place est confirmée, vous n'avez rien à faire.</p>
+    <p>Nombre de place confirmé : <%= @reservation.quantity %>, vous n'avez rien à faire.</p>
     <p>Etape suivante ?</p>
     <ol>
       <li>Vous préparer à pour la séance</li>
       <li>Vous rendre à la séance</li>
+      <li>Voici le numéro de l'hote : <%= @host.phone %></li>
       <li>A la fin de votre séance, veuillez confirmer que vous avez assisté à votre séance afin de remercier l’hote en débloquant votre paiement.</li>
     </ol>
     <p>Confirmer la fin de ma séance : </p>

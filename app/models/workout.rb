@@ -3,25 +3,34 @@ class Workout < ApplicationRecord
   belongs_to :city
   has_many :reservations
   has_many :users, through: :reservations
-  has_one_attached :image1
-  has_one_attached :image2
-  has_one_attached :image3
+
+  has_many_attached :images
+
+  validates :images, 
+  length: { in: 0..3, notice: "doit contenir entre 0 et 3 images" }
 
   validates :title,
     presence: true,
-    length: { in: 5..140 }
+    length: { in: 4..140 }
 
   validates :description,
     presence: true,
     length: { in: 20..1000 }
 
   validates :start_date, presence: true
-    validate :start_date_in_past?, on: [:create, :update] #verify that the start_date is not in the past
+  validate :start_date_in_past?, on: [:create, :update] #verify that the start_date is not in the past
 
   validates :end_date, presence: true
-    validate :end_date_after_start_date, on: [:create, :update] #verify that the end_date is after the start_date
+  validate :end_date_after_start_date, on: [:create, :update] #verify that the end_date is after the start_date
 
-  validates :price, presence: true #No more conditoin because the price can be free
+  validates :price, 
+    presence: true,
+    numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 1000 }
+
+  validates :participant_number, 
+    presence: true,
+    numericality: { greater_than_or_equal_to: 1, less_than_or_equal_to: 1000 }
+
   validates :location, presence: true
   validates :city, presence: true
 
@@ -30,7 +39,19 @@ class Workout < ApplicationRecord
   end
 
   def places_available
-    participant_number.to_i - reservations.where(status: "accepted").count.to_i
+    if self.reservations
+      self.participant_number.to_i - self.reservations.where(status: 'accepted').sum(:quantity) #cela n'a pas pris en compte les place annulé et refusé
+    else
+      self.participant_number.to_i     
+    end
+  end
+
+  def places_in_pending
+    self.reservations.where(status: 'pending').sum(:quantity)
+  end
+  
+  def is_free
+    self.price == 0
   end
 
   private

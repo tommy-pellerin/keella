@@ -1,3 +1,7 @@
+<head>
+<% content_for :title, "Annonces" %>
+<% content_for :meta_description, "Retrouvez toutes vos annonces" %>
+</head>
 <section class="bg-primary py-5 text-center">
     <h1 class="text-light">Mes Annonces</h1>
 </section>
@@ -32,7 +36,7 @@
               <td><%=workout.duration / 60%> minutes</td>
                 <td>
                 <div class="btn-group">
-                <%= link_to "Voir la page workout", workout_path(workout), class: 'btn btn-success'%>
+                <%= link_to "Voir la page workout", workout_path(workout), class: 'btn btn-success'%>                
                 <%= link_to "Modifier le workout", edit_workout_path(workout), class: 'btn btn-warning'%>
                 </div>
                 </td>
@@ -42,9 +46,9 @@
                     <th scope="col"></th>
                     <th scope="col">Email</th>
                     <th scope="col">Note</th>
+                    <th scope="col">Place reservé</th>
                     <th scope="col">Ville</th>
                     <th scope="col">Status</th>
-                    <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"></th>
@@ -55,9 +59,13 @@
                  <td class="bg-tertiary"></td>
                     <td><%=reservation.user.email%></td>
                     <td>⭐️</td>
-                    <td><%=reservation.user.city.name%></td>
+                    <td><%= reservation.quantity %></td>
+                        <%if reservation.user.city != nil %>
+                            <td><%=reservation.user.city.name%></td>
+                        <%else%>
+                            <td>pas de ville</td>
+                        <%end%>
                     <td><%=reservation.status%></td>
-                    <td></td>
                     <td></td>
                     <td></td>
                 <td>
