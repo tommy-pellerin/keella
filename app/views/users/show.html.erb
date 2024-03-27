@@ -28,13 +28,13 @@
         <% if @average_host_rating.nil? %>
                 <p>Pas encore de notes</p>
         <% else %>
-            <p class="ms-3 mt-2">Note en tant que participant: <%= @average_host_rating.round(2) %>⭐️ </p>
+            <p class="ms-3 mt-2">Note en tant que participant: <%= @average_host_rating.round(1) %>⭐️ </p>
         <% end %>
         
         <% if @average_user_rating.nil? %>
                 <p>Pas encore de notes</p>
         <% else %>
-            <p class="ms-3 mt-2">Note en tant qu'hôte: <%= @average_user_rating.round(2) %>⭐️</p>
+            <p class="ms-3 mt-2">Note en tant qu'hôte: <%= @average_user_rating.round(1) %>⭐️</p>
         <% end %>
         
         </div>

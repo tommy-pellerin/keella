@@ -15,11 +15,7 @@ class User < ApplicationRecord
   validates :phone, presence: true, 
   format: { with: /\A(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})\z/, message: "please enter a valid french number" } #french phone number start with +33, 0033 or 0, following by 9 numbers that can be separate by space, dot or dash
 
-  def average_user_rating
-    user_ratings = reservations.pluck(:user_rating).compact
-    return "Pas encore d'évaluation" if user_ratings.empty?
-    (user_ratings.sum.to_f / user_ratings.size).round(1)
-  end
+  
   
   def average_host_rating
     host_ratings = reservations.pluck(:host_rating).compact
