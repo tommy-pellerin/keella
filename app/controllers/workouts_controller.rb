@@ -1,6 +1,7 @@
 class WorkoutsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :is_host?, only: [:edit]
+  before_action :one_reservation, only: [:edit, :update]
   
   def index
     puts "#"*50
@@ -103,6 +104,14 @@ class WorkoutsController < ApplicationController
       @all_workouts = Workout.all
     end
     return showed_workout_number >= @all_workouts.count
+  end
+
+  def one_reservation
+    @workout = Workout.find(params[:id])
+    if @workout.reservations.where.not(status: ['refused','user_cancelled']).count > 0
+      flash[:warning] = "Vous ne pouvez pas modifier un évènement qui a déjà au moins une réservation."
+      redirect_to request.referrer
+    end
   end
 
 end
