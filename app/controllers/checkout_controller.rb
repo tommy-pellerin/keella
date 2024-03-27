@@ -48,4 +48,5 @@ class CheckoutController < ApplicationController
 
   def cancel
   end
+
 end
