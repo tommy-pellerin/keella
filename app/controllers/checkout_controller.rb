@@ -1,4 +1,13 @@
 class CheckoutController < ApplicationController
+
+  def index
+    @user = current_user
+  end
+
+  def new
+
+  end
+
   def create
     puts "#"*50
     puts "Je suis dans create de checkout_controller.rb"

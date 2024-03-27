@@ -81,7 +81,7 @@
           
             <div class="d-flex">
               <h5 class="card-title me-1"><%= @workout.price %>€</h5>
-              <span class="card-title">par séance</span>
+              <span class="card-title">/ séance / personne</span>
             </div>
             <h6>Nombre de participant maximum : <%= @workout.participant_number %></h6>
             <p>Nombre de place restante : <%= @workout.places_available %></p>
@@ -92,26 +92,22 @@
             </ul>
             <div>
               <% if user_signed_in?  %>
-                <% if @workout.is_free %>
-                  <%= button_to 'Envoyer une demande de réservation gratuite', workout_reservations_path(@workout), method: :post, class:"w-100 btn btn-lg btn-primary" %>              
-                <% else %>
                   <% if @workout.places_available > 0 %>
                     <%= form_with(model: @reservation, local: true) do |form| %>                    
                     
-                    <%= form.hidden_field :workout_id, value: @workout.id %>
-                    <%= form.label :quantity, "Nombre de place",class:"floatingInput" %>
-                    <%= form.select :quantity, options_for_select((1..@workout.places_available).to_a), class: "form-control" %>
-                    
-                    <%= form.submit "Envoyer une demande de réservation", class:"w-100 py-1 mb-2 btn btn-primary rounded-3" %>
-                    
+                      <%= form.hidden_field :workout_id, value: @workout.id %>
+                      <%= form.label :quantity, "Nombre de place",class:"floatingInput" %>
+                      <%= form.select :quantity, options_for_select((1..@workout.places_available).to_a), class: "form-control" %>
+                                          
+                      <%= button_to "Payer et envoyer une demande de réservation",'#', method: :submit, class:"w-100 py-1 my-2 btn btn-primary rounded-3", data: { confirm: "Êtes-vous sûr de vouloir envoyer une demande de réservation ?" } %>
+                      
                     <% end %>
                     <%#= button_to "Envoyer une demande de réservation #{@workout.price}€", workout_reservations_path(@workout), method: :post, data:{turbo_frame: "places-available"}, class:"w-100 btn btn-lg btn-primary" %>
                   <% else %>
                     <%= button_to "Il n'y a plus de place", '#', class:"w-100 btn btn-lg btn-primary disabled" %>
                   <% end %>
-                <% end %>
               <% else %>
-              <%= link_to 'Connectez-vous pour réserver', new_user_session_path, class: "w-100 btn btn-lg btn-primary" %>
+                <%= link_to 'Connectez-vous pour réserver', new_user_session_path, class: "w-100 btn btn-lg btn-primary" %>
               <% end %>
             </div>
           
