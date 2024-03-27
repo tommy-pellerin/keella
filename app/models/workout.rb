@@ -7,7 +7,7 @@ class Workout < ApplicationRecord
   has_many_attached :images
 
   def average_user_rating
-    user_ratings = reservations.where(status: "closed").pluck(:user_rating).compact
+    user_ratings = reservations.pluck(:user_rating).compact
     return "Pas encore d'évaluation" if user_ratings.empty?
     (user_ratings.sum.to_f / user_ratings.size).round(1)
   end
