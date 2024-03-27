@@ -46,9 +46,9 @@
                     <th scope="col"></th>
                     <th scope="col">Email</th>
                     <th scope="col">Note</th>
+                    <th scope="col">Place reservé</th>
                     <th scope="col">Ville</th>
                     <th scope="col">Status</th>
-                    <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"></th>
@@ -59,13 +59,13 @@
                  <td class="bg-tertiary"></td>
                     <td><%=reservation.user.email%></td>
                     <td>⭐️</td>
+                    <td><%= reservation.quantity %></td>
                         <%if reservation.user.city != nil %>
                             <td><%=reservation.user.city.name%></td>
                         <%else%>
                             <td>pas de ville</td>
                         <%end%>
                     <td><%=reservation.status%></td>
-                    <td></td>
                     <td></td>
                     <td></td>
                 <td>
