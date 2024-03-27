@@ -84,12 +84,8 @@
               <span class="card-title">par séance</span>
             </div>
             <h6>Nombre de participant maximum : <%= @workout.participant_number %></h6>
-<<<<<<< HEAD
-            <span>Nombre de place restante : <%= @workout.places_available %></span>  
-=======
             <p>Nombre de place restante : <%= @workout.places_available %></p>
             <p>Nombre de place en attente de réponse : <%= @workout.places_in_pending %></p>
->>>>>>> dev
             <ul>
               <li>Date de début : <strong><%= @workout.start_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
               <li>Date de fin : <strong><%= @workout.end_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
