@@ -93,7 +93,11 @@ class ReservationsController < ApplicationController
     puts @reservation.status
     puts "$"*50
     
-    render :show
+    respond_to do |format|
+      format.html { redirect_to root_path }
+      format.turbo_stream { render turbo_stream: turbo_stream.replace("reservation-tab", partial: "reservation-tab", locals: { reservation: @reservation }) }
+      #format.turbo_stream { render turbo_stream: turbo_stream.replace("reservation-tab", partial: "reservations/reservation-tab", locals: { reservation: @reservation }) }
+    end
     
   end
 

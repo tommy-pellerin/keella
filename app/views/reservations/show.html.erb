@@ -56,39 +56,10 @@
             </thead>
             <tbody >
             <%workout.reservations.each do |reservation|%>
-                 <td class="bg-tertiary"></td>
-                    <td><%=reservation.user.email%></td>
-                    <td>⭐️</td>
-                        <%if reservation.user.city != nil %>
-                            <td><%=reservation.user.city.name%></td>
-                        <%else%>
-                            <td>pas de ville</td>
-                        <%end%>
-                    <td><%=reservation.status%></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                <td>
-                    <div class="btn-group">
-                        <%= link_to "Consulter la page Profil", user_path(reservation.user), class: 'btn btn-success btn-sm'%>
-                        <% if reservation.status == "pending" %>
-                            <div class="dropdown">
-                                <a class="btn btn-warning btn-sm dropdown-toggle" type="button" id="toggle-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Accepter/refuser la reservation
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="toggle-dropdown">
-                                <p><%= reservation.id%></p>
-                                <%= button_to "Accepter", user_reservation_path(id: reservation.id, host_decision: "accepted"), method: :patch, class: "dropdown-item" %>
-                                <%= button_to 'Refuser', user_reservation_path(id: reservation.id, host_decision: "refused"), method: :patch, class: "dropdown-item" %>    
-                                </div>
-                            </div>
-                        <% else %>
-                            <%= link_to "Accepter/refuser la reservation 🔒", edit_user_reservation_path(workout,reservation), class: 'btn btn-warning btn-sm disabled'%>
-                        <% end %> 
-                    </div>
-                </td>
-                </tr>       
-                <%end%> 
+                <%=turbo_frame_tag "tab" do%>
+                    <%= render partial: "reservation-tab", locals: { reservation: reservation }%>
+                <%end%>
+            <%end%> 
         <%end%>
           </tbody>
         </table>

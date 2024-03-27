@@ -1,2 +1,4 @@
-<%= button_to "Accepter", workout_reservation_path(reservation, host_decision: "accepted"), method: :patch, class: "dropdown-item" %>
-<%= button_to 'Refuser', workout_reservation_path(reservation, host_decision: "refused"), method: :patch, class: "dropdown-item" %>
+ <%= turbo_frame_tag "buttons", target: "_top", action: :replace do %>
+    <%= button_to "Accepter", user_reservation_path(id: reservation.id, host_decision: "accepted"), method: :patch, class: "dropdown-item" %>
+    <%=button_to 'Refuser', user_reservation_path(id: reservation.id, host_decision: "refused"), method: :patch, class: "dropdown-item" %>  
+<% end %>

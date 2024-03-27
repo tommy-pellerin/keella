@@ -1,0 +1,33 @@
+<td class="bg-tertiary"></td>
+    <td><%=reservation.user.pseudo%></td>
+    <td>⭐️</td>
+        <%if reservation.user.city != nil %>
+            <td><%=reservation.user.city.name%></td>
+        <%else%>
+            <td>pas de ville</td>
+        <%end%>
+        <td><%=reservation.status%></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+        <div class="btn-group">
+            <%= link_to "Consulter la page Profil", user_path(reservation.user), class: 'btn btn-success btn-sm'%>
+                <% if reservation.status == "pending" %>
+                    <div class="dropdown">
+                        <a class="btn btn-warning btn-sm dropdown-toggle" type="button" id="toggle-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Accepter/refuser la reservation</a>
+                        <div class="dropdown-menu" aria-labelledby="toggle-dropdown">
+                            <%= form_with url: user_reservation_path(id: reservation.id, host_decision: "accepted"), method: :patch, class: "dropdown-item", data: { turbo: "true", turbo_frame: "tab" } do %>
+                                <%= submit_tag "Accepter", class: "dropdown-item" %>
+                            <% end %>
+                            <%= form_with url: user_reservation_path(id: reservation.id, host_decision: "refused"), method: :patch, class: "dropdown-item", data: { turbo: "true", turbo_frame: "tab" } do %>
+                                <%= submit_tag "Refuser", class: "dropdown-item" %>
+                            <% end %>
+                        </div>
+                    </div>
+                <% else %>
+                    <a class="btn btn-warning btn-sm disabled" type="button">Accepter/refuser la reservation 🔒</a>
+                <% end %> 
+        </div>
+        </td>
+        </tr> 
