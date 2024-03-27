@@ -58,7 +58,7 @@
             <%workout.reservations.each do |reservation|%>
                  <td class="bg-tertiary"></td>
                     <td><%=reservation.user.email%></td>
-                    <td>⭐️</td>
+                    <td>⭐️<%= reservation.host_rating %></td>
                     <td><%= reservation.quantity %></td>
                         <%if reservation.user.city != nil %>
                             <td><%=reservation.user.city.name%></td>
