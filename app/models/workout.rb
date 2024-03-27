@@ -9,7 +9,7 @@ class Workout < ApplicationRecord
   def average_user_rating
     user_ratings = reservations.where(status: "closed").pluck(:user_rating).compact
     return "Pas encore d'évaluation" if user_ratings.empty?
-    (user_ratings.sum.to_f / user_ratings.size).round(3)
+    (user_ratings.sum.to_f / user_ratings.size).round(1)
   end
 
   #def average_rating
