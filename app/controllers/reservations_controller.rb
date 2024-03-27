@@ -101,16 +101,16 @@ class ReservationsController < ApplicationController
     
 
     puts @reservation.status
-    puts reservation_params[:user_rating]
+    puts params[:user_rating]
    
     puts "$"*50
     puts "je suis devant la condition rating"
-    if @reservation.status == "closed" && reservation_params[:user_rating] != nil || reservation_params[:user_comment] != nil
+    if @reservation.status == "closed" && (params[:user_rating] != nil || params[:user_comment] != nil)
 
     puts "j'update rating et comment"
 
     
-    if @reservation.update(reservation_params)
+    if @reservation.update(user_rating: params[:user_rating], user_comment: params[:user_comment])
       flash[:success] = "La note et le commentaire ont été enregistrés avec succès."
     else
       flash[:danger] = "Il y a eu un problème lors de l'enregistrement de la note et du commentaire."
@@ -131,10 +131,10 @@ class ReservationsController < ApplicationController
 
 
 
-  def reservation_params
-   params.require(:reservation).permit(:status, :host_comment, :user_comment, :host_rating, :user_rating, :host_decision, :user_decision)
+  #def reservation_params
+   #params.require(:reservation).permit(:status, :host_comment, :user_comment, :host_rating, :user_rating, :host_decision, :user_decision)
        
-  end
+  #end
 
   def is_host?
     if current_user.id != Reservation.find(params[:id]).workout.host_id

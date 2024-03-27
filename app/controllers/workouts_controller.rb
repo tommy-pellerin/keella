@@ -25,6 +25,7 @@ class WorkoutsController < ApplicationController
     puts showed_workout_number
     puts @next_workouts
     @all_showed = all_showed(showed_workout_number)
+
   
   end
 
