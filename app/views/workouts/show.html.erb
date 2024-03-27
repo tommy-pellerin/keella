@@ -53,10 +53,10 @@
                 <div>
                 <%if @workout.host.avatar.attached?%>
                   <%= image_tag @workout.host.avatar, alt: '32x32', class:"mr-2 rounded mb-1 bg-dark", style:"width: 32px; height: 32px;" %>
-                  <strong class="text-gray-dark"><%= @workout.host.email %></strong>
+                  <strong class="text-gray-dark"><%= @workout.host.pseudo %></strong>
                 <%else%>
                   <img alt="32x32" class="mr-2 rounded mb-1 bg-dark" style="width: 32px; height: 32px;" src="<%= image_path('iconeuser.png') %>" data-holder-rendered="true">
-                  <strong class="text-gray-dark"><%= @workout.host.email %></strong>
+                  <strong class="text-gray-dark"><%= @workout.host.pseudo %></strong>
                 <%end%>
                 </div>
               </a>
@@ -90,14 +90,18 @@
               <li>Date de fin : <strong><%= @workout.end_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
             </ul>
             <div>
-              <% if @workout.is_free %>
-                <%= button_to 'Envoyer une demande de réservation gratuite', workout_reservations_path(@workout), method: :post, data:{turbo_frame: "places-available"}, class:"w-100 btn btn-lg btn-primary" %>              
-              <% else %>
-                <% if @workout.places_available > 0 %>
-                  <%= button_to "Envoyer une demande de réservation #{@workout.price}€", workout_reservations_path(@workout), method: :post, data:{turbo_frame: "places-available"}, class:"w-100 btn btn-lg btn-primary" %>
+              <% if user_signed_in?  %>
+                <% if @workout.is_free %>
+                  <%= button_to 'Envoyer une demande de réservation gratuite', workout_reservations_path(@workout), method: :post, data:{turbo_frame: "places-available"}, class:"w-100 btn btn-lg btn-primary" %>              
                 <% else %>
-                  <%= button_to "Il n'y a plus de place", workout_reservations_path(@workout), method: :post, data:{turbo_frame: "places-available"}, class:"w-100 btn btn-lg btn-primary disabled" %>
+                  <% if @workout.places_available > 0 %>
+                    <%= button_to "Envoyer une demande de réservation #{@workout.price}€", workout_reservations_path(@workout), method: :post, data:{turbo_frame: "places-available"}, class:"w-100 btn btn-lg btn-primary" %>
+                  <% else %>
+                    <%= button_to "Il n'y a plus de place", workout_reservations_path(@workout), method: :post, data:{turbo_frame: "places-available"}, class:"w-100 btn btn-lg btn-primary disabled" %>
+                  <% end %>
                 <% end %>
+              <% else %>
+              <%= link_to 'Connectez-vous pour réserver', new_user_session_path, class: "w-100 btn btn-lg btn-primary" %>
               <% end %>
             </div>
           <% end %>
