@@ -23,7 +23,7 @@
                         <p>N° de réservation : <%= reservation.id %></p>
                     <% if reservation.workout%>
                         <h5 class="card-title"><%= reservation.workout.title %></h5>
-                        <p class="card-text">Utilisateur : <%= reservation.workout.host.email %></p>
+                        <p class="card-text">Hote : <%= reservation.workout.host.pseudo %></p>
                         <p class="card-text">Date du début de l'entraînement : <%= reservation.workout.start_date.strftime("%d/%m/%Y %H:%M") %></p>
                         <p class="card-text">Date de fin de l'entraînement : <%= reservation.workout.end_date.strftime("%d/%m/%Y %H:%M") %></p>
                     <% else %>
