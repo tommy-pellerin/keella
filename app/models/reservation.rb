@@ -1,5 +1,6 @@
 class Reservation < ApplicationRecord
   before_create :workout_full?
+  before_update :workout_full?, if: :status_changed_to_accepted?
   after_create :send_reservation_request
   after_update :send_email_on_condition
 
@@ -10,14 +11,17 @@ class Reservation < ApplicationRecord
 
   def workout_full?
     @workout = self.workout
-    @reservation_accepted = @workout.reservations.where(status: "accepted")
-    if @reservation_accepted.count >= @workout.participant_number
-      errors.add(:base, "Il n'y a plus de places disponibles pour cette séance. Veuillez choisir une autre séance.")
+    @reservation_accepted = @workout.reservations.where(status: "accepted").sum(:quantity)
+    if (@reservation_accepted + self.quantity) > @workout.participant_number
+      errors.add(:base, "Il n'y a plus de places disponibles pour cette séance.")
       throw :abort
     end
   end
 
   private
+  def status_changed_to_accepted?
+    status_changed? && status == "accepted"
+  end
 
   def send_reservation_request
     HostMailer.reservation_request(self).deliver_now

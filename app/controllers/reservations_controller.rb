@@ -32,9 +32,7 @@ class ReservationsController < ApplicationController
       puts @reservation.status
       #send email to host => this job is done by the model itself with the callback after_create
       #reserve paiement => paiement status = pending
-      respond_to do |format|
-        format.html { redirect_to @workout, notice: "Votre réservation a bien été prise en compte. Vous recevrez un email de confirmation. Pensez à vérifier vos spams." }      
-      end
+      redirect_to @workout
     else
       flash[:alert] = @reservation.errors.full_messages.join(", ")
       redirect_to @workout
@@ -62,9 +60,12 @@ class ReservationsController < ApplicationController
     #host_decision zone
     if host_decision == "accepted"
       @reservation.status = "accepted"
-      @reservation.save
-      #paiement status = pending
-      #send email to user to notify => this job is done by the model itself with the callback after_update
+      if @reservation.save
+        #paiement status = pending
+        #send email to user to notify => this job is done by the model itself with the callback after_update
+      else
+        flash[:error] = @reservation.errors.full_messages.join(", ")        
+      end
     elsif host_decision == "refused"
       @reservation.status = "refused"
       @reservation.save
