@@ -52,10 +52,6 @@ class Workout < ApplicationRecord
     self.reservations.where(status: 'pending').sum(:quantity)
   end
   
-  def is_free
-    self.price == 0
-  end
-
   private
 
   def start_date_in_past?
