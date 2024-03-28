@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   root "static_pages#index"
   get 'aide', to: 'static_pages#aide'
   get 'mentionslegales', to: 'static_pages#mentionslegales'
+  get 'conditionsdutilisations', to: 'static_pages#conditionsdutilisations'
+  get 'politiquedeconf', to: 'static_pages#politiquedeconf'
+
   resources :contacts, only: [:new, :create]
   devise_for :users
 
@@ -21,6 +24,7 @@ Rails.application.routes.draw do
 
   resources :reservations do    
     patch :update, on: :member 
+    
     # méthode HTTP PATCH pour l’action update
     # on: :member signifie que cette route s’applique à une instance spécifique de Reservation , 
   end

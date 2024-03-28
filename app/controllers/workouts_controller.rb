@@ -21,11 +21,15 @@ class WorkoutsController < ApplicationController
     else
       @workouts = Workout.all.limit(showed_workout_number)
     end
+
+  
+    
     
     @next_workouts = showed_workout_number + 3 #number of workout to show at the beginning and to show more after clicking on "voir plus"
     puts showed_workout_number
     puts @next_workouts
     @all_showed = all_showed(showed_workout_number)
+
   
   end
 
@@ -53,7 +57,8 @@ class WorkoutsController < ApplicationController
     @reservation = Reservation.new
     @reservation_accepted = @workout.reservations.where(status: "accepted")
     @total = @workout.price * @next_quantity
-
+    @average_user_rating = @workout.host.hosted_workouts.joins(:reservations).average('reservations.user_rating')
+    
   end
 
   def new
