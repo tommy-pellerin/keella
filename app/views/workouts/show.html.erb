@@ -68,11 +68,7 @@
         <h3>Description</h3>
         <p><%= @workout.description %></p>
         <hr>
-        <div>
-          <h3>Equipements</h3>
-          <ul>
-          </ul>
-        </div>
+        
       </div>
 
       <div class="col col-md-4 mt-2">
@@ -94,10 +90,14 @@
               <% if user_signed_in?  %>
                   <% if @workout.places_available > 0 %> 
                     <%= turbo_frame_tag "total-frame" do %>
-                      <p>Nombre de place : <%= @next_quantity %></p>
                       <%= render "total-price", locals: { total: @total } %>
-                      <%= link_to "-", workout_path(@workout, action_type: 'subtract', quantity: @next_quantity), class:"w-100 btn btn-lg btn-danger", data:{turbo:true,turbo_frame: "total-frame"} %>
-                      <%= link_to "+", workout_path(@workout, action_type: 'add', quantity: @next_quantity), class:"w-100 btn btn-lg btn-success", data:{turbo:true,turbo_frame: "total-frame"} %>
+                      <div class="d-flex justify-content-between">
+                        <p>Nombre de place : <%= @next_quantity %></p>
+                        <div class="d-flex me-3">
+                          <%= link_to "-", workout_path(@workout, action_type: 'subtract', quantity: @next_quantity), class:"btn btn-danger me-2", style: "width: 3rem;", data:{turbo:true,turbo_frame: "total-frame"} %>
+                          <%= link_to "+", workout_path(@workout, action_type: 'add', quantity: @next_quantity), class:"btn btn-success", style: "width: 3rem;", data:{turbo:true,turbo_frame: "total-frame"} %>
+                        </div>
+                      </div>
                       <%= form_with(model: @reservation, local: true) do |form| %>                    
                       
                         <%= form.hidden_field :workout_id, value: @workout.id %>
@@ -106,7 +106,7 @@
                         <%#= form.label :quantity, "Nombre de place",class:"floatingInput" %>
                         <%#= form.select :quantity, options_for_select((1..@workout.places_available).to_a), class: "form-control", id: "quantity" %>
                                             
-                        <%= form.submit "Payer et envoyer une demande de réservation", class:"w-100 py-1 my-2 btn btn-primary rounded-3" %>
+                        <%= form.submit "Payer et envoyer une demande de réservation", class:"w-100 py-1 my-2 btn btn-primary rounded-3 text-wrap"%>
                       <% end %>
                     <% end %>
 
