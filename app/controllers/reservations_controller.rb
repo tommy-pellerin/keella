@@ -68,17 +68,22 @@ class ReservationsController < ApplicationController
     if host_decision == "accepted"
       @reservation.status = "accepted"
       if @reservation.save
+        flash[:notice] = "La réservation a bien été acceptée. Nous prévenons l'utilisateur"
         #paiement status = pending
         #send email to user to notify => this job is done by the model itself with the callback after_update
       else
-        flash[:error] = @reservation.errors.full_messages.join(", ")        
+        flash[:error] = @reservation.errors.full_messages.join(", ")
       end
     elsif host_decision == "refused"
       @reservation.status = "refused"
-      @reservation.save
 
-      #refund user
-      refund_user(@reservation)
+      if @reservation.save
+        #refund user
+        refund_user(@reservation)
+        flash[:notice] = "La réservation a bien été annulée. Nous avons procéder au remboursement de l'utilisateur."
+      else 
+        flash[:error] = @reservation.errors.full_messages.join(", ")
+      end
       #send email to user to notify => this job is done by the model itself with the callback after_update
 
     # elsif host_decision == "host_cancelled"
@@ -91,15 +96,26 @@ class ReservationsController < ApplicationController
     #user_decision zone
     if user_decision == "user_cancelled"
       @reservation.status = "user_cancelled"
-      @reservation.save
-      #refund user
-      refund_user(@reservation)
+
+      if @reservation.save
+        #refund user
+        refund_user(@reservation)
+        flash[:notice] = "La réservation a bien été annulée. Nous avons procéder au remboursement."
+      else 
+        flash[:error] = @reservation.errors.full_messages.join(", ")
+      end      
       #send email to host to notify => this job is done by the model itself with the callback after_update
     elsif user_decision == "closed"
       @reservation.status = "closed"
-      @reservation.save
-      #pay host => paiement status = paid
-      @reservation.workout.host.update(credit: @reservation.workout.host.credit.to_f + @reservation.total)
+
+      if @reservation.save
+        #pay host => paiement status = paid
+        @reservation.workout.host.update(credit: @reservation.workout.host.credit.to_f + @reservation.total)
+        flash[:notice] = "La réservation a bien été cloturée. Nous avons procéder au paiement de l'hôte."
+      else 
+        flash[:error] = @reservation.errors.full_messages.join(", ")
+      end
+      
       #send email to host to notify => this job is done by the model itself with the callback after_update
       #send email to user to thank => this job is done by the model itself with the callback after_update
 
@@ -157,7 +173,7 @@ class ReservationsController < ApplicationController
   def refund_user(reservation)
     @reservation = reservation
     amont_to_refund = @reservation.total
-    @user.update(credit: @user.credit.to_f + amont_to_refund)
+    @reservation.user.update(credit: @reservation.user.credit.to_f + amont_to_refund)
   end
 
 end
