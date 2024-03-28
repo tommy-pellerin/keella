@@ -15,7 +15,7 @@ class ReservationsController < ApplicationController
   def show
     @user = User.find(params[:user_id])
     @workouts = Workout.where(host_id: @user.id).order(created_at: :desc)
-    #@reservation = Reservation.find(params[:id])
+    
   end
   
   def create

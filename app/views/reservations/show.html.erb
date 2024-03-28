@@ -6,12 +6,11 @@
     <h1 class="text-light">Mes Annonces</h1>
 </section>
 <section class="container shadow rounded py-5">
-    <div class="table-responsive small">
-        <table class="table table-striped ">
-
-        <tbody class="table-group-divider">
-        <%@workouts.each do |workout|%>
-                  <thead >
+  <div class="table-responsive small">
+    <table class="table table-striped ">
+      <tbody class="table-group-divider">
+        <% @workouts.each do |workout| %>
+          <thead>
             <tr class="table-primary">
               <th scope="col">Titre</th>
               <th scope="col">Adresse</th>
@@ -24,77 +23,70 @@
               <th scope="col">Boutons</th>
             </tr>
           </thead>
-        <tbody class="table-group-divider">
-        <tr>
-              <td><%=workout.title%></td>
-              <td><%=workout.location%></td>
-              <td><%=workout.price%> €</td>
-              <td><%=workout.participant_number%> personnes</td>
-              <td><%=workout.places_available%></td>
-              <td><%=workout.start_date.strftime("%d %B %Y")%></td>
-              <td>De <%=workout.start_date.strftime("%H:%M")%> à <%=workout.end_date.strftime("%H:%M")%></td>
-              <td><%=workout.duration / 60%> minutes</td>
-                <td>
+          <tbody class="table-group-divider">
+            <tr>
+              <td><%= workout.title %></td>
+              <td><%= workout.location %></td>
+              <td><%= workout.price %> €</td>
+              <td><%= workout.participant_number %> personnes</td>
+              <td><%= workout.places_available %></td>
+              <td><%= workout.start_date.strftime("%d %B %Y") %></td>
+              <td>De <%= workout.start_date.strftime("%H:%M") %> à <%= workout.end_date.strftime("%H:%M") %></td>
+              <td><%= workout.duration / 60 %> minutes</td>
+              <td>
                 <div class="btn-group">
-                <%= link_to "Voir la page workout", workout_path(workout), class: 'btn btn-success'%>                
-                <%= link_to "Modifier le workout", edit_workout_path(workout), class: 'btn btn-warning'%>
+                  <%= link_to "Voir la page workout", workout_path(workout), class: 'btn btn-success' %>                
+                  <%= link_to "Modifier le workout", edit_workout_path(workout), class: 'btn btn-warning' %>
                 </div>
-                </td>
+              </td>
             </tr>
             <thead>
-                <tr class="table-success">
-                    <th scope="col"></th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Note</th>
-                    <th scope="col">Place reservé</th>
-                    <th scope="col">Ville</th>
-                    <th scope="col">Status</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                </tr>
+              <tr class="table-success">
+                <th scope="col"></th>
+                <th scope="col">Email</th>
+                <th scope="col">Note</th>
+                <th scope="col">Place reservé</th>
+                <th scope="col">Ville</th>
+                <th scope="col">Status</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+              </tr>
             </thead>
-            <tbody >
-            <%workout.reservations.each do |reservation|%>
-                 <td class="bg-tertiary"></td>
-                    <td><%=reservation.user.email%></td>
-                    <td>⭐️<%= reservation.user.average_host_rating %></td>
-                    <td><%= reservation.quantity %></td>
-                        <%if reservation.user.city != nil %>
-                            <td><%=reservation.user.city.name%></td>
-                        <%else%>
-                            <td>pas de ville</td>
-                        <%end%>
-                    <td><%=reservation.status%></td>
-                    <td></td>
-                    <td></td>
-                <td>
-                <div class="btn-group">
-    <%= link_to "Consulter la page Profil", user_path(reservation.user), class: 'btn btn-success btn-sm'%>
-    <% if reservation.status == "pending"%>
-        <%= link_to "Accepter/refuser la reservation", edit_user_reservation_path(workout,reservation), class: 'btn btn-warning btn-sm'%>
-        <% elsif reservation.status == 'accepted' %>
-        <%= link_to "Accepter/refuser la reservation 🔒", edit_user_reservation_path(workout,reservation), class: 'btn btn-warning btn-sm disabled'%>
-        <% elsif reservation.status == 'closed' %>
-        <%= link_to "Accepter/refuser la reservation 🔒", edit_user_reservation_path(workout,reservation), class: 'btn btn-warning btn-sm disabled'%>
-        
-                <div class="row">
-                     
-                        <%= render 'hostrating', reservation: reservation %>
-                     
-                        
-                    
-                </div> 
-    <% else %>
-        <%= link_to "Accepter/refuser la reservation", edit_user_reservation_path(workout,reservation), class: 'btn btn-warning btn-sm'%>
-    <%end%> 
-</div>
-                </td>
+            <tbody>
+              <% workout.reservations.each do |reservation| %>
+                <tr>
+                  <td class="bg-tertiary"></td>
+                  <td><%= reservation.user.email %></td>
+                  <td>⭐️<%= reservation.user.average_host_rating %></td>
+                  <td><%= reservation.quantity %></td>
+                  <% if reservation.user.city != nil %>
+                    <td><%= reservation.user.city.name %></td>
+                  <% else %>
+                    <td>pas de ville</td>
+                  <% end %>
+                  <td><%= reservation.status %></td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <div class="btn-group">
+                      <%= link_to "Consulter la page Profil", user_path(reservation.user), class: 'btn btn-success btn-sm' %>
+                      <% if reservation.status == "pending" %>
+                        <%= link_to "Accepter/refuser la reservation", edit_user_reservation_path(workout, reservation), class: 'btn btn-warning btn-sm' %>
+                      <% elsif reservation.status == 'accepted' || reservation.status == 'closed' %>
+                        <%= link_to "Accepter/refuser la reservation 🔒", edit_user_reservation_path(workout, reservation), class: 'btn btn-warning btn-sm disabled' %>
+                        <div class="row">
+                          <%= render 'hostrating', reservation: reservation %>
+                        </div> 
+                      <% else %>
+                        <%= link_to "Accepter/refuser la reservation", edit_user_reservation_path(workout, reservation), class: 'btn btn-warning btn-sm' %>
+                      <% end %> 
+                    </div>
+                  </td>
                 </tr>
-     
-                <%end%>         
-        <%end%>
+              <% end %>         
+            <% end %>
           </tbody>
         </table>
-    </div>
-</section>
+      </div>
+    </section>
