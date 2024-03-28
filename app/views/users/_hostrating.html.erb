@@ -1,0 +1,23 @@
+<% if @user.reservations.blank? %>
+  <p>Pas de réservations pour le moment.</p>
+<% else %>
+<p>Tu as participé à un workout. Voici les notes/commentaires de ton hôte :</p>
+<% @user.reservations.each do |reservation| %>
+    <div class="reservation">
+        <p>
+        Hôte :<%= link_to reservation.workout.host.pseudo, user_path(reservation.workout.host) %>
+            <br>
+            Note :
+            <% if reservation.host_rating %>
+                <% reservation.host_rating.times do %>
+                    <i class="bi bi-star-fill"></i>
+                <% end %>
+            <% else %>
+                Pas encore noté
+            <% end %>
+            <br>
+        Commentaire de la séance : <%= reservation.host_comment %>
+    </div>
+<% end %>
+<% end %>         
+          
