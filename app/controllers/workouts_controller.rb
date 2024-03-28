@@ -34,6 +34,7 @@ class WorkoutsController < ApplicationController
     puts "je suis dans show de workouts_controller.rb"
     puts params
     @action_type = params[:action_type]
+    @workout = Workout.find(params[:id])
     if params[:quantity]      
       @quantity = params[:quantity].to_i
     else 
@@ -41,17 +42,17 @@ class WorkoutsController < ApplicationController
     end
     puts @quantity
     if @action_type == "subtract"
-      @next_quantity = @quantity - 1 #number of workout to show at the beginning and to show more after clicking on "voir plus"
+      @next_quantity = [@quantity - 1, 0].max #number of workout to show at the beginning and to show more after clicking on "voir plus"
     else
       @next_quantity = @quantity + 1
     end
+    @next_quantity = @next_quantity.clamp(0, @workout.places_available.to_i)
     puts @next_quantity
 
-    @workout = Workout.find(params[:id])
+    
     @reservation = Reservation.new
     @reservation_accepted = @workout.reservations.where(status: "accepted")
     @total = @workout.price * @next_quantity
-
 
   end
 

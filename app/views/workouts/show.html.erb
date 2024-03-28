@@ -90,27 +90,26 @@
               <li>Date de début : <strong><%= @workout.start_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
               <li>Date de fin : <strong><%= @workout.end_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
             </ul>
-            <%= turbo_frame_tag "total-frame" do %>
-              <%= render "total-price", locals: { total: @total } %>
-            <% end %>
             <div>
               <% if user_signed_in?  %>
-                  <% if @workout.places_available > 0 %>
-                    <%= link_to "-", workout_path(@workout, action_type: 'subtract', quantity: @next_quantity), class:"w-100 btn btn-lg btn-danger", data:{turbo: true, turbo_frame: "total-frame"} %>
-                    <p><%= @next_quantity %></p>
-                    <%= link_to "+", workout_path(@workout, action_type: 'add', quantity: @next_quantity), class:"w-100 btn btn-lg btn-success", data:{turbo: true, turbo_frame: "total-frame"} %>
-                    
-                    
-                    <%= form_with(model: @reservation, local: true) do |form| %>                    
-                    
-                      <%= form.hidden_field :workout_id, value: @workout.id %>
-                      <%= form.hidden_field :workout_price, value: @workout.price %>
-                      <%= form.hidden_field :quantity, value: @next_quantity %>
-                      <%#= form.label :quantity, "Nombre de place",class:"floatingInput" %>
-                      <%#= form.select :quantity, options_for_select((1..@workout.places_available).to_a), class: "form-control", id: "quantity" %>
-                                          
-                      <%= form.submit "Payer et envoyer une demande de réservation", class:"w-100 py-1 my-2 btn btn-primary rounded-3" %>
+                  <% if @workout.places_available > 0 %> 
+                    <%= turbo_frame_tag "total-frame" do %>
+                      <p>Nombre de place : <%= @next_quantity %></p>
+                      <%= render "total-price", locals: { total: @total } %>
+                      <%= link_to "-", workout_path(@workout, action_type: 'subtract', quantity: @next_quantity), class:"w-100 btn btn-lg btn-danger", data:{turbo:true,turbo_frame: "total-frame"} %>
+                      <%= link_to "+", workout_path(@workout, action_type: 'add', quantity: @next_quantity), class:"w-100 btn btn-lg btn-success", data:{turbo:true,turbo_frame: "total-frame"} %>
+                      <%= form_with(model: @reservation, local: true) do |form| %>                    
+                      
+                        <%= form.hidden_field :workout_id, value: @workout.id %>
+                        <%= form.hidden_field :workout_price, value: @workout.price %>
+                        <%= form.hidden_field :quantity, value: @next_quantity %>
+                        <%#= form.label :quantity, "Nombre de place",class:"floatingInput" %>
+                        <%#= form.select :quantity, options_for_select((1..@workout.places_available).to_a), class: "form-control", id: "quantity" %>
+                                            
+                        <%= form.submit "Payer et envoyer une demande de réservation", class:"w-100 py-1 my-2 btn btn-primary rounded-3" %>
+                      <% end %>
                     <% end %>
+
                   <% else %>
                     <%= button_to "Il n'y a plus de place", '#', class:"w-100 btn btn-lg btn-primary disabled" %>
                   <% end %>
