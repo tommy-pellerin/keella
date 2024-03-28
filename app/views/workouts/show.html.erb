@@ -90,15 +90,17 @@
               <li>Date de début : <strong><%= @workout.start_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
               <li>Date de fin : <strong><%= @workout.end_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
             </ul>
-            <div class="d-flex justify-content-around border-top py-3">
-              <p><strong>Total</strong> (prix x nombre de place):</p>
-              <p id="total"><%= @total %> €</p>
-            </div>
-            <p><Strong>Attention, la somme prélevé sera : le nombre de place choisi multipliée par le prix unitaire</Strong></p>
-            <p>Le site set en développement, nous ne pouvons pas encore afficher la somme</p>
+            <%= turbo_frame_tag "total-frame" do %>
+              <%= render "total-price", locals: { total: @total } %>
+            <% end %>
             <div>
               <% if user_signed_in?  %>
                   <% if @workout.places_available > 0 %>
+                    <%= link_to "-", workout_path(@workout, action_type: 'subtract', quantity: @next_quantity), class:"w-100 btn btn-lg btn-danger", data:{turbo: true, turbo_frame: "total-frame"} %>
+                    <p><%= @next_quantity %></p>
+                    <%= link_to "+", workout_path(@workout, action_type: 'add', quantity: @next_quantity), class:"w-100 btn btn-lg btn-success", data:{turbo: true, turbo_frame: "total-frame"} %>
+                    
+                    
                     <%= form_with(model: @reservation, local: true) do |form| %>                    
                     
                       <%= form.hidden_field :workout_id, value: @workout.id %>
@@ -108,14 +110,7 @@
                       <%#= form.select :quantity, options_for_select((1..@workout.places_available).to_a), class: "form-control", id: "quantity" %>
                                           
                       <%= form.submit "Payer et envoyer une demande de réservation", class:"w-100 py-1 my-2 btn btn-primary rounded-3" %>
-                      
                     <% end %>
-                    
-                    <%= link_to "-", workout_path(@workout, action_type: 'subtract', quantity: @next_quantity), class:"w-100 btn btn-lg btn-danger" %>
-                    <p><%= @next_quantity %></p>
-                    <%= link_to "+", workout_path(@workout, action_type: 'add', quantity: @next_quantity), class:"w-100 btn btn-lg btn-success" %>
-                    <%#= button_to "Reserver une place", workout_reservations_path(@workout, quatity: @next_quantity), method: :patch, class:"w-100 btn btn-lg btn-primary" %>
-                  
                   <% else %>
                     <%= button_to "Il n'y a plus de place", '#', class:"w-100 btn btn-lg btn-primary disabled" %>
                   <% end %>
