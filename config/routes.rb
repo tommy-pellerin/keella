@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   root "static_pages#index"
   get 'aide', to: 'static_pages#aide'
   get 'mentionslegales', to: 'static_pages#mentionslegales'
+  get 'conditionsdutilisations', to: 'static_pages#conditionsdutilisations'
   get 'politiquedeconf', to: 'static_pages#politiquedeconf'
+
   resources :contacts, only: [:new, :create]
   devise_for :users
 
