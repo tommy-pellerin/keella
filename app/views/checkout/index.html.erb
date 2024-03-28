@@ -1,18 +1,22 @@
 <head>
-<% content_for :title, "Achat de crédits" %>
-<% content_for :meta_description, "Consultez ou achetez des crédits pour réserver des séances" %>
+  <% content_for :title, "Achetez des Crédits" %>
+  <% content_for :meta_description, "Consultez ou achetez des crédits pour réserver des séances" %>
 </head>
-<div class="container">
-  <h1>Vos crédits et paiements</h1>
-  <h2>Votre crédit : <%= @user.credit.round(2) %> €</h2>
-  <h2>Acheter des crédits</h2>
-  <%= form_with url: checkout_create_path, method: :post, local: true do |form| %>
-  <div class="form-group">
-    <%= form.hidden_field :user_id, value: @user.id %>
-    <%= form.label :total, "Montant (minimum 1€)" %>
-    <%= form.number_field :total, step: 0.01, min:1, class: "form-control" %>
+<section class="bg-primary py-5 text-center">
+    <h1 class="text-light">Vos crédits et paiements</h1>
+</section>
+<section class="container d-flex justify-content-center align-items-center pt-5 my-5">
+    <div class="modal-body p-5 rounded-4 shadow bg-body-tertiary text-center">
+        <h2>Votre crédit : <%= @user.credit.round(2) %> €</h2>
+        <h2>Acheter des crédits</h2>
+        <%= form_with url: checkout_create_path, method: :post, local: true do |form| %>
+        <div class="form-group">
+          <%= form.hidden_field :user_id, value: @user.id %>
+          <%= form.label :total, "Montant (minimum 1€)" %>
+          <%= form.number_field :total, step: 0.01, min:1, class: "form-control" %>
+        </div>
+        <br>
+        <%= form.submit "Passer commande", class: "btn btn-primary" %>
+      <% end %>
   </div>
-
-  <%= form.submit "Passer commande (NEXT GEN)", class: "btn btn-primary" %>
-<% end %>
-</div>
+</section>

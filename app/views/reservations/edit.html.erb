@@ -1,13 +1,16 @@
 <head>
-<% content_for :title, "Validation de réservation" %>
-<% content_for :meta_description, "Acceptez ou refusez la demande de réservation de l'utilisateur" %>
+  <% content_for :title, "Confirmez votre choix" %>
+  <% content_for :meta_description, "Acceptez ou refusez la demande de réservation de l'utilisateur" %>
 </head>
-<div>
-  <p>Veuillez vérifier les places disponible avant d'accepter une personne</p>
-  <p>Nombre de place demandé : <%= @reservation.quantity %></p>
-  <div>
-    <%= button_to "Accepter", workout_reservation_path(@reservation, host_decision: "accepted"), method: :patch, class:"btn btn-primary" %>
-    <%= button_to 'Refuser', workout_reservation_path(@reservation, host_decision: "refused"), method: :patch, class:"btn btn-danger" %>
-    <%= link_to 'Voir le profil', user_path(@user.id), class:"btn btn-info" %>
-  </div>
-</div>
+<section class="container-sm d-flex justify-content-center align-items-center pt-5 my-5">
+    <div class="modal-body p-5 rounded-4 shadow bg-body-tertiary text-center">
+        <p class="h6">Veuillez vérifier les places disponibles avant d'accepter une personne</p>
+        <p class="text-secondary">Nombre de places demandées : <%= @reservation.quantity %></p>
+        <br>
+        <div class="btn-group">
+            <%= button_to "Accepter", workout_reservation_path(@reservation, host_decision: "accepted"), method: :patch, class:"btn btn-primary" %>
+            <%= button_to 'Refuser', workout_reservation_path(@reservation, host_decision: "refused"), method: :patch, class:"btn btn-danger" %>
+            <%= link_to 'Profil', user_path(@user.id), class:"btn btn-info" %>
+        </div>
+    </div>
+</section>
