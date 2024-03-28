@@ -142,37 +142,37 @@ class ReservationsController < ApplicationController
           flash[:error] = "Il y a eu un problème lors de l'enregistrement de la note."
           puts @reservation.errors.full_messages
         end
-    end
-
-    if params[:reservation][:user_comment] != nil
-      if @reservation.update(user_comment: params[:reservation][:user_comment])
-        flash[:success] = "Le commentaire a été enregistré avec succès."
-      else
-        flash[:error] = "Il y a eu un problème lors de l'enregistrement du commentaire."
-        puts @reservation.errors.full_messages
+      
       end
-    end
 
-    if params[:reservation][:host_rating] != nil
-      if @reservation.update(host_rating: params[:reservation][:host_rating])
-        flash[:success] = "Le commentaire a été enregistré avec succès."
-      else
-        flash[:error] = "Il y a eu un problème lors de l'enregistrement du commentaire."
-        puts @reservation.errors.full_messages
+      if params[:reservation][:user_comment] != nil
+        if @reservation.update(user_comment: params[:reservation][:user_comment])
+          flash[:success] = "Le commentaire a été enregistré avec succès."
+        else
+          flash[:error] = "Il y a eu un problème lors de l'enregistrement du commentaire."
+          puts @reservation.errors.full_messages
+        end
       end
-    end
-  
-    if params[:reservation][:host_comment] != nil
-      if @reservation.update(host_comment: params[:reservation][:host_comment])
-        flash[:success] = "Le commentaire a été enregistré avec succès."
-      else
-        flash[:error] = "Il y a eu un problème lors de l'enregistrement du commentaire."
-        puts @reservation.errors.full_messages
-      end
-    end
 
+      if params[:reservation][:host_rating] != nil
+        if @reservation.update(host_rating: params[:reservation][:host_rating])
+          flash[:success] = "Le commentaire a été enregistré avec succès."
+        else
+          flash[:error] = "Il y a eu un problème lors de l'enregistrement du commentaire."
+          puts @reservation.errors.full_messages
+        end
+      end
     
-  end
+      if params[:reservation][:host_comment] != nil
+        if @reservation.update(host_comment: params[:reservation][:host_comment])
+          flash[:success] = "Le commentaire a été enregistré avec succès."
+        else
+          flash[:error] = "Il y a eu un problème lors de l'enregistrement du commentaire."
+          puts @reservation.errors.full_messages
+        end
+      end
+    
+    end
 
     
     redirect_to root_path

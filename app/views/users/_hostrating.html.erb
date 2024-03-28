@@ -5,7 +5,7 @@
 <% @user.reservations.each do |reservation| %>
     <div class="reservation">
         <p>
-        Hôte :<%= link_to reservation.workout.host.email, user_path(reservation.workout.host) %>
+        Hôte :<%= link_to reservation.workout.host.pseudo, user_path(reservation.workout.host) %>
             <br>
             Note :
             <% if reservation.host_rating %>
