@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   
   root "static_pages#index"
   get 'aide', to: 'static_pages#aide'
+  get 'contact', to: 'static_pages#contact'
   devise_for :users
 
   resources :users do
