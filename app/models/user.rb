@@ -19,6 +19,11 @@ class User < ApplicationRecord
     self.hosted_workouts.joins(:reservations).average('reservations.user_rating')
   end
   
+  def average_host_rating
+    host_ratings = reservations.pluck(:host_rating).compact
+    return "Pas encore de note" if host_ratings.empty?
+    (host_ratings.sum.to_f / host_ratings.size).round(1)
+  end
 
   def after_confirmation
     welcome_send
