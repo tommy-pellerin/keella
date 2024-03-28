@@ -24,6 +24,12 @@ Rails.application.routes.draw do
     # on: :member signifie que cette route s’applique à une instance spécifique de Reservation , 
   end
   
+  scope '/checkout' do
+      get 'index', to: 'checkout#index', as: 'checkouts'
+      post 'create', to: 'checkout#create', as: 'checkout_create'
+      get 'success', to: 'checkout#success', as: 'checkout_success'
+      get 'cancel', to: 'checkout#cancel', as: 'checkout_cancel'
+  end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

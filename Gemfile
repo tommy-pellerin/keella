@@ -74,4 +74,5 @@ gem "dockerfile-rails", ">= 1.6", :group => :development
 gem 'faker'
 gem 'aws-sdk-s3', '~> 1.143', require: false
 gem 'pg_search'
+gem 'stripe'
 gem 'rails-i18n'
