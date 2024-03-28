@@ -1,9 +1,29 @@
 Rails.application.routes.draw do
+
+  
   root "static_pages#index"
+  get 'aide', to: 'static_pages#aide'
   devise_for :users
-  resources :users
 
+  resources :users do
+    resources :reservations
+  end
+  resources :workouts do
+    resources :reservations
+  end
+  resources :users, only: [:show] do
+    resources :avatars, only: [:create]
+  end
+  resources :workouts, only: [:edit] do
+    resources :images, only: [:create, :destroy]
+  end
 
+  resources :reservations do    
+    patch :update, on: :member 
+    # méthode HTTP PATCH pour l’action update
+    # on: :member signifie que cette route s’applique à une instance spécifique de Reservation , 
+  end
+  
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

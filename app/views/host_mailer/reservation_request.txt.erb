@@ -1,0 +1,9 @@
+Salut <%= @host.pseudo %> tu as reçu une demande de réservation !
+
+<%= @user.pseudo %> souhaite réserver une séance chez toi !
+
+Veuillez vérifier les places disponible avant d'accepter une personne
+
+Vous pouvez valider, refuser ou voir le profil de l'utilisateur dans la page suivante : <%= edit_workout_reservation_url(@workout, @reservation) %>
+
+À très vite sur keella.fly.dev !

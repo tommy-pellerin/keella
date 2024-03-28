@@ -1,0 +1,124 @@
+<head>
+<% content_for :title, "Séance" %>
+<% content_for :meta_description, "Si la séance vous plait n'hésitez pas à faire une demande de réservation" %>
+</head>
+<section class="text-center py-5 bg-secondary">
+  <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <% if @workout.images.attached? %>
+        <div class="carousel-item active">
+          <%= image_tag @workout.images[0], alt: "image 1", class: "d-block mx-auto img-fluid", style:"max-height: 500px; max-width: 100%;" %>
+        </div>
+      <% else %>
+        <div class="carousel-item active">
+          <%= image_tag 'logokeella.png', alt: "workout-image", class: "d-block mx-auto img-fluid", style:"max-height: 500px; max-width: 100%;" %>
+        </div>
+      <% end %>
+      <!-- Ajoutez ici les autres images du carrousel si nécessaire -->
+      <% if @workout.images[1] != nil %>
+        <div class="carousel-item">
+          <%= image_tag @workout.images[1], alt: 'image2', class: "d-block mx-auto img-fluid", style:"max-height: 500px; max-width: 100%;" %>
+        </div>
+        <%end%>
+        <% if @workout.images[2]!= nil %>
+        <div class="carousel-item">
+          <%= image_tag @workout.images[2], alt: 'image3', class: "d-block mx-auto img-fluid", style:"max-height: 500px; max-width: 100%;" %>
+        </div>
+        <% end %>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</section>
+
+<div class="container">
+  <section>
+    <div class="row flex-column-reverse flex-md-row">
+
+      <div class="col col-md-8 mt-2">
+        <h2><%= @workout.title %></h2>
+        <p>Lieu : <%= @workout.location %></p>
+        <p>Ville : <%= @workout.city.name %></p>
+        <hr>
+        <div class="media">
+          <div class="media-body small">
+            <div>
+              <a href="<%= user_path(@workout.host.id) %>">
+                <div>
+                <%if @workout.host.avatar.attached?%>
+                  <%= image_tag @workout.host.avatar, alt: '32x32', class:"mr-2 rounded mb-1 bg-dark", style:"width: 32px; height: 32px;" %>
+                  <strong class="text-gray-dark"><%= @workout.host.pseudo %></strong>
+                <%else%>
+                  <img alt="32x32" class="mr-2 rounded mb-1 bg-dark" style="width: 32px; height: 32px;" src="<%= image_path('iconeuser.png') %>" data-holder-rendered="true">
+                  <strong class="text-gray-dark"><%= @workout.host.pseudo %></strong>
+                <%end%>
+                </div>
+              </a>
+            </div>            
+            <span><i class="bi bi-star-fill">Note de l'hote</i></span>
+          </div>
+        </div>
+        <hr>
+        <h3>Description</h3>
+        <p><%= @workout.description %></p>
+        <hr>
+        <div>
+          <h3>Equipements</h3>
+          <ul>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col col-md-4 mt-2">
+        <div class="card shadow">
+          <div class="card-body">
+          
+            <div class="d-flex">
+              <h5 class="card-title me-1"><%= @workout.price %>€</h5>
+              <span class="card-title">par séance</span>
+            </div>
+            <h6>Nombre de participant maximum : <%= @workout.participant_number %></h6>
+            <p>Nombre de place restante : <%= @workout.places_available %></p>
+            <p>Nombre de place en attente de réponse : <%= @workout.places_in_pending %></p>
+            <ul>
+              <li>Date de début : <strong><%= @workout.start_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
+              <li>Date de fin : <strong><%= @workout.end_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
+            </ul>
+            <div>
+              <% if user_signed_in?  %>
+                <% if @workout.is_free %>
+                  <%= button_to 'Envoyer une demande de réservation gratuite', workout_reservations_path(@workout), method: :post, class:"w-100 btn btn-lg btn-primary" %>              
+                <% else %>
+                  <% if @workout.places_available > 0 %>
+                    <%= form_with(model: @reservation, local: true) do |form| %>                    
+                    
+                    <%= form.hidden_field :workout_id, value: @workout.id %>
+                    <%= form.label :quantity, "Nombre de place",class:"floatingInput" %>
+                    <%= form.select :quantity, options_for_select((1..@workout.places_available).to_a), class: "form-control" %>
+                    
+                    <%= form.submit "Envoyer une demande de réservation", class:"w-100 py-1 mb-2 btn btn-primary rounded-3" %>
+                    
+                    <% end %>
+                    <%#= button_to "Envoyer une demande de réservation #{@workout.price}€", workout_reservations_path(@workout), method: :post, data:{turbo_frame: "places-available"}, class:"w-100 btn btn-lg btn-primary" %>
+                  <% else %>
+                    <%= button_to "Il n'y a plus de place", '#', class:"w-100 btn btn-lg btn-primary disabled" %>
+                  <% end %>
+                <% end %>
+              <% else %>
+              <%= link_to 'Connectez-vous pour réserver', new_user_session_path, class: "w-100 btn btn-lg btn-primary" %>
+              <% end %>
+            </div>
+          
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>

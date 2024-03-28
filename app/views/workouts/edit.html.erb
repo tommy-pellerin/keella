@@ -1,0 +1,74 @@
+<head>
+<% content_for :title, "Modifier la séance" %>
+<% content_for :meta_description, "Apportez des modifications ày votre séance" %>
+</head>
+<section class="bg-primary py-5 text-center">
+    <h1 class="text-light">Modifie ta séance</h1>
+</section>
+
+<section class="container align-items-center">
+    <div class="row text-center py-5 bg-tertiary rounded-4 shadow">
+        <%# Pour chaque image dans la collection de l'entraînement %>
+        <% @workout.images.each do |image| %>
+            <div class="col-lg-4">
+                <div>
+                    <% if image != nil %>
+                        <%= image_tag image, alt: 'image', class: "bd-placeholder", width: "300", height: "140" %>
+                    <%= button_to "Supprimer l'image", workout_image_path(@workout, image), data: {turbo: true}, method: :delete, class: "btn btn-outline-danger my-2" %>
+                    <% else %>
+                        <svg class="bd-placeholder-img" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
+                            <title>Placeholder</title>
+                            <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
+                        </svg>
+                    <% end %>
+                </div>
+            </div>
+        <% end %>
+        <p>il y a <%=@workout.images.count%> images</p>
+        <%if @workout.images.count < 3 %>
+            <%= form_tag workout_images_path(@workout), multipart: true do %>
+                <%= file_field_tag :images, class: "fs-6 fw-light" %> <%# Champ de fichier pour télécharger une nouvelle image %>
+                <%= submit_tag "Ajouter une image", class: "btn btn-outline-secondary" %> <%# Bouton de soumission pour télécharger l'image %>
+            <% end %>
+        <%end%>
+    </div>
+</section>
+
+
+<section class="align-items-center">
+    <div class="form container my-4 py-4 rounded-4 bg-tertiary rounded-4 shadow">
+        <%= form_with(model: @workout, local: true) do |form| %>
+            <%= form.hidden_field :host_id, value: current_user.id %>
+            <div class="col py-2">
+                <%= form.label :title, "Titre", class: "floatingInput" %>
+                <%= form.text_field :title, class: "form-control" %>
+
+                <%= form.label :price, "Prix (€)", class: "floatingInput" %>
+                <%= form.number_field :price, step: "1", class: "form-control" %>
+
+                <%= form.label :description, "Description", class: "floatingInput" %>
+                <%= form.text_area :description, class: "form-control", rows: 4, style: "resize: none;" %>
+            </div>
+            <div class="col py-3">
+                <%= form.label :participant_number, "Nombre de participants", class: "floatingInput" %>
+                <%= form.number_field :participant_number, class: "form-control" %>
+
+                <%= form.label :city, "Ville", class: "floatingInput" %>
+                <%= form.collection_select :city_id, City.all, :id, :name, { prompt: "Sélectionner une ville" }, class: "form-control" %>
+
+                <%= form.label :location, "Adresse", class: "floatingInput" %>
+                <%= form.text_field :location, class: "form-control" %>
+            </div>
+            <div class="col py-3">
+                <%= form.label :start_date, "Date de début", class: "floatingInput" %>
+                <%= form.datetime_field :start_date, class: "form-control" %>
+
+                <%= form.label :end_date, "Date de fin", class: "floatingInput" %>
+                <%= form.datetime_field :end_date, class: "form-control" %>
+                <br>
+                <%= form.submit "Mettre à jour", class: "w-100 py-2 mb-2 btn btn-primary rounded-3" %>
+            </div>
+        <% end %>
+        <%= button_to "Supprimer l'annonce", workout_path(@workout), data: {turbo: true, turbo_confirm: "Vous etes sure de vouloir supprimer l'annonce ?"}, method: :delete, class: "w-100 py-2 mb-2 btn btn-danger rounded-3" %>
+    </div>
+</section>

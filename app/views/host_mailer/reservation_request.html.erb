@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Salut <%= @host.pseudo %> tu as reçu une demande de réservation !</h1>
+    <p>
+      <%= @user.pseudo %> souhaite réserver une séance chez toi !
+    </p>
+    <p>
+      Veuillez vérifier les places disponible avant d'accepter une personne
+    </p>    
+    <a href="<%= user_url(@user) %>">Voir son profil</a>
+    <p>
+      Vous pouvez valider, refuser ou voir le profil de l'utilisateur dans la page suivante : <a href="<%= edit_workout_reservation_url(@workout, @reservation) %>">Répondre à la demande</a>
+    </p>
+    <p> À très vite sur keella.fly.dev !</p>
+  </body>
+</html>
