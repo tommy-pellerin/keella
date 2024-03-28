@@ -95,8 +95,8 @@ class ReservationsController < ApplicationController
     @workouts = Workout.all
     respond_to do |format|
       format.html { redirect_to root_path }
-      format.turbo_stream { render turbo_stream: turbo_stream.replace("fullpage", partial: "reservation-tab", locals: {user: host_id ,workouts: @workouts }) }
-      #format.turbo_stream { render turbo_stream: turbo_stream.replace("reservation-tab", partial: "reservations/reservation-tab", locals: { reservation: @reservation }) }
+      #format.turbo_stream { render turbo_stream: turbo_stream.replace("fullpage", partial: "reservation-tab", locals: {user: Reservation.host_id ,workouts: @workouts }) }
+      format.turbo_stream { render turbo_stream: turbo_stream.replace("fullpage", partial: "reservation-tab") }
     end
     
   end
