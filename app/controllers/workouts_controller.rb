@@ -33,7 +33,8 @@ class WorkoutsController < ApplicationController
     @workout = Workout.find(params[:id])
     @reservation = Reservation.new
     @reservation_accepted = @workout.reservations.where(status: "accepted")
-    
+    @total = @workout.price + 1
+
   end
 
   def new
