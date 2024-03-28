@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+      <title>Formulaire de contact || <%=@contact.issue%></title>
+</head>
+    <body>
+        <h1>Nouveau message de || <%= @contact.user.pseudo %></h1>
+        <p>l' utilisateur <%= @contact.user.email %> a soumis un nouveau message de contact</p>
+        <p><strong>Sujet :</strong></p>
+        <p><%=@contact.issue%></p>
+        <p><strong>Message :</strong></p>
+        <p><%= @contact.message %></p>
+    </body>
+</html>
