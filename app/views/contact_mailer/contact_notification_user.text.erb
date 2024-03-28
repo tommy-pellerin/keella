@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  <title>Keella || Confirmation de votre message de contact</title>
+</head>
+<body>
+  <h1>Confirmation de votre message de contact</h1>
+  <p>Merci <%= @contact.user.pseudo %> pour votre message de contact. Voici les détails que vous avez soumis :</p>
+  <p><strong>Sujet :</strong> <%= @contact.issue %></p>
+  <p><strong>Message :</strong> <%= @contact.message %></p>
+</body>
+</html>
