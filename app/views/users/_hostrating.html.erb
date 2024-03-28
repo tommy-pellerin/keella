@@ -1,3 +1,6 @@
+<% if @user.reservations.blank? %>
+  <p>Pas de réservations pour le moment.</p>
+<% else %>
 <p>Tu as participé à un workout. Voici les notes/commentaires de ton hôte :</p>
 <% @user.reservations.each do |reservation| %>
     <div class="reservation">
@@ -15,5 +18,6 @@
             <br>
         Commentaire de la séance : <%= reservation.host_comment %>
     </div>
-<% end %>       
+<% end %>
+<% end %>         
           

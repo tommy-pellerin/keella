@@ -1,3 +1,7 @@
+
+<% if @workouts.blank? %>
+  <p>Tu n'as pas encore crée de séances donc pas de review</p>
+<% else %>
 <p>Voici les retours de tes invités :</p>
 <% @workouts.each do |workout| %>
     <% workout.reservations.each do |reservation| %>
@@ -19,4 +23,4 @@
         </div>
     <% end %>
 <% end %>    
- 
+<% end %>  
