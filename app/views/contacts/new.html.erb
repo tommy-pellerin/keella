@@ -1,0 +1,27 @@
+<head>
+<% content_for :title, "Contact" %>
+<% content_for :meta_description, "Formulaire pour contacter l'équipe Keella" %>
+</head>
+<section class="bg-primary py-5 text-center">
+    <h1 class="text-light">Nous Contacter</h1>
+</section>
+
+<section class="container d-flex align-items-center pt-5 my-5 ">
+    <div class="modal-body p-5 rounded-4 shadow bg-body-tertiary">
+        <%= form_with(model: @contact, url: contacts_path, method: :post) do |form| %>
+        <%= form.hidden_field :user_id, value: current_user.id %>
+        <div class="field">
+            <%= form.label :issue, 'Votre sujet' %>
+            <%= form.text_field :issue, class: 'form-control' %>
+        </div>
+        <div class="field">
+            <%= form.label :message, 'Votre message' %>
+            <%= form.text_area :message, class: 'form-control', rows: 5 %>
+        </div>
+        <div class="actions">
+        <br>
+            <%= form.submit 'Envoyer', class: 'btn btn-primary w-100' %>
+        </div>
+            <% end %>
+    </div>
+</section>
