@@ -12,6 +12,8 @@ class CheckoutController < ApplicationController
     puts "#"*50
     @total = params[:total].to_d
     @user_id = params[:user_id]
+    @user = User.find(params[:user_id])
+    @user.update(payment_processed: false)
     @session = Stripe::Checkout::Session.create(
       payment_method_types: ['card'],
       metadata: {
@@ -42,11 +44,22 @@ class CheckoutController < ApplicationController
     puts @payment_intent
     @user_id = @session.metadata.user_id
     @user = User.find(@user_id)
-    @user.update(credit: @user.credit + @payment_intent.amount_received.to_f/100)
-    UserMailer.payment_confirmation_email(@user, @payment_intent).deliver_now
+
+    if @payment_intent.status == 'succeeded' && !@user.payment_processed
+      payment_proceed(@user, @payment_intent)
+    end
   end
 
   def cancel
+  end
+
+  private
+
+  def payment_proceed(user, payment_intent)
+    @user = user
+    @payment_intent = payment_intent
+    @user.update(credit: @user.credit + @payment_intent.amount_received.to_f/100, payment_processed: true)
+    UserMailer.payment_confirmation_email(@user, @payment_intent).deliver_now
   end
 
 end
