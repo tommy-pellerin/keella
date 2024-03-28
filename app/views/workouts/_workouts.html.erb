@@ -12,8 +12,13 @@
               
                     <div class="card-title-container m-1 border rounded p-2">
                       <h5 class="card-title"><%= workout.title %></h5>
+                      <% average_user_rating = workout.host.average_user_rating %>
+                      <% if average_user_rating %>
                       
-                          <i class="bi bi-star-fill"><%= workout.average_user_rating %></i>
+                          <i class="bi bi-star-fill"><%= average_user_rating.round(1) %></i>
+                        <% else %>
+                            <i class="bi bi-star-fill">Pas encore de note</i>
+                        <% end %>
                     </div>
                 
               
