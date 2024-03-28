@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/jumph4x/canonical-rails.git
+  revision: 31aac4a84a1a1972fd157419f7f2e354e8b2d55d
+  specs:
+    canonical-rails (0.2.15)
+      actionview (>= 4.1, <= 7.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -301,6 +308,7 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk-s3 (~> 1.143)
   bootsnap
+  canonical-rails!
   capybara
   debug
   devise
