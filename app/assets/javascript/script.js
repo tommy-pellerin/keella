@@ -24,13 +24,3 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-
-document.addEventListener("DOMContentLoaded", function() {
-  var select = document.getElementById("quantity");
-  var total = document.getElementById("total");
-  var price = <%= @workout.price %>; // Remplacez ceci par le prix de l'entraînement
-
-  select.addEventListener("change", function() {
-    total.textContent = (this.value * price);
-  });
-});
