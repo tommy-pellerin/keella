@@ -31,10 +31,11 @@ class WorkoutsController < ApplicationController
   end
 
   def show
+    
     @workout = Workout.find(params[:id])
     @reservation = Reservation.new
     @reservation_accepted = @workout.reservations.where(status: "accepted")
-    
+    @average_user_rating = @workout.host.hosted_workouts.joins(:reservations).average('reservations.user_rating')
   end
 
   def new
