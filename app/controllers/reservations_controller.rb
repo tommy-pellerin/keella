@@ -3,7 +3,7 @@ class ReservationsController < ApplicationController
   before_action :is_host?, only: [:edit]
   before_action :status_is_pending?, only: [:edit]
   before_action :no_cache, only: [:edit]
-  before_action :enough_credit?, only: [:create]
+  # before_action :enough_credit?, only: [:create]
 
   def index
     @reservations = current_user.reservations.order(created_at: :desc)

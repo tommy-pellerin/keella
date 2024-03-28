@@ -30,10 +30,28 @@ class WorkoutsController < ApplicationController
   end
 
   def show
+    puts "#"*50
+    puts "je suis dans show de workouts_controller.rb"
+    puts params
+    @action_type = params[:action_type]
+    if params[:quantity]      
+      @quantity = params[:quantity].to_i
+    else 
+      @quantity = 0 #number of workout to show at the beginning
+    end
+    puts @quantity
+    if @action_type == "subtract"
+      @next_quantity = @quantity - 1 #number of workout to show at the beginning and to show more after clicking on "voir plus"
+    else
+      @next_quantity = @quantity + 1
+    end
+    puts @next_quantity
+
     @workout = Workout.find(params[:id])
     @reservation = Reservation.new
     @reservation_accepted = @workout.reservations.where(status: "accepted")
-    @total = @workout.price + 1
+    @total = @workout.price * @next_quantity
+
 
   end
 

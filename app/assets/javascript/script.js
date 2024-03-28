@@ -24,3 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+//select of the total
+let total = document.getElementById('total').innerHTML;
+console.log(total);  
+
