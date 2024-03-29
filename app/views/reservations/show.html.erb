@@ -73,12 +73,16 @@
                       <%= link_to "Consulter la page Profil", user_path(reservation.user), class: 'btn btn-success btn-sm' %>
                       <% if reservation.status == "pending" %>
                         <%= link_to "Accepter/refuser la reservation", edit_user_reservation_path(workout, reservation), class: 'btn btn-warning btn-sm' %>
-                      <% elsif reservation.status == 'accepted' || reservation.status == 'closed' %>
+                      <% elsif reservation.status == 'accepted' %>
+                        <%= link_to "Accepter/refuser la reservation 🔒", edit_user_reservation_path(workout, reservation), class: 'btn btn-warning btn-sm disabled' %>
+                        <% elsif reservation.status == 'closed' %>
                         <%= link_to "Accepter/refuser la reservation 🔒", edit_user_reservation_path(workout, reservation), class: 'btn btn-warning btn-sm disabled' %>
                         <div class="row">
                           <%= render 'hostrating', reservation: reservation %>
                         </div> 
-                      <% else %>
+                        <% elsif reservation.status == 'refused' %>
+                        <%= link_to "Accepter/refuser la reservation 🔒", edit_user_reservation_path(workout, reservation), class: 'btn btn-warning btn-sm disabled' %>
+                        <% else %>
                         <%= link_to "Accepter/refuser la reservation", edit_user_reservation_path(workout, reservation), class: 'btn btn-warning btn-sm' %>
                       <% end %> 
                     </div>
