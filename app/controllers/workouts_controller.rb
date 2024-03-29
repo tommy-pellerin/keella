@@ -50,7 +50,11 @@ class WorkoutsController < ApplicationController
     else
       @next_quantity = @quantity + 1
     end
-    @next_quantity = @next_quantity.clamp(1, @workout.places_available.to_i)
+    if @workout.places_available.to_i >= 1
+      @next_quantity = @next_quantity.clamp(1, @workout.places_available.to_i)
+    else
+      @next_quantity = 1
+    end
     puts @next_quantity
 
     

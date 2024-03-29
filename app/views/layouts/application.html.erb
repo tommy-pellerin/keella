@@ -17,7 +17,9 @@
 
     <!-- script to use stripe payment -->
     <script src="https://js.stripe.com/v3/"></script>
+    
     <%= javascript_include_tag 'script' %>
+    
   </head>
 
   <body data-turbo="false">
@@ -28,5 +30,10 @@
 
     <%= render 'layouts/footer' %>
   </body>
+
+  <!--script to show the button to reserve a workout in workout show-->
+  <%= javascript_include_tag 'show_reservation_confirmation' %>
+ 
+
   
   </html>
