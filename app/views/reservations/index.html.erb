@@ -38,11 +38,7 @@
                         <div class="btn-group">
                             <% if reservation.status == 'accepted' %>
                             <%= button_to 'Confirmer fin de séance', reservation_path(reservation, user_decision: "closed"), method: :patch, class: 'btn btn-primary' %>
-                            
-
-                                <%= button_to 'Annuler', reservation_path(reservation, user_decision: "user_cancelled"), method: :patch, class: 'btn btn-danger' %>
-                            <% elsif reservation.status == 'pending' %>
-                                <%= button_to 'Relancer la demande', reservation_path(reservation, user_decision: "relaunched"), method: :patch, class: 'btn btn-secondary disabled' %>                            
+                            <%= button_to 'Annuler', reservation_path(reservation, user_decision: "user_cancelled"), method: :patch, class: 'btn btn-danger' %>
                             <% elsif reservation.status == 'closed' %>
                                 
                             <div class="row">
