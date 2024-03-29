@@ -40,7 +40,4 @@ class User < ApplicationRecord
     self.confirmed_at.present?
   end
 
-  
-
-
 end

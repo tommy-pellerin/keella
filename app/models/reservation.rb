@@ -17,9 +17,8 @@ class Reservation < ApplicationRecord
     workout_end_date = self.workout.end_date
   
     # Check if there are any existing reservations that overlap with the new one
-    overlapping_reservations = Reservation.joins(:workout).where("reservations.user_id = ? AND reservations.workout_id != ? AND ((workouts.start_date <= ? AND workouts.end_date >= ?) OR (workouts.start_date <= ? AND workouts.end_date >= ?) OR (workouts.start_date >= ? AND workouts.end_date <= ?))", self.user_id, self.workout_id, workout_start_date, workout_start_date, workout_end_date, workout_end_date, workout_start_date, workout_end_date)
-  
-    # If there are any overlapping reservations, add an error
+    overlapping_reservations = Reservation.joins(:workout).where("reservations.user_id = ? AND reservations.workout_id != ? AND reservations.status IN (?) AND ((workouts.start_date <= ? AND workouts.end_date >= ?) OR (workouts.start_date <= ? AND workouts.end_date >= ?) OR (workouts.start_date >= ? AND workouts.end_date <= ?))", user.id, workout.id, [Reservation.statuses[:pending], Reservation.statuses[:accepted]], workout_start_date, workout_start_date, workout_end_date, workout_end_date, workout_start_date, workout_end_date)
+    
     if overlapping_reservations.any?
       errors.add(:base, "Cette séance chevauche une des séances que vous avez réservé.")
     end
