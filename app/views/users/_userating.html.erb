@@ -9,7 +9,7 @@
         <% @workouts.each do |workout| %>
             <% workout.reservations.order(created_at: :desc).each do |reservation| %>
                 <% if reservation.user_rating || reservation.user_comment.present? %>
-                    <div class="card rounded-4 bg-body-tertiary ">
+                    <div class="card rounded-4  ">
                         <div class="card-body rounded-4 bg-body-tertiary">
                             <p class="mb-0"> 
                                 Date de réservation le : <%= reservation.created_at.strftime("%d/%m/%Y") %>
