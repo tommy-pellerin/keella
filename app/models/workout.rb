@@ -42,9 +42,9 @@ class Workout < ApplicationRecord
 
   def places_available
     if self.reservations
-      self.participant_number.to_i - self.reservations.where(status: 'accepted').sum(:quantity) #cela n'a pas pris en compte les place annulé et refusé
+      self.participant_number.to_i - self.reservations.where(status: ['accepted','closed']).sum(:quantity) #cela n'a pas pris en compte les place closed
     else
-      self.participant_number.to_i     
+      self.participant_number.to_i
     end
   end
 

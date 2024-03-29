@@ -26,9 +26,9 @@ class Reservation < ApplicationRecord
 
   def workout_full?
     @workout = self.workout
-    @reservation_accepted = @workout.reservations.where(status: "accepted").sum(:quantity)
+    @reservation_accepted = @workout.reservations.where(status: ["accepted","closed"]).sum(:quantity)
     if (@reservation_accepted + self.quantity) > @workout.participant_number
-      errors.add(:base, "Il n'y a plus de places disponibles pour cette séance.")
+      errors.add(:base, "Il n'y a plus de places ou pas assez de place disponibles pour cette séance.")
       throw :abort
     end
   end
