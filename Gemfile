@@ -76,4 +76,4 @@ gem 'aws-sdk-s3', '~> 1.143', require: false
 gem 'pg_search'
 gem 'stripe'
 gem 'rails-i18n'
-gem 'canonical-rails', github: 'jumph4x/canonical-rails'
+gem 'canonical-rails'

@@ -24,7 +24,7 @@ class WorkoutsController < ApplicationController
 
   
     
-    
+    @canonical_url = "https://keella.fly.dev/workouts"
     @next_workouts = showed_workout_number + 3 #number of workout to show at the beginning and to show more after clicking on "voir plus"
     puts showed_workout_number
     puts @next_workouts
