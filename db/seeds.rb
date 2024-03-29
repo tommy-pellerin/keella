@@ -10,6 +10,7 @@
 require 'faker'
 Faker::Config.locale = 'fr'
 
+Contact.destroy_all
 Reservation.destroy_all
 Workout.destroy_all
 User.destroy_all
