@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
     <title><%= yield :title %> | Keella </title>
     <meta name="description" content="<%= content_for?(:meta_description) ? yield(:meta_description) : 'Louez des équipements pour vos séances de sport à un particulier' %>">
@@ -27,13 +27,6 @@
     <%= render "layouts/navbar" %>
     <%= render 'layouts/flash'%>
     <%= yield %>
-
     <%= render 'layouts/footer' %>
-  </body>
-
-  <!--script to show the button to reserve a workout in workout show-->
-  <%= javascript_include_tag 'show_reservation_confirmation' %>
- 
-
-  
+   </body> 
   </html>
