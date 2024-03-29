@@ -2,9 +2,10 @@
 <% content_for :title, "Profil" %>
 <% content_for :meta_description, "Retrouvez les informations partagées par l'utilisateur" %>
 </head>
+
 <div class="p-3 me-5 ms-5 border-0 bd-example row row-cols-1 row-cols-md-2 g-4">
     <div class="col"> 
-        <div class="card ms-auto text-center me-auto" style="max-width: 22rem;">
+        <div class="card ms-auto text-center me-auto rounded-4 shadow bg-body-tertiary" style="max-width: 22rem;">
             <h3>Avatar actuel</h3>
                 <%if @user.avatar.attached?%>
                     <%= image_tag @user.avatar, alt: 'avatar' %>
@@ -14,13 +15,15 @@
                 <%end%>
                  <%if @user == current_user%>
                     <%= form_tag user_avatars_path(@user), multipart: true do %>
-                        <%= file_field_tag :avatar, class:"fs-6 fw-lighter" %>
+                        <%= file_field_tag :avatar, class:"btn btn-outline-success btn-sm" %>
                         <%= submit_tag "uploader l'avatar",class:"btn btn-outline-success btn-sm" %>
                     <% end %>
                 <% end %>
+                <br>
+
         </div>
         
-        <div class="card ms-auto me-auto" style="max-width: 22rem;">
+        <div class="card ms-auto me-auto rounded-4 shadow bg-body-tertiary" style="max-width: 22rem;">
             <div class="card-body">
                 <p class="ms-3 mt-2">Nombre de séances proposé: <%= @user.hosted_workouts.count %> </p>
                 <p class="ms-3 mt-2">Nombre de réservations: <%= @user.reserved_workouts.count %> </p>
@@ -40,7 +43,8 @@
     </div>
 </div>
     <div class="col">
-        <div class="card me-auto h-100">
+        <div class="card me-auto h-100 rounded-4 shadow bg-body-tertiary">
+        <br>
             <h1 class="card-title">Profil de <%= @user.pseudo %></h1>
             <div class="card-body">
                 <% if current_user == @user %>
