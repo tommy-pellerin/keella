@@ -32,25 +32,34 @@ test_hosts.each do |test_host|
 end
 
 
-  i=0
-  test_users = []
-  5.times do
-    i += 1
-    test_users << User.new(email: "user#{i}@yopmail.com", credit: Faker::Number.between(from: 1, to: 50), password: "azerty", password_confirmation: "azerty", city: City.all.sample, pseudo: "user#{i}", phone: "070000000#{i}")
-  end
-  test_users.each do |test_user|
-    test_user.skip_confirmation! #this will allow to create a user without the need of an email confirmation ask by devise
-    test_user.save!
-  end
+i=0
+test_users = []
+5.times do
+  i += 1
+  test_users << User.new(email: "user#{i}@yopmail.com", credit: Faker::Number.between(from: 1, to: 50), password: "azerty", password_confirmation: "azerty", city: City.all.sample, pseudo: "user#{i}", phone: "070000000#{i}")
+end
+test_users.each do |test_user|
+  test_user.skip_confirmation! #this will allow to create a user without the need of an email confirmation ask by devise
+  test_user.save!
+end
 
 
 10.times do |count|
-  workout =  Workout.create!(title: Faker::Sport.sport(include_ancient: true, include_unusual: true), start_date: Faker::Time.between_dates(from: Date.today + 1, to: Date.today + 3, period: :day), end_date: Faker::Time.between_dates(from: Date.today + 4, to: Date.today + 7, period: :day), description: Faker::Lorem.sentence(word_count: 10), price: Faker::Number.between(from: 0.0, to: 20.0).round(2), location: Faker::Address.full_address, host: test_hosts.sample, city: City.all.sample, participant_number: Faker::Number.between(from: 1, to: 10))
+  start_date = Faker::Time.between_dates(from: Date.today + 1, to: Date.today + 3, period: :day)
+  end_date = Faker::Time.between_dates(from: Date.today + 4, to: Date.today + 7, period: :day)
+  workout =  Workout.create!(title: Faker::Sport.sport(include_ancient: true, include_unusual: true), start_date: start_date, end_date: end_date, description: Faker::Lorem.sentence(word_count: 10), price: Faker::Number.between(from: 0.0, to: 20.0).round(2), location: Faker::Address.full_address, host: test_hosts.sample, city: City.all.sample, participant_number: Faker::Number.between(from: 1, to: 10))
   workout.images.attach(
     Rails.root.join('app','assets','images','sport',"#{count}.jpg")
   )
 end
 
 10.times do 
- reservation = Reservation.create!(workout: Workout.all.sample, user: User.all.sample, quantity: 1,status: 0, host_rating: Faker::Number.between(from: 1, to: 5), user_rating: Faker::Number.between(from: 1, to: 5), user_comment: Faker::Lorem.sentence(word_count: 10), host_comment: Faker::Lorem.sentence(word_count: 10))
+  user = User.all.sample
+  workout = Workout.all.sample
+  workout_start_date = workout.start_date
+  workout_end_date = workout.end_date
+  overlapping_reservations = Reservation.joins(:workout).where("reservations.user_id = ? AND reservations.workout_id != ? AND ((workouts.start_date <= ? AND workouts.end_date >= ?) OR (workouts.start_date <= ? AND workouts.end_date >= ?) OR (workouts.start_date >= ? AND workouts.end_date <= ?))", user.id, workout.id, workout_start_date, workout_start_date, workout_end_date, workout_end_date, workout_start_date, workout_end_date)
+  if overlapping_reservations.empty?
+    reservation = Reservation.create!(workout: workout, user: user, quantity: 1,status: 0, host_rating: Faker::Number.between(from: 1, to: 5), user_rating: Faker::Number.between(from: 1, to: 5), user_comment: Faker::Lorem.sentence(word_count: 10), host_comment: Faker::Lorem.sentence(word_count: 10))
+  end
 end
