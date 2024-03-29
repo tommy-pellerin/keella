@@ -1,0 +1,29 @@
+
+<% if @workouts.blank? %>
+  <p>Tu n'as pas encore crée de séances donc pas de review</p>
+<% else %>
+    <p>Voici les retours de tes invités :</p>
+        <% @workouts.each do |workout| %>
+            <% workout.reservations.order(created_at: :desc).each do |reservation| %>
+                <% if reservation.user_rating || reservation.user_comment.present? %>
+                    <div class="reservation"> 
+                            Date de réservation le : <%= reservation.created_at.strftime("%d/%m/%Y") %>
+                            <br>           
+                            Participant : <%= link_to reservation.user.pseudo, user_path(reservation.user) %>
+                            <br>
+                            Note : 
+                            <% if reservation.user_rating %>
+                                <% reservation.user_rating.times do %>
+                                    <i class="bi bi-star-fill"></i>
+                                <% end %>
+                            <% else %>
+                                Pas encore noté
+                            <% end %>
+                            <br>
+                            Commentaire de la séance : <%= reservation.user_comment %>
+                        </p>
+                    </div>
+                <% end %>
+            <% end %>   
+        <% end %>    
+<% end %>  

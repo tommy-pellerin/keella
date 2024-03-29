@@ -1,7 +1,7 @@
 <footer class="py-3 my-4 border-top">
     <div class="text-center">
         <%= link_to "#", class: "back-to-top" do %>
-            <%= image_tag "logokeella.png", alt: "Logo keella", class:"img-fluid" %>
+            <%= image_tag "logokeella.webp", alt: "Logo keella", class:"img-fluid" %>
         <% end %>
     <div/>
     
@@ -11,19 +11,19 @@
         </li>    
             
         <li class="nav-item">
-            <a href="#" class="nav-link px-2 text-body-primary">Contactez-nous</a>
+            <a href="<%= new_contact_path %>" class="nav-link px-2 text-body-primary">Contactez-nous</a>
         </li>
 
         <li class="nav-item">
-            <a href="#" class="nav-link px-2 text-body-primary">Mention légale</a>
+            <a href="<%= mentionslegales_path %>" class="nav-link px-2 text-body-primary">Mentions légales</a>
         </li>
 
         <li class="nav-item">
-            <a href="#" class="nav-link px-2 text-body-primary">Condition d'utilisation</a>
+            <a href="<%= conditionsdutilisations_path %>" class="nav-link px-2 text-body-primary">Conditions d'utilisation</a>
         </li>
 
         <li class="nav-item">
-            <a href="#" class="nav-link px-2 text-body-primary">Politique de confidentialité</a>
+            <a href="<%= politiquedeconf_path %>" class="nav-link px-2 text-body-primary">Politique de confidentialité</a>
         </li>
     
     </ul>

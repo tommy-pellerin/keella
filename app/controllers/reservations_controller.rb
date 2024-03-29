@@ -8,11 +8,14 @@ class ReservationsController < ApplicationController
   def index
     @reservations = current_user.reservations.order(created_at: :desc)
     
+    
   end
+  
 
   def show
     @user = User.find(params[:user_id])
     @workouts = Workout.where(host_id: @user.id).order(created_at: :desc)
+    
   end
   
   def create
@@ -30,12 +33,13 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.new(workout: @workout, user: current_user, quantity: @quantity, total: @total)
     #debit user
     @user = current_user
-    @user.update(credit: @user.credit.to_f - @total)
+    
     #change status to pending
     @reservation.status = "pending"
-    if @reservation.save      
+    if @reservation.save
       puts "$"*50
       puts @reservation.status
+      @user.update(credit: @user.credit.to_f - @total)
       flash[:notice] = "Votre réservation a bien été prise en compte. Nous avons procéder au débit de votre credit."
       #send email to host => this job is done by the model itself with the callback after_create
       #reserve paiement => paiement status = pending
@@ -58,8 +62,10 @@ class ReservationsController < ApplicationController
     puts params
     puts "#"*50
     @reservation = Reservation.find(params[:id])
+    
     host_decision = params[:host_decision]
     user_decision = params[:user_decision]
+    
     
     puts "$"*50
     puts @reservation.status
@@ -122,14 +128,69 @@ class ReservationsController < ApplicationController
       #if user_decision == "relauched", the status is already "pending" so no need to change it
     end
 
+    
+
     puts @reservation.status
+    #puts params[:reservation][:user_rating]
+   
     puts "$"*50
+    puts "je suis devant la condition rating"
+    if @reservation.status == "closed" && params[:reservation]
+      if params[:reservation][:user_rating] != nil
+        if @reservation.update(user_rating: params[:reservation][:user_rating])
+          flash[:success] = "La note a été enregistrée avec succès."
+        else
+          flash[:error] = "Il y a eu un problème lors de l'enregistrement de la note."
+          puts @reservation.errors.full_messages
+        end
+      
+      end
+
+      if params[:reservation][:user_comment] != nil
+        if @reservation.update(user_comment: params[:reservation][:user_comment])
+          flash[:success] = "Le commentaire a été enregistré avec succès."
+        else
+          flash[:error] = "Il y a eu un problème lors de l'enregistrement du commentaire."
+          puts @reservation.errors.full_messages
+        end
+      end
+
+      if params[:reservation][:host_rating] != nil
+        if @reservation.update(host_rating: params[:reservation][:host_rating])
+          flash[:success] = "Le commentaire a été enregistré avec succès."
+        else
+          flash[:error] = "Il y a eu un problème lors de l'enregistrement du commentaire."
+          puts @reservation.errors.full_messages
+        end
+      end
+    
+      if params[:reservation][:host_comment] != nil
+        if @reservation.update(host_comment: params[:reservation][:host_comment])
+          flash[:success] = "Le commentaire a été enregistré avec succès."
+        else
+          flash[:error] = "Il y a eu un problème lors de l'enregistrement du commentaire."
+          puts @reservation.errors.full_messages
+        end
+      end
+    
+    end
+
     
     redirect_to root_path
     
   end
 
+  
+
+
   private
+
+
+
+  #def reservation_params
+   #params.require(:reservation).permit(:status, :host_comment, :user_comment, :host_rating, :user_rating, :host_decision, :user_decision)
+       
+  #end
 
   def is_host?
     if current_user.id != Reservation.find(params[:id]).workout.host_id
