@@ -92,11 +92,7 @@ class ReservationsController < ApplicationController
       end
       #send email to user to notify => this job is done by the model itself with the callback after_update
 
-    # elsif host_decision == "host_cancelled"
-    #   @reservation.status = "host_cancelled"
-    #   @reservation.save
-      #refund user
-      #send email to user to notify => this job is done by the model itself with the callback after_update
+      # host_decision to cancel is managed by the destroy method in workout controller
     end
 
     #user_decision zone
@@ -124,8 +120,7 @@ class ReservationsController < ApplicationController
       
       #send email to host to notify => this job is done by the model itself with the callback after_update
       #send email to user to thank => this job is done by the model itself with the callback after_update
-
-      #if user_decision == "relauched", the status is already "pending" so no need to change it
+      
     end
 
     
