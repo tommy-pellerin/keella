@@ -36,7 +36,7 @@ Be careful of the validation conditions !
 the start_date and end_date are not correct but can be use to see some data
 
 
-# Pour obtenir le statu de paiement on peux utiliser les conditoins :
+# Pour obtenir le status de paiement on peux utiliser les conditoins :
 if status = pending ou accepted -> paiement_status = pending
 if status = refused ou cancelled -> paiement_status = refunded
 if status = closed -> paid
