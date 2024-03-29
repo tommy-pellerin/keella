@@ -3,7 +3,7 @@
         <% if @user.reservations.blank? %>
             <h5>Pas de réservations pour le moment.</h5>
         <% else %>
-            <h5>Tu as participé à un workout. Voici les notes/commentaires de ton hôte :</h5>
+            <h5>Tu as participé à un workout. Voici les commentaires de ton hôte :</h5>
     </div>
     <% @user.reservations.order(created_at: :desc).each do |reservation| %>
             <% if reservation.host_rating || reservation.host_comment.present? %>

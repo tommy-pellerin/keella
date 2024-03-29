@@ -2,10 +2,10 @@
 <% content_for :title, "Profil" %>
 <% content_for :meta_description, "Retrouvez les informations partagées par l'utilisateur" %>
 
-
-    <section class="row">
+ <section class="container">
+    <div class="row">
     
-        <div class="col "> 
+        <div class="col col-md-4"> 
             <div class="card ms-auto text-center me-auto rounded-4 shadow bg-body-tertiary" style="max-width: 22rem;">
                 <h3>Avatar actuel</h3>
                     <%if @user.avatar.attached?%>
@@ -42,7 +42,7 @@
             </div>
         </div>
     
-        <div class="col">
+        <div class="col col-md-8">
             <div class="card me-auto rounded-4 shadow bg-body-tertiary">
             <br>
                     <h1 class="card-title" style="text-align: center;">Profil de <%= @user.pseudo %></h1>
@@ -60,4 +60,5 @@
                     </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
