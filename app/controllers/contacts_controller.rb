@@ -12,6 +12,7 @@ class ContactsController < ApplicationController
       ContactMailer.contact_notification_user(@contact).deliver_now
       redirect_to root_path, notice: "Votre message a bien été envoyé"
     else
+      flash[:error] = "Erreur lors de l'enregistrement du contact : #{@contact.errors.full_messages.join(", ")}" 
       render 'new'
     end
   end

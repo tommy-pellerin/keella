@@ -33,12 +33,13 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.new(workout: @workout, user: current_user, quantity: @quantity, total: @total)
     #debit user
     @user = current_user
-    @user.update(credit: @user.credit.to_f - @total)
+    
     #change status to pending
     @reservation.status = "pending"
-    if @reservation.save      
+    if @reservation.save
       puts "$"*50
       puts @reservation.status
+      @user.update(credit: @user.credit.to_f - @total)
       flash[:notice] = "Votre réservation a bien été prise en compte. Nous avons procéder au débit de votre credit."
       #send email to host => this job is done by the model itself with the callback after_create
       #reserve paiement => paiement status = pending

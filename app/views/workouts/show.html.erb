@@ -72,11 +72,7 @@
         <h3>Description</h3>
         <p><%= @workout.description %></p>
         <hr>
-        <div>
-          <h3>Equipements</h3>
-          <ul>
-          </ul>
-        </div>
+        
       </div>
 
       <div class="col col-md-4 mt-2">
@@ -94,24 +90,33 @@
               <li>Date de début : <strong><%= @workout.start_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
               <li>Date de fin : <strong><%= @workout.end_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
             </ul>
-            <p><Strong>Attention, la somme prélevé sera : le nombre de place choisi multipliée par le prix unitaire</Strong></p>
-            <p>Le site set en développement, nous ne pouvons pas encore afficher la somme</p>
             <div>
               <% if user_signed_in?  %>
-                <div class="d-none" id="step-before-reservation">Vous allez etre débiter de la somme indiquée, etes vous sure de vouloir continuer ?</div>
-                <button id="reservation-button">Reserver</button>
-                  <% if @workout.places_available > 0 %>
-                    <%= form_with(model: @reservation, local: true) do |form| %>                    
-                    
-                      <%= form.hidden_field :workout_id, value: @workout.id %>
-                      <%= form.hidden_field :workout_price, value: @workout.price %>
-                      <%= form.label :quantity, "Nombre de place",class:"floatingInput" %>
-                      <%= form.select :quantity, options_for_select((1..@workout.places_available).to_a), class: "form-control" %>
-                                          
-                      <%= form.submit "Payer et envoyer une demande de réservation", class:"w-100 py-1 my-2 btn btn-primary rounded-3" %>
-                      
-                    <% end %>
-                    <%#= button_to "Envoyer une demande de réservation #{@workout.price}€", workout_reservations_path(@workout), method: :post, data:{turbo_frame: "places-available"}, class:"w-100 btn btn-lg btn-primary" %>
+                
+                  <% if @workout.places_available > 0 %> 
+                    <div class="d-none" id="step-before-reservation">
+                      <%= turbo_frame_tag "total-frame" do %>
+                        <%= render "total-price", locals: { total: @total } %>
+                        <div class="d-flex justify-content-between">
+                          <p>Nombre de place : <%= @next_quantity %></p>
+                          <div class="d-flex me-3">
+                            <%= link_to "-", workout_path(@workout, action_type: 'subtract', quantity: @next_quantity), class:"btn btn-danger me-2", style: "width: 3rem;", data:{turbo:true,turbo_frame: "total-frame"} %>
+                            <%= link_to "+", workout_path(@workout, action_type: 'add', quantity: @next_quantity), class:"btn btn-success", style: "width: 3rem;", data:{turbo:true,turbo_frame: "total-frame"} %>
+                          </div>
+                        </div>
+                        <%= form_with(model: @reservation, local: true) do |form| %>                    
+                        
+                          <%= form.hidden_field :workout_id, value: @workout.id %>
+                          <%= form.hidden_field :workout_price, value: @workout.price %>
+                          <%= form.hidden_field :quantity, value: @next_quantity %>
+                          <%#= form.label :quantity, "Nombre de place",class:"floatingInput" %>
+                          <%#= form.select :quantity, options_for_select((1..@workout.places_available).to_a), class: "form-control", id: "quantity" %>
+                                              
+                          <%= form.submit "Comfirmer et payer pour envoyer une demande de réservation", class:"w-100 py-1 my-2 btn btn-primary rounded-3 text-wrap"%>
+                        <% end %>
+                      <% end %>
+                    </div>
+                    <button class="w-100 btn btn-lg btn-primary" id="reservation-button">Reserver</button> 
                   <% else %>
                     <%= button_to "Il n'y a plus de place", '#', class:"w-100 btn btn-lg btn-primary disabled" %>
                   <% end %>
