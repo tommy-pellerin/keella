@@ -90,7 +90,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_28_191918) do
     t.string "pseudo"
     t.string "phone"
     t.decimal "credit", default: "0.0"
-    t.boolean "payment_processed", default: false
+    t.string "token"
     t.index ["city_id"], name: "index_users_on_city_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
