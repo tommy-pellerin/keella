@@ -100,6 +100,8 @@ GEM
     bootsnap (1.18.3)
       msgpack (~> 1.2)
     builder (3.2.4)
+    canonical-rails (0.2.15)
+      actionview (>= 4.1, <= 7.2)
     capybara (3.40.0)
       addressable
       matrix
@@ -302,6 +304,7 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk-s3 (~> 1.143)
   bootsnap
+  canonical-rails
   capybara
   debug
   devise
