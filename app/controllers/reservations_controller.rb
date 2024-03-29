@@ -228,8 +228,9 @@ class ReservationsController < ApplicationController
 
   def refund_user(reservation)
     @reservation = reservation
-    amont_to_refund = @reservation.total
-    @reservation.user.update(credit: @reservation.user.credit.to_f + amont_to_refund)
+    amount_to_refund = @reservation.total || 0
+    current_credit = @reservation.user.credit || 0
+    @reservation.user.update(credit: current_credit + amount_to_refund)
   end
 
 end

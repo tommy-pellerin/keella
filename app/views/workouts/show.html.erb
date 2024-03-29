@@ -93,12 +93,11 @@
               <li>Date de début : <strong><%= @workout.start_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
               <li>Date de fin : <strong><%= @workout.end_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
             </ul>
-            <div>
-              <% if @workout.host.id == current_user.id%>
-                <p class="p-2 text-white text-center bg-dark rounded-3">Vous etes hote de cette séance</p>
-              <% else  %>
+            <div>              
                 <% if user_signed_in?  %>
-                  
+                  <% if @workout.host.id == current_user.id %>
+                    <p class="p-2 text-white text-center bg-dark rounded-3">Vous etes hote de cette séance</p>
+                  <% else %>
                     <% if @workout.places_available > 0 %> 
                       <div class="d-none" id="step-before-reservation">
                         <%= turbo_frame_tag "total-frame" do %>
@@ -126,10 +125,11 @@
                     <% else %>
                       <%= button_to "Il n'y a plus de place", '#', class:"w-100 btn btn-lg btn-primary disabled" %>
                     <% end %>
+                  <% end %>
                 <% else %>
                   <%= link_to 'Connectez-vous pour réserver', new_user_session_path, class: "w-100 btn btn-lg btn-primary" %>
                 <% end %>
-              <% end %>
+              
             </div>          
           </div>
         </div>
