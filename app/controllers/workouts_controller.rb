@@ -102,9 +102,13 @@ class WorkoutsController < ApplicationController
     if @workout.destroy
       @reservations.each do |reservation|
         reservation.status = "host_cancelled"
-        reservation.save
+        if @reservation.save
+          #refund user
+          refund_user(@reservation)
+        end
+        
       end
-      redirect_to workouts_path, notice: "Workout supprimé avec succès."
+      redirect_to workouts_path, notice: "Workout supprimé avec succès. Nous avons procéder au remboursement des utilisateurs."
     else
       flash[:error] = "Il y a une erreur lors de la suppression de la réservation : #{workout.errors.full_messages.to_sentence}"
       render :show
