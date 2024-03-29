@@ -1,6 +1,9 @@
 <head>
 <% content_for :title, "Séance" %>
 <% content_for :meta_description, "Si la séance vous plait n'hésitez pas à faire une demande de réservation" %>
+<script type="application/ld+json">
+  <%= workout_jsonld(@workout) %>
+</script>
 </head>
 <section class="text-center py-5 bg-secondary">
   <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -91,44 +94,46 @@
               <li>Date de fin : <strong><%= @workout.end_date.strftime("%d/%m/%Y %H:%M") %></strong></li>
             </ul>
             <div>
-              <% if user_signed_in?  %>
-                  <% if @workout.places_available > 0 %> 
-                    <%= turbo_frame_tag "total-frame" do %>
-                      <%= render "total-price", locals: { total: @total } %>
-                      <div class="d-flex justify-content-between">
-                        <p>Nombre de place : <%= @next_quantity %></p>
-                        <div class="d-flex me-3">
-                          <%= link_to "-", workout_path(@workout, action_type: 'subtract', quantity: @next_quantity), class:"btn btn-danger me-2", style: "width: 3rem;", data:{turbo:true,turbo_frame: "total-frame"} %>
-                          <%= link_to "+", workout_path(@workout, action_type: 'add', quantity: @next_quantity), class:"btn btn-success", style: "width: 3rem;", data:{turbo:true,turbo_frame: "total-frame"} %>
-                        </div>
+              <% if @workout.host.id == current_user.id%>
+                <p class="p-2 text-white text-center bg-dark rounded-3">Vous etes hote de cette séance</p>
+              <% else  %>
+                <% if user_signed_in?  %>
+                  
+                    <% if @workout.places_available > 0 %> 
+                      <div class="d-none" id="step-before-reservation">
+                        <%= turbo_frame_tag "total-frame" do %>
+                          <%= render "total-price", locals: { total: @total } %>
+                          <div class="d-flex justify-content-between">
+                            <p>Nombre de place : <%= @next_quantity %></p>
+                            <div class="d-flex me-3">
+                              <%= link_to "-", workout_path(@workout, action_type: 'subtract', quantity: @next_quantity), class:"btn btn-danger me-2", style: "width: 3rem;", data:{turbo:true,turbo_frame: "total-frame"} %>
+                              <%= link_to "+", workout_path(@workout, action_type: 'add', quantity: @next_quantity), class:"btn btn-success", style: "width: 3rem;", data:{turbo:true,turbo_frame: "total-frame"} %>
+                            </div>
+                          </div>
+                          <%= form_with(model: @reservation, local: true) do |form| %>                    
+                          
+                            <%= form.hidden_field :workout_id, value: @workout.id %>
+                            <%= form.hidden_field :workout_price, value: @workout.price %>
+                            <%= form.hidden_field :quantity, value: @next_quantity %>
+                            <%#= form.label :quantity, "Nombre de place",class:"floatingInput" %>
+                            <%#= form.select :quantity, options_for_select((1..@workout.places_available).to_a), class: "form-control", id: "quantity" %>
+                                                
+                            <%= form.submit "Comfirmer et payer pour envoyer une demande de réservation", class:"w-100 py-1 my-2 btn btn-primary rounded-3 text-wrap"%>
+                          <% end %>
+                        <% end %>
                       </div>
-                      <%= form_with(model: @reservation, local: true) do |form| %>                    
-                      
-                        <%= form.hidden_field :workout_id, value: @workout.id %>
-                        <%= form.hidden_field :workout_price, value: @workout.price %>
-                        <%= form.hidden_field :quantity, value: @next_quantity %>
-                        <%#= form.label :quantity, "Nombre de place",class:"floatingInput" %>
-                        <%#= form.select :quantity, options_for_select((1..@workout.places_available).to_a), class: "form-control", id: "quantity" %>
-                                            
-                        <%= form.submit "Payer et envoyer une demande de réservation", class:"w-100 py-1 my-2 btn btn-primary rounded-3 text-wrap"%>
-                      <% end %>
+                      <button class="w-100 btn btn-lg btn-primary" id="reservation-button">Reserver</button>
+                    <% else %>
+                      <%= button_to "Il n'y a plus de place", '#', class:"w-100 btn btn-lg btn-primary disabled" %>
                     <% end %>
-
-                  <% else %>
-                    <%= button_to "Il n'y a plus de place", '#', class:"w-100 btn btn-lg btn-primary disabled" %>
-                  <% end %>
-              <% else %>
-                <%= link_to 'Connectez-vous pour réserver', new_user_session_path, class: "w-100 btn btn-lg btn-primary" %>
+                <% else %>
+                  <%= link_to 'Connectez-vous pour réserver', new_user_session_path, class: "w-100 btn btn-lg btn-primary" %>
+                <% end %>
               <% end %>
-            </div>
-          
+            </div>          
           </div>
         </div>
       </div>
-
     </div>
   </section>
 </div>
-<script type="application/ld+json">
-  <%= workout_jsonld(@workout) %>
-</script>

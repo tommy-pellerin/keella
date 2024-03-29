@@ -75,14 +75,14 @@
                         <%= link_to "Accepter/refuser la reservation", edit_user_reservation_path(workout, reservation), class: 'btn btn-warning btn-sm' %>
                       <% elsif reservation.status == 'accepted' %>
                         <%= link_to "Accepter/refuser la reservation 🔒", edit_user_reservation_path(workout, reservation), class: 'btn btn-warning btn-sm disabled' %>
-                        <% elsif reservation.status == 'closed' %>
+                      <% elsif reservation.status == 'closed' %>
                         <%= link_to "Accepter/refuser la reservation 🔒", edit_user_reservation_path(workout, reservation), class: 'btn btn-warning btn-sm disabled' %>
                         <div class="row">
                           <%= render 'hostrating', reservation: reservation %>
                         </div> 
-                        <% elsif reservation.status == 'refused' %>
+                      <% elsif reservation.status == 'refused' %>
                         <%= link_to "Accepter/refuser la reservation 🔒", edit_user_reservation_path(workout, reservation), class: 'btn btn-warning btn-sm disabled' %>
-                        <% else %>
+                      <% else %>
                         <%= link_to "Accepter/refuser la reservation", edit_user_reservation_path(workout, reservation), class: 'btn btn-warning btn-sm' %>
                       <% end %> 
                     </div>

@@ -24,7 +24,7 @@ class WorkoutsController < ApplicationController
 
   
     
-    
+    @canonical_url = "https://keella.fly.dev/workouts"
     @next_workouts = showed_workout_number + 3 #number of workout to show at the beginning and to show more after clicking on "voir plus"
     puts showed_workout_number
     puts @next_workouts
@@ -50,7 +50,11 @@ class WorkoutsController < ApplicationController
     else
       @next_quantity = @quantity + 1
     end
-    @next_quantity = @next_quantity.clamp(1, @workout.places_available.to_i)
+    if @workout.places_available.to_i >= 1
+      @next_quantity = @next_quantity.clamp(1, @workout.places_available.to_i)
+    else
+      @next_quantity = 1
+    end
     puts @next_quantity
 
     
@@ -98,9 +102,13 @@ class WorkoutsController < ApplicationController
     if @workout.destroy
       @reservations.each do |reservation|
         reservation.status = "host_cancelled"
-        reservation.save
+        if @reservation.save
+          #refund user
+          refund_user(@reservation)
+        end
+        
       end
-      redirect_to workouts_path, notice: "Workout supprimé avec succès."
+      redirect_to workouts_path, notice: "Workout supprimé avec succès. Nous avons procéder au remboursement des utilisateurs."
     else
       flash[:error] = "Il y a une erreur lors de la suppression de la réservation : #{workout.errors.full_messages.to_sentence}"
       render :show
