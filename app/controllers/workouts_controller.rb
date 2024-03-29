@@ -46,11 +46,11 @@ class WorkoutsController < ApplicationController
     end
     puts @quantity
     if @action_type == "subtract"
-      @next_quantity = [@quantity - 1, 0].max #number of workout to show at the beginning and to show more after clicking on "voir plus"
+      @next_quantity = [@quantity - 1, 1].max #number of workout to show at the beginning and to show more after clicking on "voir plus"
     else
       @next_quantity = @quantity + 1
     end
-    @next_quantity = @next_quantity.clamp(0, @workout.places_available.to_i)
+    @next_quantity = @next_quantity.clamp(1, @workout.places_available.to_i)
     puts @next_quantity
 
     
