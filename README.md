@@ -47,18 +47,25 @@ De plus, les personnes qui possèdent des équipements sportifs ou des espaces q
 En somme, votre application offre une solution pratique et économique pour les amateurs de sport, tout en créant une nouvelle source de revenus pour les propriétaires d’équipements et d’espaces sportifs.
 
 # Technologies utilisées
-Ruby on Rails 7 : C’est le framework principal utilisé pour le développement de l’application.
-PostgreSQL : C’est le système de gestion de base de données utilisé.
-Bootstrap : C’est le framework CSS utilisé pour le design front-end.
+Ruby on Rails 7 
+PostgreSQL 
+Bootstrap 
 
 # Fonctionnalités
 Note/Commentaire : Les utilisateurs peuvent laisser des notes ou des commentaires.
+
 Hotwire : Utilisé pour une expérience utilisateur moderne et rapide (turbo frame).
+
 Opendys : Bouton police de caractères spécialement développée pour les personnes dyslexiques.
+
 Page Canonique : Mise en place de pages canoniques pour améliorer le SEO.
+
 Paiement avec Stripe et système de crédit : Les utilisateurs peuvent effectuer des paiements via Stripe.
+
 Système de mail : Les utilisateurs reçoivent des mails pour l’inscription, la réservation, le paiement, etc.
+
 Intégration d’image Active Storage Amazon AWS S3 : Les images sont stockées sur Amazon AWS S3.
+
 POO MVC : Le projet suit le paradigme de la Programmation Orientée Objet et l’architecture Modèle-Vue-Contrôleur.
 
 
