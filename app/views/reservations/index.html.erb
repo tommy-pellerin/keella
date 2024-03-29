@@ -37,15 +37,16 @@
                     <div class="row">
                         <div class="btn-group">
                             <% if reservation.status == 'accepted' %>
-                            <%= button_to 'Confirmer fin de séance', reservation_path(reservation, user_decision: "closed"), method: :patch, class: 'btn btn-primary' %>
-                            <%= button_to 'Annuler', reservation_path(reservation, user_decision: "user_cancelled"), method: :patch, class: 'btn btn-danger' %>
+                                <%= button_to 'Confirmer fin de séance', reservation_path(reservation, user_decision: "closed"), method: :patch, class: 'btn btn-primary' %>
+                                <%= button_to 'Annuler', reservation_path(reservation, user_decision: "user_cancelled"), method: :patch, class: 'btn btn-danger' %>
+                            <% elsif reservation.status == 'pending' %>
+                                <%= button_to 'Annuler', reservation_path(reservation, user_decision: "user_cancelled"), method: :patch, class: 'btn btn-danger' %>
                             <% elsif reservation.status == 'closed' %>
-                                
-                            <div class="row">
-                                <div class="col-lg-6 col-sm-12"> 
-                                    <%= render 'userating', reservation: reservation %>
-                                </div>    
-                            </div>    
+                                <div class="row">
+                                    <div class="col-lg-6 col-sm-12"> 
+                                        <%= render 'userating', reservation: reservation %>
+                                    </div>    
+                                </div>
                             <% end %>
                         </div>
                     </div>
