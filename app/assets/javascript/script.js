@@ -23,3 +23,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
+
+
+//Javascript in workout show page
+let reservationBox = document.getElementById('step-before-reservation');
+console.log(reservationBox);
+let reservationButton = document.getElementById('reservation-button');
+console.log(reservationButton);
+let showReservation = function(){
+  if (reservationBox.classList.contains("d-none")){
+    reservationBox.classList.remove("d-none");
+  } else {
+    reservationBox.classList.add("d-none");  
+  }
+};
+reservationButton.addEventListener("click",showReservation);
