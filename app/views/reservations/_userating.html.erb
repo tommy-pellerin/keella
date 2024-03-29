@@ -5,25 +5,33 @@
                 Laisse une note et un commentaire
             </a>
             <ul class="dropdown-menu">
-                <% if reservation.user_rating.nil? %>
+                <li><% if reservation.user_rating.nil? %>
                     <% (1..5).each do |rating| %>
-                        <li>
+                        
                             <%= form.radio_button :user_rating, rating %>
                             <%= form.label "user_rating_#{rating}" do %>
                             <%= raw("<i class='bi bi-star-fill'></i>" * rating) %>
-                            <% end %>
-                        </li>
                     <% end %>
+                        
+                <% end %>
+                     
                 <% else %>
+                </li> 
+                <li>
                     Vous avez déjà soumis une note pour cette réservation.
                 <% end %>
-                <li>
+                </li>
                 <% if reservation.user_comment.nil? %>
+                <li>
                     <%= form.label :user_comment, 'Commentaire pour l\'hôte' %>
                     <%= form.text_area :user_comment, rows: 5, cols: 40 %>
+                </li>
                 <% else %>
+                <li>
                     Vous avez déjà soumis un commentaire pour cette réservation.
+                </li>
                 <% end %>
+                <li>
                 <%= form.submit 'Envoyer', class: 'btn btn-primary  btn-sm', disabled: reservation.user_rating.present? && reservation.user_comment.present? %>
                 </li>
             </ul>
