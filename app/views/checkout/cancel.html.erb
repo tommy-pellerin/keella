@@ -1,0 +1,13 @@
+<head>
+<% content_for :title, "Echec de paiement" %>
+<% content_for :meta_description, "Il y a eu un souci lors du paiement" %>
+</head>
+<section class="bg-danger py-5 text-center">
+    <h1 class="text-light">Echec</h1>
+</section>
+<div class="container text-center my-5"> 
+  <h2>Le paiement n'a pas abouti.</h2> 
+  <p>Le paiement a sans doute été refusé par la banque émettrice de votre carte.</p> 
+  <%= link_to "Retourner au panier", checkouts_path, class: "btn btn-success" %>
+    <%= link_to "Retourner a l'accueil", root_path, class: "btn btn-secondary" %>
+</div>

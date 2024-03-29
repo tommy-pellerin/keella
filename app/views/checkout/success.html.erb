@@ -1,0 +1,14 @@
+<head>
+<% content_for :title, "Achat réussit" %>
+<% content_for :meta_description, "Le paiement a été un succès" %>
+</head>
+<section class="bg-success py-5 text-center">
+    <h1 class="text-light">Succès</h1>
+</section>
+<div class="container text-center my-5"> 
+  <h2>Le paiement c'est bien déroulé </h2> 
+  <p>Nous avons bien reçu votre paiement de <%= number_to_currency(@payment_intent.amount_received / 100.0, unit: "€", separator: ",", delimiter: "", format: "%n %u") %>.</p> 
+  <p>Le statut de votre paiement est : <%= @payment_intent.status %>.</p> 
+    <%= link_to "Réservez un Entrainement", workouts_path, class: "btn btn-primary" %>
+    <%= link_to "Retourner a l'accueil", root_path, class: "btn btn-secondary" %>
+</div>

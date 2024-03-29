@@ -6,6 +6,8 @@ class Workout < ApplicationRecord
 
   has_many_attached :images
 
+  
+
   validates :images, 
   length: { in: 0..3, notice: "doit contenir entre 0 et 3 images" }
 
@@ -50,10 +52,6 @@ class Workout < ApplicationRecord
     self.reservations.where(status: 'pending').sum(:quantity)
   end
   
-  def is_free
-    self.price == 0
-  end
-
   private
 
   def start_date_in_past?
