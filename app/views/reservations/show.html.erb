@@ -80,7 +80,9 @@
                         <div class="row">
                           <%= render 'hostrating', reservation: reservation %>
                         </div> 
-                      <% else %>
+                        <% elsif reservation.status == 'refused' %>
+                        <%= link_to "Accepter/refuser la reservation 🔒", edit_user_reservation_path(workout, reservation), class: 'btn btn-warning btn-sm disabled' %>
+                        <% else %>
                         <%= link_to "Accepter/refuser la reservation", edit_user_reservation_path(workout, reservation), class: 'btn btn-warning btn-sm' %>
                       <% end %> 
                     </div>
