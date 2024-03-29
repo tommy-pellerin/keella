@@ -6,7 +6,7 @@
         <% if reservation.host_rating || reservation.host_comment.present? %>
             <div class="reservation">
                 <p>
-                Le : <%= reservation.created_at.strftime("%d/%m/%Y") %><br>
+                Date de réservation le : <%= reservation.created_at.strftime("%d/%m/%Y") %><br>
                 Hôte :<%= link_to reservation.workout.host.pseudo, user_path(reservation.workout.host) %>
                     <br>
                     

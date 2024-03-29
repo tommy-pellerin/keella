@@ -7,7 +7,7 @@
             <% workout.reservations.order(created_at: :desc).each do |reservation| %>
                 <% if reservation.user_rating || reservation.user_comment.present? %>
                     <div class="reservation"> 
-                            Le : <%= reservation.created_at.strftime("%d/%m/%Y") %>
+                            Date de réservation le : <%= reservation.created_at.strftime("%d/%m/%Y") %>
                             <br>           
                             Participant : <%= link_to reservation.user.pseudo, user_path(reservation.user) %>
                             <br>
