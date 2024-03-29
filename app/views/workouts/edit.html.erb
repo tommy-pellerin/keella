@@ -6,7 +6,7 @@
     <h1 class="text-light">Modifie ta séance</h1>
 </section>
 
-<div class="container align-items-center">
+<section class="container align-items-center">
     <div class="row text-center py-5 bg-tertiary rounded-4 shadow">
         <%# Pour chaque image dans la collection de l'entraînement %>
         <% @workout.images.each do |image| %>
@@ -32,10 +32,10 @@
             <% end %>
         <%end%>
     </div>
-</div>
+</section>
 
 
-<div class="align-items-center">
+<section class="align-items-center">
     <div class="form container my-4 py-4 rounded-4 bg-tertiary rounded-4 shadow">
         <%= form_with(model: @workout, local: true) do |form| %>
             <%= form.hidden_field :host_id, value: current_user.id %>
@@ -71,4 +71,4 @@
         <% end %>
         <%= button_to "Supprimer l'annonce", workout_path(@workout), data: {turbo: true, turbo_confirm: "Vous etes sure de vouloir supprimer l'annonce ?"}, method: :delete, class: "w-100 py-2 mb-2 btn btn-danger rounded-3" %>
     </div>
-</div>
+</section>
