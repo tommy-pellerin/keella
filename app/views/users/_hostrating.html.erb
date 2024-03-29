@@ -1,14 +1,14 @@
-<div class="card rounded-4 bg-body-tertiary">
+<div class="card bg-body-tertiary">
     <div class="card-header ">
         <% if @user.reservations.blank? %>
             <h5>Pas de réservations pour le moment.</h5>
         <% else %>
-            <h5>Tu as participé à un workout. Voici les notes/commentaires de ton hôte :</h5>
+            <h5>Tu as participé à un workout. Voici les commentaires de ton hôte :</h5>
     </div>
     <% @user.reservations.order(created_at: :desc).each do |reservation| %>
             <% if reservation.host_rating || reservation.host_comment.present? %>
-                <div class="card rounded-4  bg-body-tertiary">
-                    <div class="card-body rounded-4  bg-body-tertiary">
+                <div class="card rounded-4 ">
+                    <div class="card-body ">
                         <p class="mb-0 "> 
                             Date de réservation le : <%= reservation.created_at.strftime("%d/%m/%Y") %><br>
                             Hôte :<%= link_to reservation.workout.host.pseudo, user_path(reservation.workout.host) %>

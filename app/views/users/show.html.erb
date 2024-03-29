@@ -2,10 +2,10 @@
 <% content_for :title, "Profil" %>
 <% content_for :meta_description, "Retrouvez les informations partagées par l'utilisateur" %>
 
-
-<section class="row">
-    <div class=" border-0 bd-example row row-cols-1 row-cols-md-2 g-4">
-        <div class="col "> 
+ <section class="container">
+    <div class="row">
+    
+        <div class="col col-md-4"> 
             <div class="card ms-auto text-center me-auto rounded-4 shadow bg-body-tertiary" style="max-width: 22rem;">
                 <h3>Avatar actuel</h3>
                     <%if @user.avatar.attached?%>
@@ -22,8 +22,6 @@
                     <% end %>
                     <br>
             </div>
-        
-            
             <div class="card ms-auto me-auto rounded-4 shadow bg-body-tertiary" style="max-width: 22rem;">
                 <div class="card-body">
                         <p class="ms-3 mt-2">Nombre de séances proposé: <%= @user.hosted_workouts.count %> </p>
@@ -44,24 +42,23 @@
             </div>
         </div>
     
-
-
-    <div class="col">
-        <div class="card me-auto rounded-4 shadow bg-body-tertiary">
+        <div class="col col-md-8">
+            <div class="card me-auto rounded-4 shadow bg-body-tertiary">
             <br>
-            <h1 class="card-title" style="text-align: center;">Profil de <%= @user.pseudo %></h1>
-                <div class="card-body rounded-4 shadow bg-body-tertiary">
-                    <% if current_user == @user %>
-                        <%= link_to "Modifier le profil", edit_user_registration_path, class: "btn btn-outline-primary" %>
-                        <%= link_to "Supprimer le profile", registration_path(@user), :method => :delete, class: "btn btn-outline-danger", id: "delete_comment_button", data: {turbo: true, turbo_method: :delete, turbo_confirm: "Vous etes sure de vouloir supprimer votre compte ?"} %>
-                    <% end %>
-                    <div class="card-footer mt-2 ">
-                        <h5 class="card-title">Pseudo: <%= @user.pseudo %></h5>
-                        <p class="card-text">Ville : <%= @user.city.name %></p>
-                        <%= render 'userating' %>
-                        <%= render 'hostrating' %>
+                    <h1 class="card-title" style="text-align: center;">Profil de <%= @user.pseudo %></h1>
+                    <div class="card-body rounded-4 shadow bg-body-tertiary">
+                        <% if current_user == @user %>
+                            <%= link_to "Modifier le profil", edit_user_registration_path, class: "btn btn-outline-primary" %>
+                            <%= link_to "Supprimer le profile", registration_path(@user), :method => :delete, class: "btn btn-outline-danger", id: "delete_comment_button", data: {turbo: true, turbo_method: :delete, turbo_confirm: "Vous etes sure de vouloir supprimer votre compte ?"} %>
+                        <% end %>
+                        <div class="card-footer mt-2 ">
+                            <h5 class="card-title">Pseudo: <%= @user.pseudo %></h5>
+                            <p class="card-text">Ville : <%= @user.city.name %></p>
+                            <%= render 'userating' %>
+                            <%= render 'hostrating' %>
+                        </div>
                     </div>
-                </div>
+            </div>
         </div>
     </div>
 </section>
