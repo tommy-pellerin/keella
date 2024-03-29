@@ -52,7 +52,7 @@ class CheckoutController < ApplicationController
 
     # Check if the token in the URL matches the token stored with the user
     puts "Jaffiche le param token"
-    puts params[:token]
+    # puts params[:token]
     if params[:token] == @user.token
       payment_proceed(@user, @payment_intent)
     else
