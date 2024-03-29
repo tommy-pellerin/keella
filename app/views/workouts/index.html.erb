@@ -1,6 +1,7 @@
 <head>
 <% content_for :title, "Trouver une séance" %>
 <% content_for :meta_description, "Parcourrez des différentes annonces postées par la communauté" %>
+<% content_for :canonical_url, @canonical_url if @canonical_url.present? %>
 </head>
 <%= render 'searchbar' %>
   

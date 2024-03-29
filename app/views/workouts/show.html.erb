@@ -1,6 +1,9 @@
 <head>
 <% content_for :title, "Séance" %>
 <% content_for :meta_description, "Si la séance vous plait n'hésitez pas à faire une demande de réservation" %>
+<script type="application/ld+json">
+  <%= workout_jsonld(@workout) %>
+</script>
 </head>
 <section class="text-center py-5 bg-secondary">
   <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -134,6 +137,3 @@
     </div>
   </section>
 </div>
-<script type="application/ld+json">
-  <%= workout_jsonld(@workout) %>
-</script>
