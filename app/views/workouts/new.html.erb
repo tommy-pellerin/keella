@@ -7,7 +7,7 @@
     <h1 class="text-light">Propose ta séance</h1>
 </section>
 
-<section class="align-items-center">
+<div class="align-items-center">
     <div class="form container my-4 py-4 rounded-4 bg-tertiary rounded-4 shadow">
         <%= form_with(model: @workout, local: true) do |form| %>
         <%= form.hidden_field :host_id, value: current_user.id %>
@@ -25,7 +25,7 @@
             <%= form.label :participant_number, "Nombre de participants",class:"floatingInput" %>
             <%= form.number_field :participant_number,class:"form-control" %>
 
-            <%= form.label :city, "Ville",class:"floatingInput" %>
+            <%= form.label :city_id, "Ville",class:"floatingInput" %>
         <%= form.collection_select :city_id, City.all, :id, :name, { prompt: "Sélectionner une ville" }, class: "form-control" %>
 
             <%= form.label :location, "Adresse",class:"floatingInput" %>
@@ -42,4 +42,4 @@
         </div>
         <% end %>
     </div>
-</section>
+</div>
